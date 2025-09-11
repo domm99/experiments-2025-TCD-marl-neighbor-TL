@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import pandas as pd
 import random, time
 import torch.nn as nn
 from pathlib import Path
@@ -18,6 +19,11 @@ if __name__ == "__main__":
     cfg = Config()
     set_seed(cfg.seed)
 
+    Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
+    df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
+    csv_file_path = f'{cfg.log_output_dir}/results.csv'
+    df_results.to_csv(csv_file_path, index=False)
+
     env = make_env(cfg)
     obs, _ = env.reset(seed=cfg.seed)
     agent_ids = env.agents 
@@ -32,7 +38,6 @@ if __name__ == "__main__":
     t0 = time.time()
     last_log = 0
     while steps < cfg.total_env_steps:
-        
         # Independent actions
         actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
         next_obs, rew, term, trunc, _ = env.step(actions)
@@ -67,6 +72,9 @@ if __name__ == "__main__":
         # Eval
         if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
             avg = evaluate_parallel(lambda: make_env(cfg), agents, cfg.eval_episodes, cfg.max_episode_steps, cfg.device)
+            df_results = pd.read_csv(csv_file_path)
             print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
-
+            new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
+            df_results = pd.concat([df_results, pd.DataFrame([new_line])], ignore_index=True)
+            df_results.to_csv(csv_file_path, index=False)
     env.close()

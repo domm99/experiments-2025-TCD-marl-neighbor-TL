@@ -40,3 +40,4 @@ class Config:
     log_every: int = 2000
     eval_every: int = 25_000
     eval_episodes: int = 10
+    log_output_dir = 'data/simple-spread/'
