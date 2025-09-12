@@ -17,4 +17,7 @@ env/
 .vscode/
 
 # GIFS
-gifs/ 
+gifs/
+
+data/
+.idea/
