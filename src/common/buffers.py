@@ -9,12 +9,14 @@ class ReplayBuffer:
         self.act = np.zeros((capacity,), dtype=np.int64)
         self.rew = np.zeros((capacity,), dtype=np.float32)
         self.done = np.zeros((capacity,), dtype=np.float32)
+        self.uncertainty = np.zeros((capacity,), dtype=np.float32)
         self.ptr, self.size = 0, 0
 
-    def add(self, o, a, r, no, d):
+    def add(self, o, a, r, no, d, u=0.0):
         i = self.ptr
         self.obs[i] = o; self.act[i] = a; self.rew[i] = r
         self.next_obs[i] = no; self.done[i] = float(d)
+        self.uncertainty[i] = u
         self.ptr = (i + 1) % self.capacity
         self.size = min(self.size + 1, self.capacity)
 
@@ -26,4 +28,5 @@ class ReplayBuffer:
             torch.tensor(self.rew[idx], device=device),
             torch.tensor(self.next_obs[idx], device=device),
             torch.tensor(self.done[idx], device=device),
+            torch.tensor(self.uncertainty[idx], device=device),
         )
