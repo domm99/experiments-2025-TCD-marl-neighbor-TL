@@ -1,0 +1,13 @@
+services:
+
+  experiment-simple-spread:
+    hostname: simple-spread
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.0.1
+    volumes:
+      - davide.domini-volume:/experiment/data
+    environment:
+      DATA_OWNER: 1000:1000
+
+volumes:
+  davide.domini-volume:
+    external: true
