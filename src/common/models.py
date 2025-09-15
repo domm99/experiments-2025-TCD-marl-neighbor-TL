@@ -16,3 +16,30 @@ class DuelingQNet(nn.Module):
         v = self.value(z)
         a = self.adv(z)
         return v + a - a.mean(dim=1, keepdim=True)
+
+
+
+class SarsRND(nn.Module):
+
+    def __init__(self, obs_dim: int, hidden=None, embedding_size: int = 1024, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if hidden is None:
+            hidden = [512, 256, 128]
+        self.hidden = hidden
+        layers = []
+        in_dim = obs_dim
+        for h in hidden:
+            layers.append(nn.Linear(in_dim, h))
+            layers.append(nn.ReLU(inplace=True))
+            in_dim = h
+
+        layers.append(nn.Linear(in_dim, embedding_size))
+        self.net = nn.Sequential(*layers)
+
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.kaiming_uniform_(m.weight, nonlinearity="relu")
+                nn.init.zeros_(m.bias)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.net(x)
