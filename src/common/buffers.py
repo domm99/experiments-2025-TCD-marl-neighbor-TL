@@ -12,7 +12,7 @@ class ReplayBuffer:
         self.uncertainty = np.zeros((capacity,), dtype=np.float32)
         self.ptr, self.size = 0, 0
 
-    def add(self, o, a, r, no, d, u=0.0):
+    def add(self, o, a, r, no, d, u):
         i = self.ptr
         self.obs[i] = o; self.act[i] = a; self.rew[i] = r
         self.next_obs[i] = no; self.done[i] = float(d)
