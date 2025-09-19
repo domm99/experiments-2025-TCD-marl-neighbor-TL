@@ -1,14 +1,8 @@
-import torch
-import numpy as np
 import pandas as pd
 import random, time
-import torch.nn as nn
 from pathlib import Path
-import torch.optim as optim
-import imageio.v2 as imageio
 from src.common.utils import *
 from src.spread.config import Config
-from pettingzoo.mpe import simple_spread_v3
 from src.common.agents import IndependentAgent
 
 def set_seed(seed: int):
@@ -47,17 +41,16 @@ if __name__ == "__main__":
             obs, _ = env.reset(seed=cfg.seed)
             continue
 
-
         dones = {aid: (term[aid] or trunc[aid]) for aid in current_agents}
 
-        # Memorize each sars tuple 
         for aid in current_agents:
-            agents[aid].rb.add(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid])
+            uncertainty = agents[aid].compute_uncertainty(obs[aid])
+            agents[aid].add(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid], uncertainty.detach().cpu().item())
+            agents[aid].optimize_sars_rnd(uncertainty)
 
         obs = next_obs
         steps += 1
 
-        # Ottimizzazioni indipendenti
         for aid in current_agents:
             agents[aid].optimize()
 
@@ -77,4 +70,5 @@ if __name__ == "__main__":
             new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
             df_results = pd.concat([df_results, pd.DataFrame([new_line])], ignore_index=True)
             df_results.to_csv(csv_file_path, index=False)
+
     env.close()
