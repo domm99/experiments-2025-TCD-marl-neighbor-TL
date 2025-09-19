@@ -21,13 +21,13 @@ class DuelingQNet(nn.Module):
 
 class SarsRND(nn.Module):
 
-    def __init__(self, obs_dim: int, hidden=None, embedding_size: int = 1024, *args, **kwargs):
+    def __init__(self, input_size: int, hidden=None, embedding_size: int = 1024, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if hidden is None:
             hidden = [512, 256, 128]
         self.hidden = hidden
         layers = []
-        in_dim = obs_dim
+        in_dim = input_size
         for h in hidden:
             layers.append(nn.Linear(in_dim, h))
             layers.append(nn.ReLU(inplace=True))
