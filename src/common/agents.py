@@ -5,9 +5,10 @@ import torch.nn.functional as F
 from src.spread.config import Config
 from src.common.models import DuelingQNet
 from src.common.buffers import ReplayBuffer
+from src.common.estimator import UncertaintyEstimator
 
 class IndependentAgent:
-    def __init__(self, obs_dim, n_actions, cfg: Config):
+    def __init__(self, obs_dim: int, n_actions: int, cfg: Config):
         self.cfg = cfg
         self.n_actions = n_actions
         self.policy = DuelingQNet(obs_dim, n_actions).to(cfg.device)
@@ -16,13 +17,22 @@ class IndependentAgent:
         self.opt = torch.optim.Adam(self.policy.parameters(), lr=cfg.lr)
         self.rb = ReplayBuffer(cfg.replay_size, obs_dim)
         self._opt_steps = 0
-        # epsilon scheduling
+        self.uncertainty_estimator = UncertaintyEstimator(obs_dim, action_dim=1, reward_dim=1, learning_rate=cfg.lr)
         self._eps_t = 0
 
     @property
     def eps(self):
         frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
         return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
+
+    def store_experience(self, obs, act, rew, next_obs, done, uncertainty):
+        self.rb.add(obs, act, rew, next_obs, done, uncertainty)
+
+    def compute_uncertainty(self, obs) -> float:
+        return self.uncertainty_estimator.compute_uncertainty(obs)
+
+    def optimize_sars_rnd(self, uncertainty):
+        self.uncertainty_estimator.optimize(uncertainty)
 
     def act(self, obs):
         self._eps_t += 1
@@ -40,7 +50,7 @@ class IndependentAgent:
             self._opt_steps += 1
             return None
 
-        obs, act, rew, next_obs, done = self.rb.sample(self.cfg.batch_size, self.cfg.device)
+        obs, act, rew, next_obs, done, u = self.rb.sample(self.cfg.batch_size, self.cfg.device)
         q = self.policy(obs).gather(1, act.unsqueeze(1)).squeeze(1)
 
         with torch.no_grad():
