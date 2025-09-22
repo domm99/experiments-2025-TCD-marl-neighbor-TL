@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import pandas as pd
 from src.spread.config import Config
 from pettingzoo.mpe import simple_spread_v3
 
@@ -13,8 +14,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, dev
             actions = {}
             with torch.no_grad():
                 for aid, o in obs.items():
-                    a = agents[aid].act(o)  # usa eps, ma forziamo greedy temporaneamente
-                    # forziamo greedy sostituendo con argmax senza epsilon:
+                    a = agents[aid].act(o)
                     oo = torch.tensor(o, dtype=torch.float32, device=device).unsqueeze(0)
                     q = agents[aid].policy(oo)
                     a = int(q.argmax(dim=1).item())
@@ -33,3 +33,11 @@ def make_env(cfg: Config):
         continuous_actions=cfg.continuous_actions,
         max_cycles=cfg.max_episode_steps
     )
+
+def log_uncertainty(ids, agents: dict, logging_path: str):
+    for aid in ids:
+        mean_u = agents[aid].uncertainty(lambda u: np.mean(u))
+        df = pd.read_csv(f'{logging_path}agent-aid.csv')
+        new_line = {'Uncertainty': mean_u}
+        df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
+        df.to_csv(f'{logging_path}agent-aid.csv', index=False)

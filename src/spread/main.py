@@ -1,6 +1,9 @@
 import pandas as pd
 import random, time
 from pathlib import Path
+
+from networkx.algorithms.cuts import cut_size
+
 from src.common.utils import *
 from src.spread.config import Config
 from src.common.agents import IndependentAgent
@@ -18,6 +21,9 @@ if __name__ == "__main__":
     csv_file_path = f'{cfg.log_output_dir}/results.csv'
     df_results.to_csv(csv_file_path, index=False)
 
+    uncertainty_file_path = f'{cfg.log_output_dir}/uncertainty/'
+    Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
+
     env = make_env(cfg)
     obs, _ = env.reset(seed=cfg.seed)
     agent_ids = env.agents 
@@ -27,6 +33,8 @@ if __name__ == "__main__":
         o_dim = env.observation_space(aid).shape[0]
         a_space = env.action_space(aid)
         agents[aid] = IndependentAgent(o_dim, a_space.n, cfg)
+        df_u = pd.DataFrame(columns=['Uncertainty'])
+        df_u.to_csv(f'{uncertainty_file_path}agent-aid.csv', index=False)
 
     steps = 0
     t0 = time.time()
@@ -53,6 +61,8 @@ if __name__ == "__main__":
 
         for aid in current_agents:
             agents[aid].optimize()
+
+        log_uncertainty(current_agents, agents, '') # TODO path
 
         # Logging semplice
         if steps - last_log >= cfg.log_every:

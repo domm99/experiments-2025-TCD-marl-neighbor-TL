@@ -1,6 +1,8 @@
 import torch
 import random
+import numpy as np
 import torch.nn as nn
+from typing import Callable
 import torch.nn.functional as F
 from src.spread.config import Config
 from src.common.models import DuelingQNet
@@ -24,6 +26,9 @@ class IndependentAgent:
     def eps(self):
         frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
         return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
+
+    def aggregated_uncertainty(self, aggregation: Callable[[np.ndarray], float]) -> float:
+        return aggregation(self.rb.uncertainties)
 
     def store_experience(self, obs, act, rew, next_obs, done, uncertainty):
         self.rb.add(obs, act, rew, next_obs, done, uncertainty)
