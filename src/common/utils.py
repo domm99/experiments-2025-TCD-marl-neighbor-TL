@@ -37,7 +37,7 @@ def make_env(cfg: Config):
 def log_uncertainty(ids, agents: dict, logging_path: str):
     for aid in ids:
         mean_u = agents[aid].aggregated_uncertainty(lambda u: np.mean(u))
-        df = pd.read_csv(f'{logging_path}agent-aid.csv')
+        df = pd.read_csv(f'{logging_path}{aid}.csv')
         new_line = {'Uncertainty': mean_u}
         df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
-        df.to_csv(f'{logging_path}agent-aid.csv', index=False)
+        df.to_csv(f'{logging_path}{aid}.csv', index=False)

@@ -34,7 +34,7 @@ if __name__ == "__main__":
         a_space = env.action_space(aid)
         agents[aid] = IndependentAgent(o_dim, a_space.n, cfg)
         df_u = pd.DataFrame(columns=['Uncertainty'])
-        df_u.to_csv(f'{uncertainty_file_path}agent-aid.csv', index=False)
+        df_u.to_csv(f'{uncertainty_file_path}{aid}.csv', index=False)
 
     steps = 0
     t0 = time.time()
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         for aid in current_agents:
             agents[aid].optimize()
 
-        log_uncertainty(current_agents, agents, '') # TODO path
+        log_uncertainty(current_agents, agents, uncertainty_file_path)
 
         # Logging semplice
         if steps - last_log >= cfg.log_every:
