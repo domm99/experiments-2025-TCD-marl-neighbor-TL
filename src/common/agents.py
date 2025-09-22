@@ -19,7 +19,7 @@ class IndependentAgent:
         self.opt = torch.optim.Adam(self.policy.parameters(), lr=cfg.lr)
         self.rb = ReplayBuffer(cfg.replay_size, obs_dim)
         self._opt_steps = 0
-        self.uncertainty_estimator = UncertaintyEstimator(obs_dim, action_dim=1, reward_dim=1, learning_rate=cfg.lr)
+        self.uncertainty_estimator = UncertaintyEstimator(obs_dim, action_dim=1, reward_dim=1, learning_rate=cfg.lr, cfg=cfg)
         self._eps_t = 0
 
     @property
