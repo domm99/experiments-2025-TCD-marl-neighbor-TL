@@ -56,7 +56,7 @@ if __name__ == "__main__":
             t_sars = np.concatenate([o, np.array([r]), np.array([a]), next_o], dtype=np.float32)
             t_sars = torch.tensor(t_sars, device=cfg.device)
             uncertainty = agents[aid].compute_uncertainty(t_sars)
-            agents[aid].add(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid], uncertainty.detach().cpu().item())
+            agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid], uncertainty.detach().cpu().item())
             agents[aid].optimize_sars_rnd(uncertainty)
 
         obs = next_obs
