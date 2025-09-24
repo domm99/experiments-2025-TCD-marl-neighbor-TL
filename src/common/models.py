@@ -36,10 +36,10 @@ class SarsRND(nn.Module):
         layers.append(nn.Linear(in_dim, embedding_size))
         self.net = nn.Sequential(*layers)
 
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.kaiming_uniform_(m.weight, nonlinearity="relu")
-                nn.init.zeros_(m.bias)
+        # for m in self.modules():
+        #     if isinstance(m, nn.Linear):
+        #         nn.init.kaiming_uniform_(m.weight, nonlinearity="relu")
+        #         nn.init.zeros_(m.bias)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.net(x)
