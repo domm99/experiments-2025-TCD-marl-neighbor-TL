@@ -33,4 +33,4 @@ class ReplayBuffer:
 
     @property
     def uncertainties(self):
-       return self.uncertainty
+       return self.uncertainty[:self.size]
