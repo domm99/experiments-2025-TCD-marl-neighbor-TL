@@ -18,7 +18,7 @@ class UncertaintyEstimator:
 
         self.optimizer = torch.optim.Adam(self.predictor.parameters(), lr=learning_rate)
 
-    def compute_uncertainty(self, x: torch.Tensor):
+    def compute_uncertainty(self, x: torch.Tensor) ->  torch.Tensor:
         with torch.no_grad():
             y_target = self.target(x)
         y_pred = self.predictor(x)
