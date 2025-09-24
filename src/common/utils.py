@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import pandas as pd
 from src.spread.config import Config
+from pettingzoo.sisl import pursuit_v4
 from pettingzoo.mpe import simple_spread_v3
 
 def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, device: str):
@@ -9,6 +10,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, dev
     scores = []
     for _ in range(n_episodes):
         obs, _ = env.reset(seed=np.random.randint(1e9))
+        obs = flatten_obs_dict(obs)
         ep_rew = 0.0
         for _ in range(max_steps):
             actions = {}
@@ -20,6 +22,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, dev
                     a = int(q.argmax(dim=1).item())
                     actions[aid] = a
             obs, rew, term, trunc, _ = env.step(actions)
+            obs = flatten_obs_dict(obs)
             ep_rew += sum(rew.values())
             if all(term.values()) or all(trunc.values()):
                 break
@@ -27,12 +30,22 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, dev
     env.close()
     return float(np.mean(scores))
 
-def make_env(cfg: Config):
-    return simple_spread_v3.parallel_env(
-        N=10,
-        continuous_actions=cfg.continuous_actions,
-        max_cycles=cfg.max_episode_steps
-    )
+def make_env(cfg: Config, env_name = 'SimpleSpread'):
+
+    if env_name == 'SimpleSpread':
+        env = simple_spread_v3.parallel_env(
+            N=10,
+            continuous_actions=cfg.continuous_actions,
+            max_cycles=cfg.max_episode_steps
+        )
+    elif env_name == 'Pursuit':
+        env = pursuit_v4.parallel_env(
+            n_pursuers=10,
+            max_cycles=cfg.max_episode_steps,
+        )
+    else:
+        raise ValueError(f'Unknown env_name: {env_name}')
+    return env
 
 def log_uncertainty(ids, agents: dict, logging_path: str):
     for aid in ids:
@@ -41,3 +54,9 @@ def log_uncertainty(ids, agents: dict, logging_path: str):
         new_line = {'Uncertainty': mean_u}
         df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
         df.to_csv(f'{logging_path}{aid}.csv', index=False)
+
+
+def flatten_obs_dict(obs_dict: dict) -> dict:
+    for k, v in obs_dict.items():
+        obs_dict[k] = v.flatten()
+    return obs_dict

@@ -12,6 +12,8 @@ if __name__ == "__main__":
     cfg = Config()
     set_seed(cfg.seed)
 
+    env_name = 'Pursuit'
+
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
     csv_file_path = f'{cfg.log_output_dir}/results.csv'
@@ -20,8 +22,9 @@ if __name__ == "__main__":
     uncertainty_file_path = f'{cfg.log_output_dir}/uncertainty/'
     Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
 
-    env = make_env(cfg)
+    env = make_env(cfg, env_name)
     obs, _ = env.reset(seed=cfg.seed)
+    obs = flatten_obs_dict(obs)
     agent_ids = env.agents 
 
     agents = {}
@@ -39,10 +42,12 @@ if __name__ == "__main__":
         # Independent actions
         actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
         next_obs, rew, term, trunc, _ = env.step(actions)
-        
+        next_obs = flatten_obs_dict(next_obs)
+
         current_agents = list(next_obs.keys())
         if not current_agents:
             obs, _ = env.reset(seed=cfg.seed)
+            obs = flatten_obs_dict(obs)
             continue
 
         dones = {aid: (term[aid] or trunc[aid]) for aid in current_agents}
@@ -73,7 +78,7 @@ if __name__ == "__main__":
 
         # Eval
         if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-            avg = evaluate_parallel(lambda: make_env(cfg), agents, cfg.eval_episodes, cfg.max_episode_steps, cfg.device)
+            avg = evaluate_parallel(lambda: make_env(cfg, env_name), agents, cfg.eval_episodes, cfg.max_episode_steps, cfg.device)
             df_results = pd.read_csv(csv_file_path)
             print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
             new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
