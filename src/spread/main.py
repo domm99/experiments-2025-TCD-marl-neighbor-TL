@@ -13,6 +13,7 @@ if __name__ == "__main__":
     set_seed(cfg.seed)
 
     env_name = 'Pursuit'
+    #env_name = 'SimpleSpread'
 
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
@@ -25,11 +26,12 @@ if __name__ == "__main__":
     env = make_env(cfg, env_name)
     obs, _ = env.reset(seed=cfg.seed)
     obs = flatten_obs_dict(obs)
-    agent_ids = env.agents 
+    agent_ids = env.agents
 
     agents = {}
     for aid in agent_ids:
-        o_dim = env.observation_space(aid).shape[0]
+        space = env.observation_space(aid)
+        o_dim = np.prod(space.shape)
         a_space = env.action_space(aid)
         agents[aid] = IndependentAgent(o_dim, a_space.n, cfg)
         df_u = pd.DataFrame(columns=['Uncertainty'])
