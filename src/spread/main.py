@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
         log_uncertainty(current_agents, agents, uncertainty_file_path)
 
-        # Logging semplice
+        # Logging
         if steps - last_log >= cfg.log_every:
             fps = int(steps / (time.time() - t0 + 1e-9))
             avg_eps = np.mean([a.eps for a in agents.values()])
