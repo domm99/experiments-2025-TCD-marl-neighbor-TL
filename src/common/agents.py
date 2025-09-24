@@ -33,7 +33,7 @@ class IndependentAgent:
     def store_experience(self, obs, act, rew, next_obs, done, uncertainty):
         self.rb.add(obs, act, rew, next_obs, done, uncertainty)
 
-    def compute_uncertainty(self, obs) -> float:
+    def compute_uncertainty(self, obs) -> torch.Tensor:
         return self.uncertainty_estimator.compute_uncertainty(obs)
 
     def optimize_sars_rnd(self, uncertainty):
