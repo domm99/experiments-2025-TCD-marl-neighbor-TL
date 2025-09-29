@@ -2,11 +2,25 @@ services:
 
   experiment-simple-spread:
     hostname: simple-spread
-    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.0.1
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.0.2
     volumes:
       - davide.domini-volume:/experiment/data
     environment:
       DATA_OWNER: 1000:1000
+      LEARNING_HYPERPARAMETERS: |
+        all:
+          environment: SimpleSpread
+
+  experiment-pursuit:
+    hostname: pursuit
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.0.2
+    volumes:
+      - davide.domini-volume:/experiment/data
+    environment:
+      DATA_OWNER: 1000:1000
+      LEARNING_HYPERPARAMETERS: |
+        all:
+          environment: Pursuit
 
 volumes:
   davide.domini-volume:
