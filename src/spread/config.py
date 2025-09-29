@@ -1,3 +1,5 @@
+import os
+import yaml
 import torch
 from dataclasses import dataclass
 
@@ -8,6 +10,16 @@ def get_current_device():
         if current_accelerator is not None:
             device = current_accelerator.type
     return device
+
+def get_hyperparameters():
+    """
+    Fetches the hyperparameters from the docker compose config file
+    :return: the experiment name and the hyperparameters (as a dictionary name -> values)
+    """
+    hyperparams = os.environ['LEARNING_HYPERPARAMETERS']
+    hyperparams = yaml.safe_load(hyperparams)
+    experiment_name, hyperparams = list(hyperparams.items())[0]
+    return hyperparams
 
 @dataclass
 class Config:
@@ -40,4 +52,5 @@ class Config:
     log_every: int = 2000
     eval_every: int = 25_000
     eval_episodes: int = 10
-    log_output_dir = 'data/simple-spread/'
+    env_name: str = get_hyperparameters()['environment']
+    log_output_dir = f'data/{env_name}/'
