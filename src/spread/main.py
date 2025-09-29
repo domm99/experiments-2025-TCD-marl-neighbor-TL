@@ -12,8 +12,7 @@ if __name__ == "__main__":
     cfg = Config()
     set_seed(cfg.seed)
 
-    env_name = 'Pursuit'
-    #env_name = 'SimpleSpread'
+    env_name = cfg.env_name
 
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
