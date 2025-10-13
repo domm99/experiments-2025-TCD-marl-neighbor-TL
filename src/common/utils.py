@@ -4,6 +4,7 @@ import pandas as pd
 from src.spread.config import Config
 from pettingzoo.sisl import pursuit_v4
 from pettingzoo.mpe import simple_spread_v3
+from pettingzoo.butterfly import pistonball_v6
 
 def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, device: str):
     env = env_fn()
@@ -43,6 +44,12 @@ def make_env(cfg: Config, env_name = 'SimpleSpread'):
             n_pursuers=10,
             max_cycles=cfg.max_episode_steps,
         )
+    elif env_name == 'Pistonball':
+        env = pistonball_v6.parallel_env(
+            n_pistons=10,
+            max_cycles=cfg.max_episode_steps,
+            continuous=cfg.continuous_actions,
+        )
     else:
         raise ValueError(f'Unknown env_name: {env_name}')
     return env
@@ -60,3 +67,9 @@ def flatten_obs_dict(obs_dict: dict) -> dict:
     for k, v in obs_dict.items():
         obs_dict[k] = v.flatten()
     return obs_dict
+
+def ss_average_uncertainty(ids, agents: dict):
+    uncertainties = {}
+    for aid in ids:
+        uncertainties[aid] = agents[aid].aggregated_uncertainty(lambda u: np.mean(u))
+    return min(uncertainties, key=uncertainties.get)
