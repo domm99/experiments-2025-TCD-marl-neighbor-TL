@@ -31,6 +31,16 @@ class ReplayBuffer:
             torch.tensor(self.uncertainty[idx], device=device),
         )
 
+    def get_all(self):
+        return (
+            self.obs[:self.size],
+            self.act[:self.size],
+            self.rew[:self.size],
+            self.next_obs[:self.size],
+            self.done[:self.size],
+            self.uncertainty[:self.size],
+        )
+
     @property
     def uncertainties(self):
        return self.uncertainty[:self.size]
