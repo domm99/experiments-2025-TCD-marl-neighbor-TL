@@ -48,9 +48,13 @@ class Config:
     eps_final: float = 0.05
     eps_decay_steps: int = 150_000
 
+    # transfer learning
+    transfer_enabled = True
+    transfer_every = 1000 # TODO check if it is ok
+
     # logging
     log_every: int = 2000
     eval_every: int = 25_000
     eval_episodes: int = 10
-    env_name: str = get_hyperparameters()['environment']
+    env_name: str = 'SimpleSpread' #get_hyperparameters()['environment']
     log_output_dir = f'data/{env_name}/'
