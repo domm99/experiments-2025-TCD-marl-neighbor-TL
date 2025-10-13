@@ -69,7 +69,6 @@ if __name__ == "__main__":
         for aid in current_agents:
             agents[aid].optimize()
 
-        #log_uncertainty(current_agents, agents, uncertainty_file_path)
 
         # Transfer learning
         if (cfg.transfer_enabled
