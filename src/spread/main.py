@@ -14,6 +14,8 @@ if __name__ == "__main__":
 
     env_name = cfg.env_name
 
+    print(f'-------------------- USING {cfg.device} --------------------')
+
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
     csv_file_path = f'{cfg.log_output_dir}/results.csv'
@@ -67,7 +69,18 @@ if __name__ == "__main__":
         for aid in current_agents:
             agents[aid].optimize()
 
-        log_uncertainty(current_agents, agents, uncertainty_file_path)
+        #log_uncertainty(current_agents, agents, uncertainty_file_path)
+
+        # Transfer learning
+        if (cfg.transfer_enabled
+                and steps % cfg.transfer_every == 0
+                and all(a.rb.size >= cfg.start_learning_after for a in agents.values())):
+            print('------------------- TRANSFERRING EXPERIENCE -------------------')
+            teacher_id = ss_average_uncertainty(current_agents, agents)
+            print(f'Selected teacher: {teacher_id}')
+            exp = agents[teacher_id].experience
+            for aid in current_agents:
+                agents[aid].learn_from_teacher(exp)
 
         # Logging
         if steps - last_log >= cfg.log_every:
@@ -85,5 +98,5 @@ if __name__ == "__main__":
             new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
             df_results = pd.concat([df_results, pd.DataFrame([new_line])], ignore_index=True)
             df_results.to_csv(csv_file_path, index=False)
-
+            log_uncertainty(current_agents, agents, uncertainty_file_path)
     env.close()
