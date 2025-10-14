@@ -18,11 +18,16 @@ class UncertaintyEstimator:
 
         self.optimizer = torch.optim.Adam(self.predictor.parameters(), lr=learning_rate)
 
-    def compute_uncertainty(self, x: torch.Tensor) ->  torch.Tensor:
+    def compute_uncertainty(self, x: torch.Tensor, transferring = False) ->  torch.Tensor:
         with torch.no_grad():
             y_target = self.target(x)
         y_pred = self.predictor(x)
-        return F.mse_loss(y_pred, y_target)
+        if transferring:
+            per_element = F.mse_loss(y_pred, y_target, reduction='none')
+            loss = per_element.mean(dim=1)
+        else:
+            loss = F.mse_loss(y_pred, y_target)
+        return loss
 
     def optimize(self, uncertainty: torch.Tensor):
         self.predictor.train()
