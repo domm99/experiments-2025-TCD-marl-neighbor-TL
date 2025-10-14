@@ -3,6 +3,7 @@ import random
 import numpy as np
 import torch.nn as nn
 from typing import Callable
+from src.common.utils import *
 import torch.nn.functional as F
 from src.spread.config import Config
 from src.common.models import DuelingQNet
@@ -23,6 +24,10 @@ class IndependentAgent:
         self._eps_t = 0
 
     @property
+    def experience(self):
+        return self.rb.get_all()
+
+    @property
     def eps(self):
         frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
         return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
@@ -33,8 +38,8 @@ class IndependentAgent:
     def store_experience(self, obs, act, rew, next_obs, done, uncertainty):
         self.rb.add(obs, act, rew, next_obs, done, uncertainty)
 
-    def compute_uncertainty(self, obs) -> torch.Tensor:
-        return self.uncertainty_estimator.compute_uncertainty(obs)
+    def compute_uncertainty(self, obs, transferring = False) -> torch.Tensor:
+        return self.uncertainty_estimator.compute_uncertainty(obs, transferring)
 
     def optimize_sars_rnd(self, uncertainty):
         self.uncertainty_estimator.optimize(uncertainty)
@@ -48,14 +53,17 @@ class IndependentAgent:
             q = self.policy(o)
             return int(q.argmax(dim=1).item())
 
-    def optimize(self):
-        if self.rb.size < self.cfg.start_learning_after:
+    def optimize(self, transferring = False, experience = None):
+        if not transferring and self.rb.size < self.cfg.start_learning_after:
             return None
-        if self._opt_steps % self.cfg.train_freq != 0:
+        if not transferring and self._opt_steps % self.cfg.train_freq != 0:
             self._opt_steps += 1
             return None
+        if transferring:
+            obs, act, rew, next_obs, done, _ = self.rb.sample(self.cfg.batch_size, self.cfg.device)
+        else:
+            obs, act, rew, next_obs, done, _ = experience
 
-        obs, act, rew, next_obs, done, u = self.rb.sample(self.cfg.batch_size, self.cfg.device)
         q = self.policy(obs).gather(1, act.unsqueeze(1)).squeeze(1)
 
         with torch.no_grad():
@@ -78,3 +86,26 @@ class IndependentAgent:
 
         return float(loss.item())
 
+    def learn_from_teacher(self, experience):
+        obs, act, rew, next_obs, _, uncertainty = experience
+
+        # Computing actual uncertainty
+        sars_batch = build_sars_batch(obs, act, rew, next_obs, self.cfg.device)
+        actual_uncertainty = self.compute_uncertainty(sars_batch, transferring=True)
+
+        # Computing surprise
+        surprise = actual_uncertainty - uncertainty
+
+        # Taking top k surprising SARS tuples
+        _, indices = torch.topk(surprise, k=self.cfg.transfer_budget, largest=True, sorted=True)
+        indices = indices.cpu().numpy()
+        selected_experience = (
+            torch.tensor(obs[indices], device=self.cfg.device),
+            torch.tensor(act[indices], device=self.cfg.device),
+            torch.tensor(rew[indices], device=self.cfg.device),
+            torch.tensor(next_obs[indices], device=self.cfg.device),
+            torch.tensor(surprise[indices], device=self.cfg.device),
+        )
+
+        # Learning on selected received knowledge
+        self.optimize(transferring = True, experience = selected_experience)
