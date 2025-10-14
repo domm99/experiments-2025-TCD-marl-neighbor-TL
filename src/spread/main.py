@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
         for aid in current_agents:
             o, r, a, next_o = obs[aid], rew[aid], actions[aid], next_obs[aid]
-            t_sars = np.concatenate([o, np.array([r]), np.array([a]), next_o], dtype=np.float32)
+            t_sars = np.concatenate([o, np.array([a]), np.array([r]), next_o], dtype=np.float32)
             t_sars = torch.tensor(t_sars, device=cfg.device)
             uncertainty = agents[aid].compute_uncertainty(t_sars)
             agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid], uncertainty.detach().cpu().item())
@@ -68,7 +68,6 @@ if __name__ == "__main__":
 
         for aid in current_agents:
             agents[aid].optimize()
-
 
         # Transfer learning
         if (cfg.transfer_enabled
@@ -98,4 +97,5 @@ if __name__ == "__main__":
             df_results = pd.concat([df_results, pd.DataFrame([new_line])], ignore_index=True)
             df_results.to_csv(csv_file_path, index=False)
             log_uncertainty(current_agents, agents, uncertainty_file_path)
+
     env.close()
