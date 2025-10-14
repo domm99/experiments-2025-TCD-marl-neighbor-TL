@@ -50,7 +50,8 @@ class Config:
 
     # transfer learning
     transfer_enabled = True
-    transfer_every = 1000 # TODO check if it is ok
+    transfer_every = 1_000 # TODO check if it is ok
+    transfer_budget = 100 # TODO check if it is ok
 
     # logging
     log_every: int = 2000
