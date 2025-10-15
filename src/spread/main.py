@@ -81,7 +81,7 @@ if __name__ == "__main__":
                 agents[aid].learn_from_teacher(exp)
 
         # Logging
-        if steps - last_log >= cfg.log_every:
+        if steps % cfg.log_every == 0:
             fps = int(steps / (time.time() - t0 + 1e-9))
             avg_eps = np.mean([a.eps for a in agents.values()])
             rb_sizes = ", ".join(f"{aid}:{agents[aid].rb.size}" for aid in current_agents)
