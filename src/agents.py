@@ -57,7 +57,8 @@ class IndependentAgent:
         if not transferring and self._opt_steps % self.cfg.train_freq != 0:
             self._opt_steps += 1
             return None
-        if transferring:
+
+        if not transferring:
             obs, act, rew, next_obs, done, _ = self.rb.sample(self.cfg.batch_size, self.cfg.device)
         else:
             obs, act, rew, next_obs, done, _ = experience
