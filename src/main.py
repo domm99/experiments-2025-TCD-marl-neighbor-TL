@@ -1,8 +1,8 @@
 import random, time
 from pathlib import Path
-from src.common.utils import *
-from src.spread.config import Config
-from src.common.agents import IndependentAgent
+from src.utils import *
+from src.config import Config
+from src.agents import IndependentAgent
 
 def set_seed(seed: int):
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)

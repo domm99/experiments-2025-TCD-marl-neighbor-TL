@@ -1,14 +1,12 @@
-import torch
 import random
-import numpy as np
 import torch.nn as nn
 from typing import Callable
-from src.common.utils import *
+from src.utils import *
 import torch.nn.functional as F
-from src.spread.config import Config
-from src.common.models import DuelingQNet
-from src.common.buffers import ReplayBuffer
-from src.common.estimator import UncertaintyEstimator
+from src.config import Config
+from src.models import DuelingQNet
+from src.buffers import ReplayBuffer
+from src.estimator import UncertaintyEstimator
 
 class IndependentAgent:
     def __init__(self, obs_dim: int, n_actions: int, cfg: Config):

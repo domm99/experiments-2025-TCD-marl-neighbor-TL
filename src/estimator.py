@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
-from src.spread.config import Config
-from src.common.models import SarsRND
+from src.config import Config
+from src.models import SarsRND
 
 class UncertaintyEstimator:
 

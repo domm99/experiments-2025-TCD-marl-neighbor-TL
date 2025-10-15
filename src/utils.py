@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import pandas as pd
-from src.spread.config import Config
+from src.config import Config
 from pettingzoo.sisl import pursuit_v4
 from pettingzoo.mpe import simple_spread_v3
 from pettingzoo.butterfly import pistonball_v6
