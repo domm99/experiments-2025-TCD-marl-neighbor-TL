@@ -4,7 +4,7 @@ echo PROJECT_NAME= 'Experiments on Neighbor-based Transfer Learning in MARL' >> 
 docker build -t davidedomini99/experiments-2025-tcd-marl-neighbor-tl:nextRelease.version .
 `
 var publishCmd = `
-docker push
+docker push davidedomini99/experiments-2025-tcd-marl-neighbor-tl:nextRelease.version
 git add .env
 git commit -m "chore(release): update .env versions to \${nextRelease.version} [skip ci]"
 git push
