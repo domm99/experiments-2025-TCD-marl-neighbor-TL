@@ -8,5 +8,4 @@ WORKDIR /experiment
 COPY . /experiment
 RUN poetry install
 ENV OWNER=1000:1000
-CMD poetry run python3 src/main.py && \
-    chown -R $OWNER $DATA_DIR
+CMD poetry run python3 src/main.py
