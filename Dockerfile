@@ -1,6 +1,5 @@
 FROM python:3.12
 RUN mkdir -p /experiment
-VOLUME "davide.domini-volume"
 RUN pip install poetry==2.1.3
 ENV DATA_DIR=/data
 ENV POETRY_VIRTUALENVS_IN_PROJECT=true \
