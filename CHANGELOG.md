@@ -1,3 +1,13 @@
+## [0.0.4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.0.3...0.0.4) (2025-10-15)
+
+### Bug Fixes
+
+* fix docker push command ([33ecaa7](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/33ecaa7d7fa27602e0b387b9a3cb4f448ee1d734))
+
+### General maintenance
+
+* **release:** update .env versions to 0.0.3 [skip ci] ([ed8c57b](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ed8c57ba0b620738d7e8b4cede755dddd76dd3a3))
+
 ## [0.0.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/v0.0.2...0.0.3) (2025-10-15)
 
 ### Bug Fixes
