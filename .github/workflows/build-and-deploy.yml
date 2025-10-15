@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
           submodules: recursive
-          token: ${{ secrets.DEPLOYMENT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Find the version of Node from package.json
         id: node-version
         run: echo "version=$(jq -r .engines.node package.json)" >> $GITHUB_OUTPUT
@@ -35,7 +35,7 @@ jobs:
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin docker.io
       - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.DEPLOYMENT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm install
           npx semantic-release
