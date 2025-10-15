@@ -1,4 +1,6 @@
 import random
+
+import torch
 import torch.nn as nn
 from typing import Callable
 from src.utils import *
@@ -86,14 +88,14 @@ class IndependentAgent:
         return float(loss.item())
 
     def learn_from_teacher(self, experience):
-        obs, act, rew, next_obs, _, uncertainty = experience
+        obs, act, rew, next_obs, done, uncertainty = experience
 
         # Computing actual uncertainty
         sars_batch = build_sars_batch(obs, act, rew, next_obs, self.cfg.device)
         actual_uncertainty = self.compute_uncertainty(sars_batch, transferring=True)
 
         # Computing surprise
-        surprise = actual_uncertainty - uncertainty
+        surprise = actual_uncertainty - torch.tensor(uncertainty, device=self.cfg.device)
 
         # Taking top k surprising SARS tuples
         _, indices = torch.topk(surprise, k=self.cfg.transfer_budget, largest=True, sorted=True)
@@ -103,6 +105,7 @@ class IndependentAgent:
             torch.tensor(act[indices], device=self.cfg.device),
             torch.tensor(rew[indices], device=self.cfg.device),
             torch.tensor(next_obs[indices], device=self.cfg.device),
+            torch.tensor(done[indices], device=self.cfg.device),
             torch.tensor(surprise[indices], device=self.cfg.device),
         )
 
