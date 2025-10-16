@@ -1,3 +1,19 @@
+## [0.1.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.0.5...0.1.0) (2025-10-16)
+
+### Features
+
+* add hyperparameters for transfer learning with restricted communication range ([241623c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/241623c76d47bc915eeec2fc880998ed8fbc783b))
+* implement 2D euclidean distance ([59e8342](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/59e83420ceb747308fb06a5f6260522619359db6))
+* implement transfer learning with restricted communication range ([ea9f1db](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ea9f1db3ad1904d9487cc48d20384754c788069b))
+
+### Bug Fixes
+
+* add utils import ([3c01c60](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3c01c6011565735effcd50d1c2dd9eca1b6258c4))
+
+### General maintenance
+
+* **release:** update .env versions to 0.0.5 [skip ci] ([a6befad](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a6befadcc529eee5192c31b8891927f0cb955ecf))
+
 ## [0.0.5](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.0.4...0.0.5) (2025-10-15)
 
 ### Bug Fixes
