@@ -37,7 +37,7 @@ class Config:
     lr: float = 2.5e-4
     batch_size: int = 256
     replay_size: int = 100_000
-    start_learning_after: int = 5_000
+    start_learning_after: int = 2000
     train_freq: int = 1
     target_update_freq: int = 2000
     double_q: bool = True
@@ -49,9 +49,12 @@ class Config:
     eps_decay_steps: int = 150_000
 
     # transfer learning
-    transfer_enabled = True
-    transfer_every = 1_000 # TODO check if it is ok
-    transfer_budget = 100 # TODO check if it is ok
+    transfer_enabled: bool = True
+    restricted_communication: bool = True
+    transfer_every: int = 1000 # TODO check if it is ok
+    transfer_budget: int = 100 # TODO check if it is ok
+    K: int = 3 # Number of nearest neighbors
+    communication_range: float = 2
 
     # logging
     log_every: int = 2000
