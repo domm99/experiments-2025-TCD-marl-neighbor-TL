@@ -82,3 +82,7 @@ def build_sars_batch(obs, act, rew, next_obs, device):
     act_t = torch.as_tensor(act, dtype=torch.float32, device=device).view(-1, 1)        # [N,1]
     t_sars_batch = torch.cat([obs_t, act_t, rew_t, next_obs_t], dim=1)
     return t_sars_batch
+
+def euclidean_distance(pos1, pos2):
+    dist = np.sqrt(np.pow((pos1[0] - pos2[0]), 2) + np.pow((pos1[1] - pos2[1]), 2))
+    return dist
