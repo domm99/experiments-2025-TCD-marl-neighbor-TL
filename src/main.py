@@ -2,6 +2,7 @@ import random, time
 from pathlib import Path
 from src.utils import *
 from src.config import Config
+from transferlearning import *
 from src.agents import IndependentAgent
 
 def set_seed(seed: int):
@@ -65,7 +66,6 @@ if __name__ == "__main__":
 
         obs = next_obs
         steps += 1
-
         for aid in current_agents:
             agents[aid].optimize()
 
@@ -74,11 +74,10 @@ if __name__ == "__main__":
                 and steps % cfg.transfer_every == 0
                 and all(a.rb.size >= cfg.start_learning_after for a in agents.values())):
             print('------------------- TRANSFERRING EXPERIENCE -------------------')
-            teacher_id = ss_average_uncertainty(current_agents, agents)
-            print(f'Selected teacher: {teacher_id}')
-            exp = agents[teacher_id].experience
-            for aid in current_agents:
-                agents[aid].learn_from_teacher(exp)
+            if cfg.restricted_communication:
+                transfer_learning_with_restricted_communication(cfg, current_agents, agents, env)
+            else:
+                transfer_learning_all_agents(current_agents, agents)
 
         # Logging
         if steps % cfg.log_every == 0:
