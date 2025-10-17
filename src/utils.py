@@ -76,10 +76,10 @@ def ss_average_uncertainty(ids, agents: dict):
 
 
 def build_sars_batch(obs, act, rew, next_obs, device):
-    obs_t      = torch.as_tensor(obs, dtype=torch.float32, device=device)               # [N,60]
-    next_obs_t = torch.as_tensor(next_obs, dtype=torch.float32, device=device)          # [N,60]
-    rew_t      = torch.as_tensor(rew, dtype=torch.float32, device=device).view(-1, 1)   # [N,1]
-    act_t = torch.as_tensor(act, dtype=torch.float32, device=device).view(-1, 1)        # [N,1]
+    obs_t      = torch.as_tensor(obs, dtype=torch.float32, device=device)
+    next_obs_t = torch.as_tensor(next_obs, dtype=torch.float32, device=device)
+    rew_t      = torch.as_tensor(rew, dtype=torch.float32, device=device).view(-1, 1)
+    act_t = torch.as_tensor(act, dtype=torch.float32, device=device).view(-1, 1)
     t_sars_batch = torch.cat([obs_t, act_t, rew_t, next_obs_t], dim=1)
     return t_sars_batch
 
