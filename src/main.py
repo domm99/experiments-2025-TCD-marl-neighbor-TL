@@ -81,7 +81,7 @@ if __name__ == "__main__":
                 transfer_learning_all_agents(current_agents, agents)
 
         # Logging
-        if steps % cfg.log_every == 0:
+        if cfg.logging_enabled and steps % cfg.log_every == 0:
             fps = int(steps / (time.time() - t0 + 1e-9))
             avg_eps = np.mean([a.eps for a in agents.values()])
             rb_sizes = ", ".join(f"{aid}:{agents[aid].rb.size}" for aid in current_agents)

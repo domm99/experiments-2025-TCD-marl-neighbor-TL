@@ -57,6 +57,7 @@ class Config:
     communication_range: float = 2
 
     # logging
+    logging_enabled: bool = True
     log_every: int = 2000
     eval_every: int = 25_000
     eval_episodes: int = 10
