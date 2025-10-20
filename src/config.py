@@ -28,13 +28,13 @@ class Config:
     device: str = get_current_device()
 
     # env
-    max_episode_steps: int = 200
+    max_episode_steps: int = 300
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 300_000    # global step (per parallel env)
+    total_env_steps: int = 500_000    # global steps
 
     # DQN
     gamma: float = 0.99
-    lr: float = 2.5e-4
+    lr: float = 1e-4
     batch_size: int = 256
     replay_size: int = 100_000
     start_learning_after: int = 2000
@@ -49,18 +49,18 @@ class Config:
     eps_decay_steps: int = 150_000
 
     # transfer learning
-    transfer_enabled: bool = True
-    restricted_communication: bool = True
-    transfer_every: int = 1000 # TODO check if it is ok
-    transfer_budget: int = 100 # TODO check if it is ok
+    transfer_enabled: bool = get_hyperparameters()['transfer_enabled']
+    restricted_communication: bool = get_hyperparameters()['restricted_communication']
+    transfer_every: int = 2000
+    transfer_budget: int = 1000
     K: int = 3 # Number of nearest neighbors
     communication_range: float = 2
 
     # logging
-    logging_enabled: bool = True
+    logging_enabled: bool = False
     log_every: int = 2000
-    eval_every: int = 25_000
+    eval_every: int = 10_000
     eval_episodes: int = 10
-    env_name: str = 'SimpleSpread' #get_hyperparameters()['environment']
+    env_name: str = get_hyperparameters()['environment']
     data_output_dir: str = 'data/'
     log_output_dir = f'{data_output_dir}/{env_name}/'
