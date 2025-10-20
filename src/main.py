@@ -17,6 +17,7 @@ if __name__ == "__main__":
 
     print(f'-------------------- USING {cfg.device} --------------------')
 
+    Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
     csv_file_path = f'{cfg.log_output_dir}/results.csv'

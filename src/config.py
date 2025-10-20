@@ -61,4 +61,5 @@ class Config:
     eval_every: int = 25_000
     eval_episodes: int = 10
     env_name: str = 'SimpleSpread' #get_hyperparameters()['environment']
-    log_output_dir = f'data/{env_name}/'
+    data_output_dir: str = 'data/'
+    log_output_dir = f'{data_output_dir}/{env_name}/'
