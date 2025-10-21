@@ -22,7 +22,7 @@ services:
       DATA_OWNER: 1000:1000
       LEARNING_HYPERPARAMETERS: |
         all:
-          environment: Pursuit
+          environment: SimpleSpread
           transfer_enabled: True
           restricted_communication: False
 
@@ -35,7 +35,7 @@ services:
       DATA_OWNER: 1000:1000
       LEARNING_HYPERPARAMETERS: |
         all:
-          environment: Pursuit
+          environment: SimpleSpread
           transfer_enabled: True
           restricted_communication: True
 
