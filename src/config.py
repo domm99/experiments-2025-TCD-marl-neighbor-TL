@@ -63,4 +63,4 @@ class Config:
     eval_episodes: int = 10
     env_name: str = get_hyperparameters()['environment']
     data_output_dir: str = 'data/'
-    log_output_dir = f'{data_output_dir}/{env_name}/'
+    log_output_dir = f'{data_output_dir}/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/'
