@@ -1,3 +1,14 @@
+## [0.1.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.1.1...0.1.2) (2025-10-21)
+
+### Bug Fixes
+
+* add hyperparams in loggging dir path ([5a81b7e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/5a81b7e874c09033f16fab2268d442d5f995c7c7))
+
+### General maintenance
+
+* **release:** update .env versions to 0.1.1 [skip ci] ([e5937ca](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e5937cae7f8edb5ac6dc4f734c09140cd95a20e8))
+* update docker image version ([46fa7fa](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/46fa7fa582ad62214e9f410a990b26df2e19d7af))
+
 ## [0.1.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.1.0...0.1.1) (2025-10-21)
 
 ### Bug Fixes
