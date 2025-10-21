@@ -2,7 +2,7 @@ services:
 
   experiment-spread-no-transfer:
     hostname: spread-no-transfer
-    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.1
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.2
     volumes:
       - davide.domini-volume:/experiment/data
     environment:
@@ -15,7 +15,7 @@ services:
 
   experiment-spread-transfer-all:
     hostname: spread-transfer-all
-    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.1
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.2
     volumes:
       - davide.domini-volume:/experiment/data
     environment:
@@ -28,7 +28,7 @@ services:
 
   experiment-spread-transfer-restr:
     hostname: spread-transfer-restr
-    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.1
+    image: davidedomini99/experiments-2025-tcd-marl-neighbor-tl:0.1.2
     volumes:
       - davide.domini-volume:/experiment/data
     environment:
