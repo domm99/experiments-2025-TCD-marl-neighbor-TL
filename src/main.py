@@ -20,8 +20,10 @@ if __name__ == "__main__":
     Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
     Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
     df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
-    csv_file_path = f'{cfg.log_output_dir}/results.csv'
-    df_results.to_csv(csv_file_path, index=False)
+    csv_eval_file_path = f'{cfg.log_output_dir}/eval-results.csv'
+    df_results.to_csv(csv_eval_file_path, index=False)
+    csv_train_file_path = f'{cfg.log_output_dir}/train-results.csv'
+    df_loss = pd.DataFrame(columns=['MeanLoss'])
 
     uncertainty_file_path = f'{cfg.log_output_dir}/uncertainty/'
     Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
@@ -67,8 +69,14 @@ if __name__ == "__main__":
 
         obs = next_obs
         steps += 1
+        losses = []
         for aid in current_agents:
-            agents[aid].optimize()
+            loss = agents[aid].optimize()
+            losses.append(loss)
+
+        mean_loss = np.mean(losses)
+        new_line = {'MeanLoss': mean_loss}
+        df_loss = pd.concat([df_loss, pd.DataFrame([new_line])], ignore_index=True)
 
         # Transfer learning
         if (cfg.transfer_enabled
@@ -91,11 +99,12 @@ if __name__ == "__main__":
         # Eval
         if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
             avg = evaluate_parallel(lambda: make_env(cfg, env_name), agents, cfg.eval_episodes, cfg.max_episode_steps, cfg.device)
-            df_results = pd.read_csv(csv_file_path)
+            df_results = pd.read_csv(csv_eval_file_path)
             print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
             new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
             df_results = pd.concat([df_results, pd.DataFrame([new_line])], ignore_index=True)
-            df_results.to_csv(csv_file_path, index=False)
+            df_results.to_csv(csv_eval_file_path, index=False)
             log_uncertainty(current_agents, agents, uncertainty_file_path)
 
     env.close()
+    df_loss.to_csv(csv_train_file_path, index=False)
