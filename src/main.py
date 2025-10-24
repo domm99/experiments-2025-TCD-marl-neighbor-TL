@@ -1,5 +1,10 @@
-import random, time
+import time
+import random
+import argparse
 from pathlib import Path
+
+from torch.utils.cpp_extension import EXEC_EXT
+
 from src.utils import *
 from src.config import Config
 from transferlearning import *
@@ -9,8 +14,22 @@ def set_seed(seed: int):
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
 
 if __name__ == "__main__":
-    
-    cfg = Config()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--max_seed', default='1')
+    parser.add_argument('--transfer_enabled', default='False')
+    parser.add_argument('--restricted_communication', default='False')
+    parser.add_argument('--env_name', default='SimpleSpread')
+    args = parser.parse_args()
+
+    hyperparams = {
+        'max_seed': int(args.max_seed),
+        'transfer_enabled': bool(args.transfer_enabled),
+        'restricted_communication': bool(args.restricted_communication),
+        'env_name': args.env_name,
+    }
+
+    cfg = Config.from_hyperparameters(hyperparams)
 
     max_seed = cfg.max_seed
     for seed in range(max_seed):
@@ -77,9 +96,10 @@ if __name__ == "__main__":
                 loss = agents[aid].optimize()
                 losses.append(loss)
 
-            mean_loss = np.mean(losses)
-            new_line = {'MeanLoss': mean_loss}
-            df_loss = pd.concat([df_loss, pd.DataFrame([new_line])], ignore_index=True)
+            if all(l is not None for l in losses):
+                mean_loss = np.mean(losses)
+                new_line = {'MeanLoss': mean_loss}
+                df_loss = pd.concat([df_loss, pd.DataFrame([new_line])], ignore_index=True)
 
             # Transfer learning
             if (cfg.transfer_enabled

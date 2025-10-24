@@ -11,20 +11,10 @@ def get_current_device():
             device = current_accelerator.type
     return device
 
-def get_hyperparameters():
-    """
-    Fetches the hyperparameters from the docker compose config file
-    :return: the experiment name and the hyperparameters (as a dictionary name -> values)
-    """
-    hyperparams = os.environ['LEARNING_HYPERPARAMETERS']
-    hyperparams = yaml.safe_load(hyperparams)
-    experiment_name, hyperparams = list(hyperparams.items())[0]
-    return hyperparams
-
 @dataclass
 class Config:
     
-    max_seed: int = get_hyperparameters()['max_seed']
+    max_seed: int = 1
     device: str = get_current_device()
 
     # env
@@ -49,8 +39,8 @@ class Config:
     eps_decay_steps: int = 150_000
 
     # transfer learning
-    transfer_enabled: bool = get_hyperparameters()['transfer_enabled']
-    restricted_communication: bool = get_hyperparameters()['restricted_communication']
+    transfer_enabled: bool = False
+    restricted_communication: bool = False
     transfer_every: int = 2000
     transfer_budget: int = 1000
     K: int = 3 # Number of nearest neighbors
@@ -61,6 +51,20 @@ class Config:
     log_every: int = 2000
     eval_every: int = 10_000
     eval_episodes: int = 10
-    env_name: str = get_hyperparameters()['environment']
+    env_name: str = ''
     data_output_dir: str = 'data/'
-    log_output_dir = f'{data_output_dir}/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/'
+    log_output_dir: str = ''
+
+    @classmethod
+    def from_hyperparameters(cls, hyperparams):
+        env_name = hyperparams['env_name']
+        transfer_enabled = hyperparams['transfer_enabled']
+        restricted_communication = hyperparams['restricted_communication']
+
+        return cls(
+            max_seed=hyperparams['max_seed'],
+            transfer_enabled=transfer_enabled,
+            restricted_communication=restricted_communication,
+            env_name=env_name,
+            log_output_dir=f"data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/"
+        )
