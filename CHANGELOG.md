@@ -1,3 +1,16 @@
+## [0.2.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.1.2...0.2.0) (2025-10-24)
+
+### Features
+
+* add multiple seed support ([f1c8de9](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f1c8de98fb763a2b31cc396e4c849f5dd5a497d9))
+* add training loss logging ([296dc7c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/296dc7c29a7a02e7badf29b6d8d19c6c2f9ebd31))
+
+### General maintenance
+
+* fix exp name in docker compsoe ([f80770e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f80770e9d7e082895b0f026dc3f7af308beb3afa))
+* **release:** update .env versions to 0.1.2 [skip ci] ([c2cd59a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c2cd59aca2082cd4456838a018e5cfbbd6d526db))
+* update docker image version ([c756baf](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c756baf6a33b110ddd34b7b82c76b7d2ff01ae96))
+
 ## [0.1.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.1.1...0.1.2) (2025-10-21)
 
 ### Bug Fixes
