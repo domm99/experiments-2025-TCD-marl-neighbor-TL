@@ -12,6 +12,7 @@ services:
           environment: SimpleSpread
           transfer_enabled: False
           restricted_communication: False
+          max_seed: 3
 
   experiment-spread-transfer-all:
     hostname: spread-transfer-all
@@ -25,6 +26,7 @@ services:
           environment: SimpleSpread
           transfer_enabled: True
           restricted_communication: False
+          max_seed: 3
 
   experiment-spread-transfer-restr:
     hostname: spread-transfer-restr
@@ -38,6 +40,7 @@ services:
           environment: SimpleSpread
           transfer_enabled: True
           restricted_communication: True
+          max_seed: 3
 
 volumes:
   davide.domini-volume:

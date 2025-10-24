@@ -24,7 +24,7 @@ def get_hyperparameters():
 @dataclass
 class Config:
     
-    seed: int = 42
+    max_seed: int = get_hyperparameters()['max_seed']
     device: str = get_current_device()
 
     # env
