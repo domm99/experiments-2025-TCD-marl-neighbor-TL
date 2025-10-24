@@ -7,9 +7,8 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=31G
-#SBATCH --partition=rtx2080
 #SBATCH --output=output_exp1.txt
-#SBATCH --chdir=/scratch.hpc/davide.domini/nome-repo
+#SBATCH --chdir=/scratch.hpc/davide.domini/experiments-2025-TCD-marl-neighbor-TL
 #SBATCH --gres=gpu:1
 
 ../venv/bin/python3 src/main.py
