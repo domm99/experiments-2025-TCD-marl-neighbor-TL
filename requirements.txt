@@ -5,3 +5,5 @@ seaborn==0.13.2
 numpy==2.3.3
 pettingzoo[mpe]==1.25.0
 pyyaml==6.0.3
+scipy==1.16.2
+pymunk==7.1.0
