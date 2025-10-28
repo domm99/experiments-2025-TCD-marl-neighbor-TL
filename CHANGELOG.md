@@ -1,3 +1,23 @@
+## [0.2.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.0...0.2.1) (2025-10-28)
+
+### Dependency updates
+
+* **deps:** update deps ([7e0440a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/7e0440aa5751b05f78cacbc7af87ddea441ee77c))
+
+### Bug Fixes
+
+* fix paramters parsing ([6b4e7bf](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/6b4e7bf71e9310077defa51f92125520aa031ee2))
+
+### General maintenance
+
+* add comment ([ee9520e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ee9520e78c0b277b1d87f7e970a015b3d5c79c9c))
+* add sbatch script to run experiments on unibo cluster ([2ee5f7b](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2ee5f7ba0ab9d4f74187fc7eaab7e65c7119e58f))
+* **release:** update .env versions to 0.2.0 [skip ci] ([cf04849](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/cf0484961f38fdc024d4a9adefc9ff0a38562fa1))
+* **sbatch:** remove partition and fix folder ([4671465](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/4671465b78fed98803c62f7403871db37bdfc981))
+* **sbatch:** update sbatch script ([0f181cc](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/0f181cc809c101113bd292c73d69cf3dd3fa91fe))
+* **sbatch:** update sbatch script ([a768610](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a7686100a3cb9d21fab5be7584a61d2b938bdae0))
+* update requirements ([67fd8a4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/67fd8a47de5f42fb509b7a4644211bbdc588e064))
+
 ## [0.2.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.1.2...0.2.0) (2025-10-24)
 
 ### Features
