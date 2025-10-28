@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 from torch.utils.cpp_extension import EXEC_EXT
+from torch.utils.hipify.hipify_python import str2bool
 
 from src.utils import *
 from src.config import Config
@@ -12,6 +13,9 @@ from src.agents import IndependentAgent
 
 def set_seed(seed: int):
     random.seed(seed); np.random.seed(seed); torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
+
+def str2bool(v):
+    return v.lower() in "true"
 
 if __name__ == "__main__":
 
@@ -24,10 +28,12 @@ if __name__ == "__main__":
 
     hyperparams = {
         'max_seed': int(args.max_seed),
-        'transfer_enabled': bool(args.transfer_enabled),
-        'restricted_communication': bool(args.restricted_communication),
+        'transfer_enabled': str2bool(args.transfer_enabled),
+        'restricted_communication': str2bool(args.restricted_communication),
         'env_name': args.env_name,
     }
+
+    print(hyperparams)
 
     cfg = Config.from_hyperparameters(hyperparams)
 
