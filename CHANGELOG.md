@@ -1,3 +1,15 @@
+## [0.2.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.1...0.2.2) (2025-10-29)
+
+### Bug Fixes
+
+* fix hyperparams ([3406b06](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3406b06bd59bb678a47b40f96f807ba869510c9b))
+
+### General maintenance
+
+* add plotter ([9fb9500](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9fb95004d2bbe95a010cecc6456431af98bd47ed))
+* **release:** update .env versions to 0.2.1 [skip ci] ([32b14d7](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/32b14d7b70c678647bbdda9f941d5b862e5556e9))
+* update gitignore ([1a58752](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/1a587520f3a2d95a773b28de5c6315ced7b7783d))
+
 ## [0.2.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.0...0.2.1) (2025-10-28)
 
 ### Dependency updates
