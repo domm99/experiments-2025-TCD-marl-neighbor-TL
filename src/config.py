@@ -50,7 +50,7 @@ class Config:
     logging_enabled: bool = False
     log_every: int = 2000
     eval_every: int = 10_000
-    eval_episodes: int = 10
+    eval_episodes: int = 20
     env_name: str = ''
     data_output_dir: str = 'data/'
     log_output_dir: str = ''
