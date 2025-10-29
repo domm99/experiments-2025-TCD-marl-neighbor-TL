@@ -52,6 +52,7 @@ if __name__ == "__main__":
         df_results.to_csv(csv_eval_file_path, index=False)
         csv_train_file_path = f'{cfg.log_output_dir}/train-results-seed_{seed}.csv'
         df_loss = pd.DataFrame(columns=['MeanLoss'])
+        df_train_reward = pd.DataFrame(columns=['MeanReward'])
 
         uncertainty_file_path = f'{cfg.log_output_dir}/uncertainty/'
         Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
@@ -102,6 +103,10 @@ if __name__ == "__main__":
                 loss = agents[aid].optimize()
                 losses.append(loss)
 
+            mean_r = np.mean(list(rew.values()))
+            new_line = {'MeanReward': mean_r}
+            df_train_reward = pd.concat([df_train_reward, pd.DataFrame([new_line])], ignore_index=True)
+
             if all(l is not None for l in losses):
                 mean_loss = np.mean(losses)
                 new_line = {'MeanLoss': mean_loss}
@@ -137,3 +142,4 @@ if __name__ == "__main__":
 
         env.close()
         df_loss.to_csv(csv_train_file_path, index=False)
+        df_train_reward.to_csv(f'{cfg.log_output_dir}/train-reward-seed_{seed}.csv', index=False)
