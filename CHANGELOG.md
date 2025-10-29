@@ -1,3 +1,13 @@
+## [0.3.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.2...0.3.0) (2025-10-29)
+
+### Features
+
+* add logging of train reward ([0262560](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/02625601786c4f5bce21167c70b796af924ba66d))
+
+### Bug Fixes
+
+* fix hyperparams ([f3c5f70](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f3c5f70e2c1e181b596ad2b46173683ac0370b21))
+
 ## [0.2.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.1...0.2.2) (2025-10-29)
 
 ### Bug Fixes
