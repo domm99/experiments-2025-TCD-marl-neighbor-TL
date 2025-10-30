@@ -2,13 +2,8 @@ import time
 import random
 import argparse
 from pathlib import Path
-
-from torch.utils.cpp_extension import EXEC_EXT
-from torch.utils.hipify.hipify_python import str2bool
-
-from src.utils import *
 from src.config import Config
-from transferlearning import *
+from src.transferlearning import *
 from src.agents import IndependentAgent
 
 def set_seed(seed: int):
