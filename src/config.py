@@ -18,25 +18,25 @@ class Config:
     device: str = get_current_device()
 
     # env
-    max_episode_steps: int = 500
+    max_episode_steps: int = 1000
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 1_000_000    # global steps
+    total_env_steps: int = 1_500_000    # global steps
 
     # DQN
     gamma: float = 0.99
     lr: float = 1e-4
-    batch_size: int = 256
+    batch_size: int = 512
     replay_size: int = 200_000
     start_learning_after: int = 2000
     train_freq: int = 1
-    target_update_freq: int = 3000
+    target_update_freq: int = 10_000
     double_q: bool = True
     grad_clip: float = 10.0
 
     # eps-greedy (per-agent)
     eps_start: float = 1.0
-    eps_final: float = 0.05
-    eps_decay_steps: int = 250_000
+    eps_final: float = 0.08
+    eps_decay_steps: int = 800_000
 
     # transfer learning
     transfer_enabled: bool = False
