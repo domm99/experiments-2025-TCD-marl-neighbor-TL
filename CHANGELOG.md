@@ -1,3 +1,16 @@
+## [0.4.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.3.0...0.4.0) (2025-10-31)
+
+### Features
+
+* add policy export after eval ([31d637f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/31d637f86a21d9c5232df6b6cabf38787ef1b951))
+* add saving policy on file ([9c826ec](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9c826eccb0912bef8e9bdffe71914c6f3a40d32a))
+
+### General maintenance
+
+* fix imports ([85351fb](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/85351fbfb4abdb73d8888126d9f28540ef959e6d))
+* **release:** update .env versions to 0.3.0 [skip ci] ([502f680](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/502f680f14d50eaa4f0008acab6fc5d76aeebc13))
+* update hyperparams ([2fb9561](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2fb9561c21fa866c8f387e6e7fbb7e7238ec8c3b))
+
 ## [0.3.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.2.2...0.3.0) (2025-10-29)
 
 ### Features
