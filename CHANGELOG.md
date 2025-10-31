@@ -1,3 +1,18 @@
+## [0.5.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.4.0...0.5.0) (2025-10-31)
+
+### Features
+
+* add iql baseline with benchmarl ([4a1fe99](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/4a1fe998f6c62cd78768fca7c57855282cf9bfc9))
+
+### Dependency updates
+
+* **deps:** add benchmarl ([cb1ef52](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/cb1ef52d433f332e00a7a1338542ec8d3351a6ed))
+
+### General maintenance
+
+* add script to launch baseline on bologna cluster ([6d66f92](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/6d66f9242aaebecbda9bcd6921270676719ce6fb))
+* **release:** update .env versions to 0.4.0 [skip ci] ([99a65a9](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/99a65a98215ec3dfec742437c9943ee586ee5fb6))
+
 ## [0.4.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.3.0...0.4.0) (2025-10-31)
 
 ### Features
