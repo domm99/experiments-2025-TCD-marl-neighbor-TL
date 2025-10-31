@@ -54,6 +54,7 @@ class Config:
     env_name: str = ''
     data_output_dir: str = 'data/'
     log_output_dir: str = ''
+    policy_output_dir: str = 'policy/'
 
     @classmethod
     def from_hyperparameters(cls, hyperparams):

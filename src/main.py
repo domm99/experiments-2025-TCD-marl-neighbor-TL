@@ -42,6 +42,7 @@ if __name__ == "__main__":
 
         Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
         Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
+        Path(cfg.policy_output_dir).mkdir(parents=True, exist_ok=True)
         df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
         csv_eval_file_path = f'{cfg.log_output_dir}/eval-results-seed_{seed}.csv'
         df_results.to_csv(csv_eval_file_path, index=False)
@@ -127,7 +128,7 @@ if __name__ == "__main__":
 
             # Eval
             if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-                avg = evaluate_parallel(lambda: make_env(cfg, env_name), agents, cfg.eval_episodes, cfg.max_episode_steps, cfg.device)
+                avg = evaluate_parallel(lambda: make_env(cfg, env_name), agents, cfg.eval_episodes, cfg.max_episode_steps, steps, cfg.device)
                 df_results = pd.read_csv(csv_eval_file_path)
                 print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
                 new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}

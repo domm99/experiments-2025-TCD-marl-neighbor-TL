@@ -6,7 +6,7 @@ from pettingzoo.sisl import pursuit_v4
 from pettingzoo.mpe import simple_spread_v3
 from pettingzoo.butterfly import pistonball_v6
 
-def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, device: str):
+def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, current_step: int, device: str):
     env = env_fn()
     scores = []
     for _ in range(n_episodes):
@@ -28,6 +28,8 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, dev
             if all(term.values()) or all(trunc.values()):
                 break
         scores.append(ep_rew)
+    for agent in agents:
+        agents[agent].export_policy(current_step, agent)
     env.close()
     return float(np.mean(scores))
 
