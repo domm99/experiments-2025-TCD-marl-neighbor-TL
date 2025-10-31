@@ -1,3 +1,4 @@
+import torch
 import random
 import torch.nn as nn
 from typing import Callable
@@ -41,6 +42,9 @@ class IndependentAgent:
 
     def optimize_sars_rnd(self, uncertainty):
         self.uncertainty_estimator.optimize(uncertainty)
+
+    def export_policy(self, time, id):
+        torch.save(self.policy.eval().state_dict(), f'{self.cfg.policy_output_dir}/agent_{id}-time_{time}.pth')
 
     def act(self, obs):
         self._eps_t += 1
