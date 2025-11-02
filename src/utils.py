@@ -71,7 +71,6 @@ def flatten_obs_dict(obs_dict: dict) -> dict:
     return obs_dict
 
 def ss_average_uncertainty(ids, agents: dict):
-    # Why SS? https://www.youtube.com/watch?v=iqnVTjgITuE
     uncertainties = {}
     for aid in ids:
         uncertainties[aid] = agents[aid].aggregated_uncertainty(lambda u: np.mean(u))
