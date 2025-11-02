@@ -1,4 +1,5 @@
 import torch
+import imageio
 import numpy as np
 import pandas as pd
 from src.config import Config
@@ -6,40 +7,56 @@ from pettingzoo.sisl import pursuit_v4
 from pettingzoo.mpe import simple_spread_v3
 from pettingzoo.butterfly import pistonball_v6
 
-def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, current_step: int, device: str):
+def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, current_step: int, device: str, save_gif: bool = False, gif_path: str = None):
+
     env = env_fn()
+
     scores = []
     for _ in range(n_episodes):
         obs, _ = env.reset(seed=np.random.randint(1e9))
+        if save_gif:
+            env.unwrapped.cam_range = 3.0
+        #     _ = env.render()
+        #     env.unwrapped.viewer.cam_range = 2.5
         obs = flatten_obs_dict(obs)
         ep_rew = 0.0
-        for _ in range(max_steps):
+        frames = []
+        for s in range(max_steps):
             actions = {}
             with torch.no_grad():
                 for aid, o in obs.items():
-                    a = agents[aid].act(o)
                     oo = torch.tensor(o, dtype=torch.float32, device=device).unsqueeze(0)
-                    q = agents[aid].policy(oo)
+                    q = agents[aid].policy(oo) # not using act method because I don't want exploration-exploitation
                     a = int(q.argmax(dim=1).item())
                     actions[aid] = a
             obs, rew, term, trunc, _ = env.step(actions)
             obs = flatten_obs_dict(obs)
             ep_rew += sum(rew.values())
+
+            if save_gif:
+                frame = env.render()
+                if frame is not None:
+                    frames.append(frame)
+
             if all(term.values()) or all(trunc.values()):
                 break
         scores.append(ep_rew)
+        if save_gif and frames:
+            imageio.mimsave(f'{gif_path}/step-{current_step}.gif', frames, fps=30)
     for agent in agents:
         agents[agent].export_policy(current_step, agent)
     env.close()
     return float(np.mean(scores))
 
-def make_env(cfg: Config, env_name = 'SimpleSpread'):
+def make_env(cfg: Config, env_name = 'SimpleSpread', render: bool = False):
 
     if env_name == 'SimpleSpread':
         env = simple_spread_v3.parallel_env(
             N=10,
             continuous_actions=cfg.continuous_actions,
-            max_cycles=cfg.max_episode_steps
+            max_cycles=cfg.max_episode_steps,
+            render_mode='rgb_array' if render else None,
+            dynamic_rescaling=False
         )
     elif env_name == 'Pursuit':
         env = pursuit_v4.parallel_env(
