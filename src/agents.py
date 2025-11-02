@@ -46,6 +46,10 @@ class IndependentAgent:
     def export_policy(self, time, id):
         torch.save(self.policy.eval().state_dict(), f'{self.cfg.policy_output_dir}/agent_{id}-time_{time}.pth')
 
+    def load_policy_from_snapshot(self, time, id):
+        state_dict = torch.load(f'{self.cfg.policy_output_dir}/agent_{id}-time_{time}.pth', map_location=torch.device(self.cfg.device))
+        self.policy.load_state_dict(state_dict)
+
     def act(self, obs):
         self._eps_t += 1
         if random.random() < self.eps:
