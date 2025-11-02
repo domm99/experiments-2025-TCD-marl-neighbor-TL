@@ -16,9 +16,9 @@
 source ../venv/bin/activate
 
 PARAMS_LIST=(
-	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name SimpleSpread"
-	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name SimpleSpread"
-	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name SimpleSpread"
+	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name Pursuit"
+	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name Pursuit"
+	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name Pursuit"
 )
 
 PARAMS="${PARAMS_LIST[$SLURM_ARRAY_TASK_ID]}"
