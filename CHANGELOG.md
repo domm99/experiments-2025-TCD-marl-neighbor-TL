@@ -1,3 +1,15 @@
+## [0.6.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.5.1...0.6.0) (2025-11-02)
+
+### Features
+
+* add loading policy from snapshot ([7fb9559](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/7fb95590f2968e93f2f0ecbf602e99793e67b504))
+* add rendering mode in env creation ([47d2a22](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/47d2a22b5dd627098bc655c0a08939b92d5d4dca))
+* add script for exporting eval gifs ([e1e6a5c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e1e6a5ceed654f7e2881e39f451d669b41e21ecd))
+
+### General maintenance
+
+* **release:** update .env versions to 0.5.1 [skip ci] ([e57a4d3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e57a4d39128fc58b4f39c83d822fb9643f19c006))
+
 ## [0.5.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.5.0...0.5.1) (2025-11-02)
 
 ### Bug Fixes
