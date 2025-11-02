@@ -1,3 +1,15 @@
+## [0.5.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.5.0...0.5.1) (2025-11-02)
+
+### Bug Fixes
+
+* add handling of agents positions in pursuit env ([3061395](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3061395666aaf7d06f97da3ab6a2373b318859dc))
+
+### General maintenance
+
+* fix script to launch experiments on cluster ([b8211de](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b8211deb80e7fbde889916e639d328ed39111cee))
+* **release:** update .env versions to 0.5.0 [skip ci] ([c4ed82d](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c4ed82dd2fbbd2c571b9cc218f2699c1945a6d6d))
+* remove useless comments ([07f7927](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/07f792713cb2eda236fd2ccc4f21c5a24f7dca6d))
+
 ## [0.5.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.4.0...0.5.0) (2025-10-31)
 
 ### Features
