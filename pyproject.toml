@@ -18,6 +18,7 @@ pettingzoo = {extras = ["mpe"], version = "^1.25.0"}
 ray = {extras = ["data", "rllib", "serve", "train", "tune"], version = "^2.49.1"}
 pyyaml = "^6.0.3"
 pymunk = "^7.1.0"
+benchmarl = "^1.5.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -108,6 +108,10 @@ if __name__ == "__main__":
                 new_line = {'MeanLoss': mean_loss}
                 df_loss = pd.concat([df_loss, pd.DataFrame([new_line])], ignore_index=True)
 
+            #debug
+            transfer_learning_with_restricted_communication(cfg, current_agents, agents, env)
+
+
             # Transfer learning
             if (cfg.transfer_enabled
                     and steps % cfg.transfer_every == 0

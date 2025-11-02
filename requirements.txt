@@ -7,4 +7,3 @@ pettingzoo[mpe]==1.25.0
 pyyaml==6.0.3
 scipy==1.16.2
 pymunk==7.1.0
-benchmarl==1.5.0
