@@ -1,3 +1,17 @@
+## [0.7.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.6.0...0.7.0) (2025-11-06)
+
+### Features
+
+* add exponential deacay for epsilon ([0e42e69](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/0e42e690504062a2bc685ccb1769ea05834b7b77))
+
+### Bug Fixes
+
+* update hyperparams ([5c4c88e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/5c4c88e5deefd4555ac7026a53552d11a714f307))
+
+### General maintenance
+
+* **release:** update .env versions to 0.6.0 [skip ci] ([376a86f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/376a86f1474d4e572e856ff2f7f61966ef94a788))
+
 ## [0.6.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.5.1...0.6.0) (2025-11-02)
 
 ### Features
