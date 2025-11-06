@@ -35,14 +35,16 @@ def plot_loss(data, chart_path):
 
 if __name__ == '__main__':
 
+    experiment_name = 'Pursuit'
+
     experiments = [
-        "SimpleSpread-transfer_False-restricted_False",
-        "SimpleSpread-transfer_True-restricted_False",
-        "SimpleSpread-transfer_True-restricted_True"
+        f"{experiment_name}-transfer_False-restricted_False",
+        f"{experiment_name}-transfer_True-restricted_False",
+        f"{experiment_name}-transfer_True-restricted_True"
     ]
 
-    data_path = 'data'
-    chart_path = 'charts/'
+    data_path = 'data-pursuit'
+    chart_path = 'charts-pursuit/'
     Path(chart_path).mkdir(parents=True, exist_ok=True)
 
     data_train = []
