@@ -1,3 +1,14 @@
+## [0.7.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.7.0...0.7.1) (2025-11-06)
+
+### Bug Fixes
+
+* add parameter for experiment name ([5070497](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/50704977fe487715b3cfaeddc49fbd4d90b6e85b))
+* add property annotation ([b44edae](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b44edae22499e9a5196594ea6aa941b2879a76c7))
+
+### General maintenance
+
+* update gitignore ([e44289a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e44289a6e172c3320a790d324173657b4a367cb4))
+
 ## [0.7.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.6.0...0.7.0) (2025-11-06)
 
 ### Features
