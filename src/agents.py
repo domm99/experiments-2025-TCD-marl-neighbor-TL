@@ -1,3 +1,4 @@
+import math
 import torch
 import random
 import torch.nn as nn
@@ -26,10 +27,15 @@ class IndependentAgent:
     def experience(self):
         return self.rb.get_all()
 
-    @property
+    # @property
+    # def eps(self):
+    #     frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
+    #     return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
+
     def eps(self):
-        frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
-        return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
+        decay_rate = self._eps_t / self.cfg.eps_decay_steps
+        decay_rate = min(decay_rate, 1.0)
+        return self.cfg.eps_final + (self.cfg.eps_start - self.cfg.eps_final) * math.exp(-decay_rate * self.cfg.eps_decay_rate)
 
     def aggregated_uncertainty(self, aggregation: Callable[[np.ndarray], float]) -> float:
         return aggregation(self.rb.uncertainties)
