@@ -31,7 +31,7 @@ class IndependentAgent:
     # def eps(self):
     #     frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
     #     return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
-
+    @property
     def eps(self):
         decay_rate = self._eps_t / self.cfg.eps_decay_steps
         decay_rate = min(decay_rate, 1.0)
