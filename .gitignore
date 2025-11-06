@@ -19,6 +19,9 @@ env/
 # GIFS
 gifs/
 
-data/
 .idea/
-charts
+
+# experiments results
+data**/
+charts**/
+policy**/
