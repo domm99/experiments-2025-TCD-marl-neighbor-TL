@@ -8,3 +8,4 @@ pyyaml==6.0.3
 scipy==1.16.2
 pymunk==7.1.0
 vmas==1.5.1
+moviepy==2.2.1
