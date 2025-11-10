@@ -40,6 +40,7 @@ if __name__ == "__main__":
 
         print(f'-------------------- USING {cfg.device} --------------------')
 
+        Path(cfg.gif_output_dir).mkdir(parents=True, exist_ok=True)
         Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
         Path(cfg.policy_output_dir).mkdir(parents=True, exist_ok=True)
         df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
@@ -127,7 +128,7 @@ if __name__ == "__main__":
 
             # Eval
             if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed), agents, cfg.eval_episodes, cfg.max_episode_steps, steps, cfg.device)
+                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed), agents, cfg.eval_episodes, cfg.max_episode_steps, steps, cfg.device, save_gif=True, gif_path=cfg.gif_output_dir)
                 df_results = pd.read_csv(csv_eval_file_path)
                 print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
                 new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
