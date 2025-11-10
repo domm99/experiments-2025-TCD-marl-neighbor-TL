@@ -63,7 +63,7 @@ class IndependentAgent:
         with torch.no_grad():
             o = torch.tensor(obs, dtype=torch.float32, device=self.cfg.device).unsqueeze(0)
             q = self.policy(o)
-            return torch.tensor(int(q.argmax(dim=1).item()), device=self.cfg.device).unsqueeze(0)
+            return torch.tensor(int(q.argmax(dim=-1).item()), device=self.cfg.device).unsqueeze(0)
 
     def optimize(self, transferring = False, experience = None):
         if not transferring and self.rb.size < self.cfg.start_learning_after:
