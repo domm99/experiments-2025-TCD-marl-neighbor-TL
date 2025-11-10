@@ -1,3 +1,20 @@
+## [0.9.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.8.0...0.9.0) (2025-11-10)
+
+### Features
+
+* add more envs ([ca445fc](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ca445fc340190d5147111545c8a439c52957c059))
+
+### Bug Fixes
+
+* fix default env name ([cf379e0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/cf379e0602003b77a6206b5fe5408b5981f22589))
+* fix neighborhood based tranfer learning for vmas envs ([a6414cc](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a6414cc6e5717b4392927a910a34afdb7cbc064a))
+* update config hyperparameters ([2fb2020](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2fb2020736aba957dfe769600557bd62d492ba2a))
+
+### General maintenance
+
+* **release:** update .env versions to 0.8.0 [skip ci] ([938256f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/938256ff0cd4a18a2943821e32ace8da1536b9f3))
+* update script for launching experiments on the server ([c12fadd](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c12fadd0f349dcefea4d6d517eb4a15f3c60d02d))
+
 ## [0.8.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.7.1...0.8.0) (2025-11-10)
 
 ### Features
