@@ -49,7 +49,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, cur
 
 
 def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
-    if env_name == 'dispersion':
+    if env_name in ['dispersion', 'discovery', 'flocking']:
         env = make_env(
             scenario=env_name,
             num_envs=cfg.num_parallel_envs,
