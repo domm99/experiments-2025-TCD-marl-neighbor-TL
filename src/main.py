@@ -18,7 +18,7 @@ if __name__ == "__main__":
     parser.add_argument('--max_seed', default='1')
     parser.add_argument('--transfer_enabled', default='False')
     parser.add_argument('--restricted_communication', default='False')
-    parser.add_argument('--env_name', default='SimpleSpread')
+    parser.add_argument('--env_name', default='dispersion')
     args = parser.parse_args()
 
     hyperparams = {
