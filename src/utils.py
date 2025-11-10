@@ -12,7 +12,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, cur
     env = env_fn()
 
     scores = []
-    for _ in range(n_episodes):
+    for ep in range(n_episodes):
         obs = env.reset(seed=np.random.randint(1e9))
         ep_rew = 0.0
         frames = []
@@ -40,7 +40,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, cur
         scores.append(ep_rew)
         if save_gif and frames:
             clip = ImageSequenceClip(frames, fps=30)
-            clip.write_gif(f'{gif_path}/step-{current_step}.gif', fps=30)
+            clip.write_gif(f'{gif_path}step_{current_step}-episode_{ep}.gif', fps=30)
 
     for agent in agents:
         agents[agent].export_policy(current_step, agent)
