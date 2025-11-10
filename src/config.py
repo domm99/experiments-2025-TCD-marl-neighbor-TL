@@ -56,7 +56,7 @@ class Config:
     eval_steps: int = 50
     env_name: str = ''
     data_output_dir: str = ''
-    policy_output_dir: str = 'policy-vmas-integration/'
+    policy_output_dir: str = ''
     gif_output_dir: str = ''
 
     @classmethod
@@ -70,6 +70,7 @@ class Config:
             transfer_enabled=transfer_enabled,
             restricted_communication=restricted_communication,
             env_name=env_name,
-            data_output_dir=f'data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/',
-            gif_output_dir=f'gifs/{env_name}/',
+            data_output_dir=f'data/{env_name}/transfer_{transfer_enabled}-restricted_{restricted_communication}/',
+            policy_output_dir=f'policy/{env_name}/transfer_{transfer_enabled}-restricted_{restricted_communication}/',
+            gif_output_dir=f'gifs/{env_name}/transfer_{transfer_enabled}-restricted_{restricted_communication}/',
         )
