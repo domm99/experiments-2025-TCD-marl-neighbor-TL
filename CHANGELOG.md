@@ -1,3 +1,24 @@
+## [0.8.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.7.1...0.8.0) (2025-11-10)
+
+### Features
+
+* exporting eval gifs ([8edb682](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/8edb68240062f629a3c3707f76baf34f0716a787))
+* switch from pettingzoo to vmas ([c82e518](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c82e5189d2863f463dd68a53a5b25199ee60dd55))
+
+### Dependency updates
+
+* **deps:** add moviepy ([00b4d89](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/00b4d8933c986171b69e036391b5db45ada76501))
+* **deps:** add vmas ([1444601](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/144460180c8dc7736cedd99698077014fec3d887))
+
+### Bug Fixes
+
+* fix argmax ([f633825](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f6338253f22479b3028b3e882ec47a433869dfcb))
+* fix gif export name ([518ba73](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/518ba734c75899004a9b828b0822f5b7ce7b5af4))
+
+### General maintenance
+
+* **release:** update .env versions to 0.7.1 [skip ci] ([a15f6b5](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a15f6b5f8a7f8349533f217c0dcea42ba4f47a5f))
+
 ## [0.7.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.7.0...0.7.1) (2025-11-06)
 
 ### Bug Fixes
