@@ -41,55 +41,55 @@ if __name__ == "__main__":
         print(f'-------------------- USING {cfg.device} --------------------')
 
         Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
-        Path(cfg.log_output_dir).mkdir(parents=True, exist_ok=True)
         Path(cfg.policy_output_dir).mkdir(parents=True, exist_ok=True)
         df_results = pd.DataFrame(columns=['Steps', 'Episodes', 'MeanTeamReward'])
-        csv_eval_file_path = f'{cfg.log_output_dir}/eval-results-seed_{seed}.csv'
+        csv_eval_file_path = f'{cfg.data_output_dir}/eval-results-seed_{seed}.csv'
         df_results.to_csv(csv_eval_file_path, index=False)
-        csv_train_file_path = f'{cfg.log_output_dir}/train-results-seed_{seed}.csv'
+        csv_train_file_path = f'{cfg.data_output_dir}/train-results-seed_{seed}.csv'
         df_loss = pd.DataFrame(columns=['MeanLoss'])
         df_train_reward = pd.DataFrame(columns=['MeanReward'])
 
-        uncertainty_file_path = f'{cfg.log_output_dir}/uncertainty/'
+        uncertainty_file_path = f'{cfg.data_output_dir}/uncertainty/'
         Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
 
-        env = make_env(cfg, env_name)
-        obs, _ = env.reset(seed=seed)
-        obs = flatten_obs_dict(obs)
-        agent_ids = env.agents
+        env = make_vmas_env(cfg, env_name, seed)
+        agent_ids = [agent.name for agent in env.agents]
+
+        print(agent_ids)
 
         agents = {}
+
         for aid in agent_ids:
-            space = env.observation_space(aid)
-            o_dim = np.prod(space.shape)
-            a_space = env.action_space(aid)
-            agents[aid] = IndependentAgent(o_dim, a_space.n, cfg)
+            observation_space_dim = np.prod(env.observation_space[aid].shape)
+            action_space_dim = env.action_space[aid].n
+            agents[aid] = IndependentAgent(observation_space_dim, action_space_dim, cfg)
             df_u = pd.DataFrame(columns=['Uncertainty'])
             df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
 
         steps = 0
         t0 = time.time()
         last_log = 0
+
+        obs = env.reset()
+
         while steps < cfg.total_env_steps:
+
+            print(f'Step: {steps}')
+
             # Independent actions
             actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
-            next_obs, rew, term, trunc, _ = env.step(actions)
-            next_obs = flatten_obs_dict(next_obs)
+            next_obs, rew, term, _ = env.step(actions)
 
             current_agents = list(next_obs.keys())
             if not current_agents:
-                obs, _ = env.reset(seed=seed)
-                obs = flatten_obs_dict(obs)
+                obs = env.reset(seed=seed)
                 continue
-
-            dones = {aid: (term[aid] or trunc[aid]) for aid in current_agents}
 
             for aid in current_agents:
                 o, r, a, next_o = obs[aid], rew[aid], actions[aid], next_obs[aid]
-                t_sars = np.concatenate([o, np.array([a]), np.array([r]), next_o], dtype=np.float32)
-                t_sars = torch.tensor(t_sars, device=cfg.device)
+                t_sars = torch.cat([o.flatten(), a.flatten(), r.flatten(), next_o.flatten()])
                 uncertainty = agents[aid].compute_uncertainty(t_sars)
-                agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], dones[aid], uncertainty.detach().cpu().item())
+                agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], term.item(), uncertainty.detach().cpu().item())
                 agents[aid].optimize_sars_rnd(uncertainty)
 
             obs = next_obs
@@ -98,8 +98,7 @@ if __name__ == "__main__":
             for aid in current_agents:
                 loss = agents[aid].optimize()
                 losses.append(loss)
-
-            mean_r = np.mean(list(rew.values()))
+            mean_r = np.mean([re.cpu() for re in rew.values()])
             new_line = {'MeanReward': mean_r}
             df_train_reward = pd.concat([df_train_reward, pd.DataFrame([new_line])], ignore_index=True)
 
@@ -114,7 +113,7 @@ if __name__ == "__main__":
                     and all(a.rb.size >= cfg.start_learning_after for a in agents.values())):
                 print('------------------- TRANSFERRING EXPERIENCE -------------------')
                 if cfg.restricted_communication:
-                    transfer_learning_with_restricted_communication(cfg, current_agents, agents, env)
+                    transfer_learning_with_restricted_communication(cfg, current_agents, agents, env) # TODO - fix with VMAS
                 else:
                     transfer_learning_all_agents(current_agents, agents)
 
@@ -128,7 +127,7 @@ if __name__ == "__main__":
 
             # Eval
             if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-                avg = evaluate_parallel(lambda: make_env(cfg, env_name), agents, cfg.eval_episodes, cfg.max_episode_steps, steps, cfg.device)
+                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed), agents, cfg.eval_episodes, cfg.max_episode_steps, steps, cfg.device)
                 df_results = pd.read_csv(csv_eval_file_path)
                 print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
                 new_line = {'Steps': steps, 'Episodes': cfg.eval_episodes, 'MeanTeamReward': avg}
@@ -136,6 +135,5 @@ if __name__ == "__main__":
                 df_results.to_csv(csv_eval_file_path, index=False)
                 log_uncertainty(current_agents, agents, uncertainty_file_path, seed)
 
-        env.close()
         df_loss.to_csv(csv_train_file_path, index=False)
-        df_train_reward.to_csv(f'{cfg.log_output_dir}/train-reward-seed_{seed}.csv', index=False)
+        df_train_reward.to_csv(f'{cfg.data_output_dir}/train-reward-seed_{seed}.csv', index=False)

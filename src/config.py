@@ -18,18 +18,20 @@ class Config:
     device: str = get_current_device()
 
     # env
-    max_episode_steps: int = 1000
+    max_episode_steps: int = 50
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 800_000    # global steps
+    total_env_steps: int = 100 #800_000    # global steps
+    num_parallel_envs = 1
+    n_agents: int = 10
 
     # DQN
     gamma: float = 0.99
     lr: float = 1e-4
     batch_size: int = 512
     replay_size: int = 400_000
-    start_learning_after: int = 2000
+    start_learning_after: int = 5 #2000
     train_freq: int = 1
-    target_update_freq: int = 10_000
+    target_update_freq: int = 10 #10_000
     double_q: bool = True
     grad_clip: float = 10.0
 
@@ -50,12 +52,11 @@ class Config:
     # logging
     logging_enabled: bool = False
     log_every: int = 2000
-    eval_every: int = 10_000
+    eval_every: int = 20
     eval_episodes: int = 20
     env_name: str = ''
-    data_output_dir: str = 'data/'
-    log_output_dir: str = ''
-    policy_output_dir: str = 'policy/'
+    data_output_dir: str = ''
+    policy_output_dir: str = 'policy-vmas-integration/'
 
     @classmethod
     def from_hyperparameters(cls, hyperparams):
@@ -68,5 +69,5 @@ class Config:
             transfer_enabled=transfer_enabled,
             restricted_communication=restricted_communication,
             env_name=env_name,
-            log_output_dir=f"data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/"
+            data_output_dir=f"data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/"
         )

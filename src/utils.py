@@ -2,10 +2,10 @@ import torch
 import imageio
 import numpy as np
 import pandas as pd
+from vmas import make_env
 from src.config import Config
-from pettingzoo.sisl import pursuit_v4
-from pettingzoo.mpe import simple_spread_v3
-from pettingzoo.butterfly import pistonball_v6
+from moviepy import ImageSequenceClip
+
 
 def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, current_step: int, device: str, save_gif: bool = False, gif_path: str = None):
 
@@ -13,65 +13,58 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, cur
 
     scores = []
     for _ in range(n_episodes):
-        obs, _ = env.reset(seed=np.random.randint(1e9))
-        if save_gif:
-            env.unwrapped.cam_range = 3.0
-        #     _ = env.render()
-        #     env.unwrapped.viewer.cam_range = 2.5
-        obs = flatten_obs_dict(obs)
+        obs = env.reset(seed=np.random.randint(1e9))
         ep_rew = 0.0
         frames = []
         for s in range(max_steps):
             actions = {}
             with torch.no_grad():
                 for aid, o in obs.items():
-                    oo = torch.tensor(o, dtype=torch.float32, device=device).unsqueeze(0)
-                    q = agents[aid].policy(oo) # not using act method because I don't want exploration-exploitation
+                    q = agents[aid].policy(o) # not using act method because I don't want exploration-exploitation
                     a = int(q.argmax(dim=1).item())
-                    actions[aid] = a
-            obs, rew, term, trunc, _ = env.step(actions)
-            obs = flatten_obs_dict(obs)
-            ep_rew += sum(rew.values())
+                    actions[aid] = torch.tensor(a, device=device).unsqueeze(0)
+            obs, rew, term, _ = env.step(actions)
+            ep_rew += sum([r.cpu() for r in rew.values()])
 
             if save_gif:
-                frame = env.render()
+                frame = env.render(
+                    mode="rgb_array",
+                    agent_index_focus=None,
+                )
                 if frame is not None:
                     frames.append(frame)
 
-            if all(term.values()) or all(trunc.values()):
+            if term.item():
                 break
+
         scores.append(ep_rew)
         if save_gif and frames:
-            imageio.mimsave(f'{gif_path}/step-{current_step}.gif', frames, fps=30)
+            clip = ImageSequenceClip(frames, fps=30)
+            clip.write_gif(f'{gif_path}/step-{current_step}.gif', fps=30)
+
     for agent in agents:
         agents[agent].export_policy(current_step, agent)
-    env.close()
+
     return float(np.mean(scores))
 
-def make_env(cfg: Config, env_name = 'SimpleSpread', render: bool = False):
 
-    if env_name == 'SimpleSpread':
-        env = simple_spread_v3.parallel_env(
-            N=10,
-            continuous_actions=cfg.continuous_actions,
-            max_cycles=cfg.max_episode_steps,
-            render_mode='rgb_array' if render else None,
-            dynamic_rescaling=False
+def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
+    if env_name == 'dispersion':
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,  # Same for agents and landmarks
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=True,
+            dict_spaces=True
         )
-    elif env_name == 'Pursuit':
-        env = pursuit_v4.parallel_env(
-            n_pursuers=10,
-            max_cycles=cfg.max_episode_steps,
-        )
-    elif env_name == 'Pistonball':
-        env = pistonball_v6.parallel_env(
-            n_pistons=10,
-            max_cycles=cfg.max_episode_steps,
-            continuous=cfg.continuous_actions,
-        )
+        return env
     else:
-        raise ValueError(f'Unknown env_name: {env_name}')
-    return env
+        raise NotImplementedError(f'Env {env_name} not implemented')
+
 
 def log_uncertainty(ids, agents: dict, logging_path: str, seed: int):
     for aid in ids:
@@ -87,6 +80,7 @@ def flatten_obs_dict(obs_dict: dict) -> dict:
         obs_dict[k] = v.flatten()
     return obs_dict
 
+
 def ss_average_uncertainty(ids, agents: dict):
     uncertainties = {}
     for aid in ids:
@@ -101,6 +95,7 @@ def build_sars_batch(obs, act, rew, next_obs, device):
     act_t = torch.as_tensor(act, dtype=torch.float32, device=device).view(-1, 1)
     t_sars_batch = torch.cat([obs_t, act_t, rew_t, next_obs_t], dim=1)
     return t_sars_batch
+
 
 def euclidean_distance(pos1, pos2):
     dist = np.sqrt(np.pow((pos1[0] - pos2[0]), 2) + np.pow((pos1[1] - pos2[1]), 2))

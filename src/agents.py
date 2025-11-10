@@ -59,11 +59,11 @@ class IndependentAgent:
     def act(self, obs):
         self._eps_t += 1
         if random.random() < self.eps:
-            return random.randrange(self.n_actions)
+            return torch.tensor(random.randrange(self.n_actions), device=self.cfg.device).unsqueeze(0)
         with torch.no_grad():
             o = torch.tensor(obs, dtype=torch.float32, device=self.cfg.device).unsqueeze(0)
             q = self.policy(o)
-            return int(q.argmax(dim=1).item())
+            return torch.tensor(int(q.argmax(dim=1).item()), device=self.cfg.device).unsqueeze(0)
 
     def optimize(self, transferring = False, experience = None):
         if not transferring and self.rb.size < self.cfg.start_learning_after:
