@@ -18,9 +18,8 @@ class Config:
     device: str = get_current_device()
 
     # env
-    max_episode_steps: int = 50
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 100 #800_000    # global steps
+    total_env_steps: int = 100_000    # global steps
     num_parallel_envs = 1
     n_agents: int = 10
 
@@ -28,7 +27,7 @@ class Config:
     gamma: float = 0.99
     lr: float = 1e-4
     batch_size: int = 512
-    replay_size: int = 400_000
+    replay_size: int = 70_000
     start_learning_after: int = 5 #2000
     train_freq: int = 1
     target_update_freq: int = 10 #10_000
@@ -38,25 +37,27 @@ class Config:
     # eps-greedy (per-agent)
     eps_start: float = 1.0
     eps_final: float = 0.08
-    eps_decay_steps: int = 200_000
+    eps_decay_steps: int = 70_000
     eps_decay_rate: float = 5.0
 
     # transfer learning
     transfer_enabled: bool = False
     restricted_communication: bool = False
-    transfer_every: int = 2500
-    transfer_budget: int = 2000
+    transfer_every: int = 1000
+    transfer_budget: int = 500
     K: int = 3 # Number of nearest neighbors
-    communication_range: float = 2
+    communication_range: float = 0.8 ## TODO fix
 
     # logging
     logging_enabled: bool = False
     log_every: int = 2000
-    eval_every: int = 20
-    eval_episodes: int = 20
+    eval_every: int = 2000
+    eval_episodes: int = 10
+    eval_steps: int = 50
     env_name: str = ''
     data_output_dir: str = ''
     policy_output_dir: str = 'policy-vmas-integration/'
+    gif_output_dir: str = ''
 
     @classmethod
     def from_hyperparameters(cls, hyperparams):
@@ -69,5 +70,6 @@ class Config:
             transfer_enabled=transfer_enabled,
             restricted_communication=restricted_communication,
             env_name=env_name,
-            data_output_dir=f"data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/"
+            data_output_dir=f'data/{env_name}-transfer_{transfer_enabled}-restricted_{restricted_communication}/',
+            gif_output_dir=f'gifs/{env_name}/',
         )
