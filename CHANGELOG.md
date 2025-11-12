@@ -1,3 +1,21 @@
+## [0.10.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.9.1...0.10.0) (2025-11-12)
+
+### Features
+
+* add flocking ([48c1376](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/48c137654a14153111e552e7f30820f9914b938d))
+
+### Bug Fixes
+
+* fix decay function ([96d17b8](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/96d17b868e1c00e9c776bbd3e1c6acf002f6fc0b))
+* fix hyperparams ([b1c91f4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b1c91f48c890a96b996f548c7dac33d01b67c9db))
+* fix parameters for discovery env creation ([6801582](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/6801582f5e7c6d7935db30d013f6fb0af4db2f80))
+* fix TL with restricted communication to use k nearest neighbors and not communication range ([c47ac6c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c47ac6c9a7893ed707ecb4d94da294d1a67d47ae))
+
+### General maintenance
+
+* **release:** update .env versions to 0.9.1 [skip ci] ([f58f32b](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f58f32b74fff01b59e658fa40fe1ce5f2103019d))
+* update script for launching experiments on the server ([9bf3258](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9bf32587e9f30d8e4d8a1a5efc40df5d419539f1))
+
 ## [0.9.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.9.0...0.9.1) (2025-11-10)
 
 ### Bug Fixes
