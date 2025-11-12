@@ -24,8 +24,10 @@ def transfer_learning_with_restricted_communication(cfg: Config, current_agents,
             for neigh_id in other_agents
         }
         neighbors_distances = {k: euclidean_distance(pos, v) for k, v in neighbors_positions.items()}
-        visible_neighbors = [f'{prefix}_{k}' for k, v in neighbors_distances.items() if v < cfg.communication_range]
-        print(f'Visible neighbors: {visible_neighbors}')
+        neighbors_distances = dict(sorted(neighbors_distances.items(), key=lambda x: x[1]))
+
+        visible_neighbors = [f'{prefix}_{k}' for k in list(neighbors_distances.keys())[:cfg.K]]
+        #print(f'Visible neighbors: {visible_neighbors}')
         if len(visible_neighbors) > 0:
             teacher_id = ss_average_uncertainty(visible_neighbors, agents)
             exp = agents[teacher_id].experience
