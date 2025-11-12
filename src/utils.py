@@ -49,7 +49,7 @@ def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, cur
 
 
 def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
-    if env_name in ['dispersion', 'discovery', 'flocking']:
+    if env_name in ['dispersion']:
         env = make_env(
             scenario=env_name,
             num_envs=cfg.num_parallel_envs,
@@ -60,6 +60,22 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             share_reward=False,  # This way only the agents which reach the goal get the reward
             penalise_by_time=True,
             dict_spaces=True
+        )
+        return env
+    if env_name in ['discovery']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,
+            n_targets=int(cfg.n_agents/2),
+            agents_per_target=1,
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=True,
+            dict_spaces=True,
+            covering_range=0.1
         )
         return env
     else:
