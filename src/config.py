@@ -50,7 +50,7 @@ class Config:
     # logging
     logging_enabled: bool = False
     log_every: int = 2000
-    eval_every: int = 2000
+    eval_every: int = 2_000
     eval_episodes: int = 5
     eval_steps: int = 50
     env_name: str = ''
