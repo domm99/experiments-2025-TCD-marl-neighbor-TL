@@ -1,3 +1,9 @@
+## [0.11.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.0...0.11.1) (2025-11-15)
+
+### Bug Fixes
+
+* fix dataframe ([de784e3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/de784e3ff309f94a9dd5aaa75367658dde92ec91))
+
 ## [0.11.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.10.0...0.11.0) (2025-11-15)
 
 ### Features
