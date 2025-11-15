@@ -21,7 +21,7 @@ class Config:
     continuous_actions: bool = False  # When using DQN actions must be Discrete
     total_env_steps: int = 400_000    # global steps
     num_parallel_envs = 1
-    n_agents: int = 10
+    n_agents: int = 3
 
     # DQN
     gamma: float = 0.99
@@ -38,7 +38,7 @@ class Config:
     eps_start: float = 1.0
     eps_final: float = 0.08
     eps_decay_steps: int = 400_000
-    eps_decay_rate: float = 3.0
+    eps_decay_rate: float = 6.0
 
     # transfer learning
     transfer_enabled: bool = False
