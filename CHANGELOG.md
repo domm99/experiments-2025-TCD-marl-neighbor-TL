@@ -1,3 +1,19 @@
+## [0.11.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.10.0...0.11.0) (2025-11-15)
+
+### Features
+
+* add logging of Q-values for debugging ([6a3e42e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/6a3e42e6b4a698bc2c27b3b2e3cec9461ada7e28))
+
+### Bug Fixes
+
+* update config hyperparameters ([5797191](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/579719164be2aab845594f922032ee1867335c0c))
+
+### General maintenance
+
+* improve a bit readability ([3fb58b3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3fb58b3d34ed33866bc54feffadf8be7aba6c869))
+* **release:** update .env versions to 0.10.0 [skip ci] ([cb61418](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/cb61418678f40a40de59f41d0beeed43014ac15f))
+* update script for launching experiments on the server ([8018c27](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/8018c27b6baea923ecacc750205b6f071b40e7b2))
+
 ## [0.10.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.9.1...0.10.0) (2025-11-12)
 
 ### Features
