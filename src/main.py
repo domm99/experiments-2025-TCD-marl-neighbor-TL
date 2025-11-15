@@ -53,6 +53,9 @@ if __name__ == "__main__":
         uncertainty_file_path = f'{cfg.data_output_dir}/uncertainty/'
         Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
 
+        debug_q_values_path = f'{cfg.data_output_dir}/qvalues/'
+        Path(debug_q_values_path).mkdir(parents=True, exist_ok=True)
+
         env = make_vmas_env(cfg, env_name, seed)
         agent_ids = [agent.name for agent in env.agents]
 
@@ -63,9 +66,12 @@ if __name__ == "__main__":
         for aid in agent_ids:
             observation_space_dim = np.prod(env.observation_space[aid].shape)
             action_space_dim = env.action_space[aid].n
-            agents[aid] = IndependentAgent(observation_space_dim, action_space_dim, cfg)
+            agents[aid] = IndependentAgent(aid, observation_space_dim, action_space_dim, cfg)
             df_u = pd.DataFrame(columns=['Uncertainty'])
             df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
+
+            df_debug_q_values = pd.DataFame(columns=['MeanQ', 'MeanTarget'])
+            df_debug_q_values.to_csv(f'{debug_q_values_path}{aid}-seed_{seed}.csv', index=False)
 
         steps = 0
         t0 = time.time()
@@ -75,7 +81,8 @@ if __name__ == "__main__":
 
         while steps < cfg.total_env_steps:
 
-            print(f'Step: {steps}')
+           # if steps % 500 == 0:
+           #     print(f'Step: {steps}')
 
             # Independent actions
             actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}

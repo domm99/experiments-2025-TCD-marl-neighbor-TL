@@ -1,6 +1,7 @@
 import math
 import torch
 import random
+import pandas as pd
 import torch.nn as nn
 from typing import Callable
 from src.utils import *
@@ -11,7 +12,8 @@ from src.buffers import ReplayBuffer
 from src.estimator import UncertaintyEstimator
 
 class IndependentAgent:
-    def __init__(self, obs_dim: int, n_actions: int, cfg: Config):
+    def __init__(self, mid, obs_dim: int, n_actions: int, cfg: Config):
+        self.mid = mid
         self.cfg = cfg
         self.n_actions = n_actions
         self.policy = DuelingQNet(obs_dim, n_actions).to(cfg.device)
@@ -85,6 +87,14 @@ class IndependentAgent:
             else:
                 q_next = self.target(next_obs).max(dim=1)[0]
             target_q = rew + self.cfg.gamma * (1.0 - done) * q_next
+
+        # Logging Q-values for debugging
+        if self._opt_steps % 1000 == 0:
+            path = f'{self.cfg.data_output_dir}/qvalues/{self.mid}-seed_0.csv'
+            df = pd.read_csv(path)
+            new_line = {'MeanQ': q.mean().item(), 'MeanTarget': target_q.mean().item()}
+            df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
+            df.to_csv(path)
 
         loss = F.smooth_l1_loss(q, target_q) 
         self.opt.zero_grad()
