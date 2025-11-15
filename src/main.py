@@ -70,7 +70,7 @@ if __name__ == "__main__":
             df_u = pd.DataFrame(columns=['Uncertainty'])
             df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
 
-            df_debug_q_values = pd.DataFame(columns=['MeanQ', 'MeanTarget'])
+            df_debug_q_values = pd.DataFrame(columns=['MeanQ', 'MeanTarget'])
             df_debug_q_values.to_csv(f'{debug_q_values_path}{aid}-seed_{seed}.csv', index=False)
 
         steps = 0
