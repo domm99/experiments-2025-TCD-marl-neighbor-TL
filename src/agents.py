@@ -94,7 +94,7 @@ class IndependentAgent:
             df = pd.read_csv(path)
             new_line = {'MeanQ': q.mean().item(), 'MeanTarget': target_q.mean().item()}
             df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
-            df.to_csv(path)
+            df.to_csv(path, index=False)
 
         loss = F.smooth_l1_loss(q, target_q) 
         self.opt.zero_grad()
