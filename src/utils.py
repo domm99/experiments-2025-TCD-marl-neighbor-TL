@@ -58,7 +58,7 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             seed=seed,
             n_agents=cfg.n_agents,  # Same for agents and landmarks
             share_reward=False,  # This way only the agents which reach the goal get the reward
-            penalise_by_time=True,
+            penalise_by_time=False,
             dict_spaces=True
         )
         return env
@@ -87,7 +87,7 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             seed=seed,
             n_agents=cfg.n_agents,
             share_reward=False,  # This way only the agents which reach the goal get the reward
-            penalise_by_time=True,
+            penalise_by_time=False,
             dict_spaces=True,
             n_obstacles=5,
         )
