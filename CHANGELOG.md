@@ -1,3 +1,15 @@
+## [0.11.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.1...0.11.2) (2025-11-17)
+
+### Bug Fixes
+
+* fix export to csv ([3ad6fef](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3ad6fefde392c8085921461db013d08b8bfb2b78))
+* set penalise by time to False ([d2f5296](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/d2f529664f0992b59d28d01b6a08ed1f9d5b5156))
+
+### General maintenance
+
+* **release:** update .env versions to 0.11.1 [skip ci] ([40252f9](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/40252f99c2682e90cf636a00598a39220f16aba1))
+* update script for launching experiments on the server ([4064c0e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/4064c0eebc79ceb6f1c2432fd9f387395210308a))
+
 ## [0.11.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.0...0.11.1) (2025-11-15)
 
 ### Bug Fixes
