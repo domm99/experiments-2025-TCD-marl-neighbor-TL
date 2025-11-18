@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from vmas import make_env
 from src.config import Config
+from src.customdispersion import DenseDispersionScenario
 from moviepy import ImageSequenceClip
 
 
@@ -90,6 +91,22 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             penalise_by_time=False,
             dict_spaces=True,
             n_obstacles=5,
+        )
+        return env
+    elif env_name in ['densedispersion']:
+        scenario = DenseDispersionScenario(
+            n_agents=cfg.n_agents,
+            share_reward=False,
+            penalise_by_time=False
+        )
+
+        env = make_env(
+            scenario=scenario,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            dict_spaces=True
         )
         return env
     else:
