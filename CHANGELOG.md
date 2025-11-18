@@ -1,3 +1,14 @@
+## [0.12.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.2...0.12.0) (2025-11-18)
+
+### Features
+
+* implement dispersion with denser reward ([2c35c16](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2c35c168b40db5eaf84634f90fa2b3eb48c994b6))
+
+### General maintenance
+
+* **release:** update .env versions to 0.11.2 [skip ci] ([ff5fbf4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ff5fbf4779943e83663d47c13e2c52df2afc324f))
+* update script for launching experiments on the server ([108935e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/108935eea41d42f55dbdb856f4c8c4209503fc73))
+
 ## [0.11.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.1...0.11.2) (2025-11-17)
 
 ### Bug Fixes
