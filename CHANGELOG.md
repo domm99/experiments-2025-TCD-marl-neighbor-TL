@@ -1,3 +1,13 @@
+## [0.12.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.2...0.12.3) (2025-11-19)
+
+### Bug Fixes
+
+* add distance reward ([91af18a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/91af18a753d401c13165650e9dad21d8f0c8daa6))
+
+### General maintenance
+
+* **release:** update .env versions to 0.12.2 [skip ci] ([ce22128](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ce22128bbf11d1aa1b8a2ab5ba3173b74df4b260))
+
 ## [0.12.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.1...0.12.2) (2025-11-19)
 
 ### Bug Fixes
