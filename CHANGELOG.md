@@ -1,3 +1,13 @@
+## [0.12.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.0...0.12.1) (2025-11-19)
+
+### Bug Fixes
+
+* removed reward for moving towards landmarks, but increased reward to get on a landmark ([e834de1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e834de12240782d4d74989fca01714e82cbd05c8))
+
+### General maintenance
+
+* **release:** update .env versions to 0.12.0 [skip ci] ([f3150e8](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f3150e8af44dc9e95209cd0dcfb1db3e4596fe4c))
+
 ## [0.12.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.11.2...0.12.0) (2025-11-18)
 
 ### Features
