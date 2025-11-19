@@ -1,3 +1,13 @@
+## [0.12.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.1...0.12.2) (2025-11-19)
+
+### Bug Fixes
+
+* removed seed from env.reset, already setted outside ([17526e3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/17526e335caa2ec058d5f1e4b7260f4223aaffd4))
+
+### General maintenance
+
+* **release:** update .env versions to 0.12.1 [skip ci] ([5d2108f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/5d2108f1262272d34b138163323ea7ef574cf47d))
+
 ## [0.12.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.0...0.12.1) (2025-11-19)
 
 ### Bug Fixes
