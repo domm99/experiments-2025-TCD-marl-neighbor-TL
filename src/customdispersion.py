@@ -21,51 +21,51 @@ class DenseDispersionScenario(DispersionScenario):
             **kwargs
         )
 
-    def reset_world_at(self, env_index: int = None):
-        super().reset_world_at(env_index)
-
-        for agent in self.world.agents:
-
-            curr_dist = self._get_min_dist_to_targets(agent)
-
-            if not hasattr(agent, "prev_min_dist"):
-                agent.prev_min_dist = curr_dist.clone()
-            else:
-                if env_index is None:
-                    agent.prev_min_dist = curr_dist.clone()
-                else:
-                    agent.prev_min_dist[env_index] = curr_dist[env_index]
+    # def reset_world_at(self, env_index: int = None):
+    #     super().reset_world_at(env_index)
+    #
+    #     for agent in self.world.agents:
+    #
+    #         curr_dist = self._get_min_dist_to_targets(agent)
+    #
+    #         if not hasattr(agent, "prev_min_dist"):
+    #             agent.prev_min_dist = curr_dist.clone()
+    #         else:
+    #             if env_index is None:
+    #                 agent.prev_min_dist = curr_dist.clone()
+    #             else:
+    #                 agent.prev_min_dist[env_index] = curr_dist[env_index]
 
     def reward(self, agent):
-        base_reward = super().reward(agent) * 100.0
+        # base_reward = super().reward(agent) * 100.0
+        #
+        # curr_dist = self._get_min_dist_to_targets(agent)
+        #
+        # shaping = (agent.prev_min_dist - curr_dist)
+        #
+        # agent.prev_min_dist = curr_dist.detach()
+        #
+        # shaping_reward = shaping * 10.0
 
-        curr_dist = self._get_min_dist_to_targets(agent)
+        return super().reward(agent) * 1000.0
 
-        shaping = (agent.prev_min_dist - curr_dist)
-
-        agent.prev_min_dist = curr_dist.detach()
-
-        shaping_reward = shaping * 10.0
-
-        return base_reward + shaping_reward
-
-    def _get_min_dist_to_targets(self, agent):
-        """Funzione helper per calcolare la distanza dal target più vicino"""
-        # agent.state.pos è (num_envs, 2)
-        # target.state.pos è (num_envs, 2)
-
-        # Raccogliamo le posizioni di tutti i target (landmarks)
-        # self.world.landmarks contiene i target nello scenario Dispersion
-        targets_pos = torch.stack([t.state.pos for t in self.world.landmarks],
-                                  dim=1)  # Shape: (num_envs, num_targets, 2)
-
-        # Espandiamo la pos dell'agente per broadcasting
-        agent_pos = agent.state.pos.unsqueeze(1)  # Shape: (num_envs, 1, 2)
-
-        # Calcoliamo la distanza da TUTTI i target
-        dists = torch.linalg.norm(agent_pos - targets_pos, dim=2)  # Shape: (num_envs, num_targets)
-
-        # Prendiamo solo la distanza dal target più vicino (minimo)
-        min_dist, _ = torch.min(dists, dim=1)  # Shape: (num_envs,)
-
-        return min_dist
+    # def _get_min_dist_to_targets(self, agent):
+    #     """Funzione helper per calcolare la distanza dal target più vicino"""
+    #     # agent.state.pos è (num_envs, 2)
+    #     # target.state.pos è (num_envs, 2)
+    #
+    #     # Raccogliamo le posizioni di tutti i target (landmarks)
+    #     # self.world.landmarks contiene i target nello scenario Dispersion
+    #     targets_pos = torch.stack([t.state.pos for t in self.world.landmarks],
+    #                               dim=1)  # Shape: (num_envs, num_targets, 2)
+    #
+    #     # Espandiamo la pos dell'agente per broadcasting
+    #     agent_pos = agent.state.pos.unsqueeze(1)  # Shape: (num_envs, 1, 2)
+    #
+    #     # Calcoliamo la distanza da TUTTI i target
+    #     dists = torch.linalg.norm(agent_pos - targets_pos, dim=2)  # Shape: (num_envs, num_targets)
+    #
+    #     # Prendiamo solo la distanza dal target più vicino (minimo)
+    #     min_dist, _ = torch.min(dists, dim=1)  # Shape: (num_envs,)
+    #
+    #     return min_dist
