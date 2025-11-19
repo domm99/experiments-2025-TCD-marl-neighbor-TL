@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
             current_agents = list(next_obs.keys())
             if not current_agents:
-                obs = env.reset(seed=seed)
+                obs = env.reset()
                 continue
 
             for aid in current_agents:
