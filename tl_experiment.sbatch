@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=experiment-tl-tcd
-#SBATCH --array=0-2
+#SBATCH --array=0-5
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=davide.domini@unibo.it
 #SBATCH --time=3-00:00:00
@@ -19,6 +19,9 @@ PARAMS_LIST=(
 	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name densedispersion"
 	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name densedispersion"
 	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name densedispersion"
+	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name dispersion"
+	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name dispersion"
+	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name dispersion"
 )
 
 PARAMS="${PARAMS_LIST[$SLURM_ARRAY_TASK_ID]}"
