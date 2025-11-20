@@ -1,3 +1,16 @@
+## [0.12.4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.3...0.12.4) (2025-11-20)
+
+### Bug Fixes
+
+* avoiding read and write csv at every step, dumping everything at the end ([2bbcfde](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2bbcfde5f62ea5d3b95d3cb78f2682027e8e5f24))
+* better plotting ([087850e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/087850e6a029ac23186c7792e2e9f43c7678edd6))
+* remove index from read csv ([90bc66f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/90bc66f09de97f1115bd994b0e208899e6f4eac9))
+* try new reward, penealizing more for getting away from landmarks ([40466bd](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/40466bd1e8e2083a4749356a186eb429e8b20ddc))
+
+### General maintenance
+
+* **release:** update .env versions to 0.12.3 [skip ci] ([fe98230](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/fe9823065807079bef188d0cf5ba241966b3fa40))
+
 ## [0.12.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.2...0.12.3) (2025-11-19)
 
 ### Bug Fixes
