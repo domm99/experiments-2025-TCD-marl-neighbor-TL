@@ -1,3 +1,14 @@
+## [0.13.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.4...0.13.0) (2025-11-20)
+
+### Features
+
+* add basic q learning ([992dcbf](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/992dcbf342ede68069a9f53d87548e7a57bc6b5a))
+
+### General maintenance
+
+* **release:** update .env versions to 0.12.4 [skip ci] ([dc0f8b6](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/dc0f8b6be638b5b5e0a1d8cd9c1c36aecc62855d))
+* update script for launching experiments on the server ([b7aaf44](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b7aaf4494d65de529e2e9afccc327bed73c3a172))
+
 ## [0.12.4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.3...0.12.4) (2025-11-20)
 
 ### Bug Fixes
