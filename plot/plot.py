@@ -14,14 +14,17 @@ def beautify_experiment_name(name):
     else:
         return 'Unknown Experiment'
 
-def plot_reward(data, chart_path):
+def plot_reward(data, chart_path, train=False):
     plt.figure(figsize=(10, 6))
-    sns.lineplot(data=data, x='step', y='MeanTeamReward', hue='experiment', linewidth=2.5)
+    sns.lineplot(data=data, x='step', y='MeanReward', hue='experiment', linewidth=2.5)
     plt.xlabel('Step')
     plt.ylabel('Mean Team Reward')
     plt.legend(title='Experiment')
     plt.tight_layout()
-    plt.savefig(f'{chart_path}/results-reward.pdf')
+    if train:
+        plt.savefig(f'{chart_path}/results-reward-train.pdf')
+    else:
+        plt.savefig(f'{chart_path}/results-reward-eval.pdf')
 
 def plot_loss(data, chart_path):
     plt.figure(figsize=(10, 6))
@@ -43,7 +46,7 @@ def plot_qvalues(data, chart_path, metric):
 
 if __name__ == '__main__':
 
-    experiment_names = ['dispersion'] #discovery'
+    experiment_names = ['densedispersion'] #discovery'
 
     for experiment_name in experiment_names:
         settings = [
@@ -57,6 +60,7 @@ if __name__ == '__main__':
         Path(chart_path).mkdir(parents=True, exist_ok=True)
 
         data_train = []
+        data_train_reward = []
         data_eval = []
 
         for setting in settings:
@@ -64,6 +68,7 @@ if __name__ == '__main__':
             #df_train = glob.glob(f'{data_path}/{experiment}/train-results-seed_0.csv')
             #df_eval = glob.glob(f'{data_path}/{experiment}/eval-results-seed_0.csv')
             df_train = pd.read_csv(f'{data_path}/{setting}/train-results-seed_0.csv')
+            df_train_reward = pd.read_csv(f'{data_path}/{setting}/train-reward-seed_0.csv')
 
 
             df_eval = pd.read_csv(f'{data_path}/{setting}/eval-results-seed_0.csv') # okkk
@@ -72,7 +77,10 @@ if __name__ == '__main__':
             df_train['step'] = df_train.index
             df_eval['experiment'] = exp
             df_eval['step'] = df_eval.index
+            df_train_reward['experiment'] = exp
+            df_train_reward['step'] = df_train_reward.index
             data_train.append(df_train)
+            data_train_reward.append(df_train_reward)
             data_eval.append(df_eval)
 
             df_qvalues = pd.read_csv(f"{data_path}/{setting}/qvalues/agent_0-seed_0.csv")
@@ -80,8 +88,10 @@ if __name__ == '__main__':
 
         #df_train = pd.concat(data_train, ignore_index=True)
         df_eval = pd.concat(data_eval, ignore_index=True)
+        df_train_reward = pd.concat(data_train_reward, ignore_index=True)
         for df in data_train:
             plot_loss(df, chart_path)
         plot_reward(df_eval, chart_path)
+        plot_reward(df_train_reward, chart_path, train=True)
         plot_qvalues(df_qvalues, chart_path, 'MeanQ')
         plot_qvalues(df_qvalues, chart_path, 'MeanTarget')
