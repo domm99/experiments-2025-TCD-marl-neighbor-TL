@@ -113,13 +113,11 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
         raise NotImplementedError(f'Env {env_name} not implemented')
 
 
-def log_uncertainty(ids, agents: dict, logging_path: str, seed: int):
+def log_uncertainty(ids, agents: dict, agents_uncertainty: dict):#logging_path: str, seed: int):
     for aid in ids:
         mean_u = agents[aid].aggregated_uncertainty(lambda u: np.mean(u))
-        df = pd.read_csv(f'{logging_path}{aid}-seed_{seed}.csv')
-        new_line = {'Uncertainty': mean_u}
-        df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
-        df.to_csv(f'{logging_path}{aid}.csv', index=False)
+        agents_uncertainty[aid].append(mean_u)
+    return agents_uncertainty
 
 
 def flatten_obs_dict(obs_dict: dict) -> dict:

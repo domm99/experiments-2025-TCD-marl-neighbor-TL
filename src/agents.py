@@ -24,15 +24,13 @@ class IndependentAgent:
         self._opt_steps = 0
         self.uncertainty_estimator = UncertaintyEstimator(obs_dim, action_dim=1, reward_dim=1, learning_rate=cfg.lr, cfg=cfg)
         self._eps_t = 0
+        self.q_values = []
+        self.target_q_values = []
 
     @property
     def experience(self):
         return self.rb.get_all()
 
-    # @property
-    # def eps(self):
-    #     frac = min(1.0, self._eps_t / self.cfg.eps_decay_steps)
-    #     return self.cfg.eps_start + frac * (self.cfg.eps_final - self.cfg.eps_start)
     @property
     def eps(self):
         frac = min(1.0, self._eps_t /  self.cfg.eps_decay_steps)
@@ -90,11 +88,8 @@ class IndependentAgent:
 
         # Logging Q-values for debugging
         if self._opt_steps % 1000 == 0:
-            path = f'{self.cfg.data_output_dir}/qvalues/{self.mid}-seed_0.csv'
-            df = pd.read_csv(path)
-            new_line = {'MeanQ': q.mean().item(), 'MeanTarget': target_q.mean().item()}
-            df = pd.concat([df, pd.DataFrame([new_line])], ignore_index=True)
-            df.to_csv(path, index=False)
+            self.q_values.append(q.mean().item())
+            self.target_q_values.append(target_q.mean().item())
 
         loss = F.smooth_l1_loss(q, target_q) 
         self.opt.zero_grad()
@@ -107,6 +102,13 @@ class IndependentAgent:
             self.target.load_state_dict(self.policy.state_dict())
 
         return float(loss.item())
+
+    def dump_logged_qvalues_to_csv(self):
+        path = f'{self.cfg.data_output_dir}/qvalues/{self.mid}-seed_0.csv'
+        df = pd.read_csv(path)
+        df['MeanQ'] = self.q_values
+        df['MeanTarget'] = self.target_q_values
+        df.to_csv(path, index=False)
 
     def learn_from_teacher(self, experience):
         obs, act, rew, next_obs, done, uncertainty = experience
