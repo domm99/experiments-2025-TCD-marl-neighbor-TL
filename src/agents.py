@@ -7,8 +7,8 @@ from typing import Callable
 from src.utils import *
 import torch.nn.functional as F
 from src.config import Config
-from src.models import DuelingQNet
 from src.buffers import ReplayBuffer
+from src.models import DuelingQNet, QNet
 from src.estimator import UncertaintyEstimator
 
 class IndependentAgent:
@@ -16,8 +16,8 @@ class IndependentAgent:
         self.mid = mid
         self.cfg = cfg
         self.n_actions = n_actions
-        self.policy = DuelingQNet(obs_dim, n_actions).to(cfg.device)
-        self.target = DuelingQNet(obs_dim, n_actions).to(cfg.device)
+        self.policy = QNet(obs_dim, n_actions).to(cfg.device)
+        self.target = QNet(obs_dim, n_actions).to(cfg.device)
         self.target.load_state_dict(self.policy.state_dict())
         self.opt = torch.optim.Adam(self.policy.parameters(), lr=cfg.lr)
         self.rb = ReplayBuffer(cfg.replay_size, obs_dim)
