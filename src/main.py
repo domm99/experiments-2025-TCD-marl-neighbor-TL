@@ -152,7 +152,7 @@ if __name__ == "__main__":
         df_train_reward.to_csv(f'{cfg.data_output_dir}/train-reward-seed_{seed}.csv', index=False)
         df_eval_results.to_csv(csv_eval_file_path, index=False)
         for aid, uncertainties in agents_uncertainty.items():
-            df_u = pd.read_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
+            df_u = pd.read_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv')
             df_u['Uncertainty'] = uncertainties
             df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
 
