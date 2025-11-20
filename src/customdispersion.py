@@ -37,7 +37,7 @@ class DenseDispersionScenario(DispersionScenario):
                     agent.prev_min_dist[env_index] = curr_dist[env_index]
 
     def reward(self, agent):
-        base_reward = super().reward(agent) * 100.0
+        base_reward = super().reward(agent) * 1000.0
 
         curr_dist = self._get_min_dist_to_targets(agent)
 
@@ -46,27 +46,13 @@ class DenseDispersionScenario(DispersionScenario):
         if delta_distance > 0:
             distance_reward = 10
         else:
-            distance_reward = -10
+            distance_reward = -50
 
         return distance_reward + base_reward
 
     def _get_min_dist_to_targets(self, agent):
-        """Funzione helper per calcolare la distanza dal target più vicino"""
-        # agent.state.pos è (num_envs, 2)
-        # target.state.pos è (num_envs, 2)
-
-        # Raccogliamo le posizioni di tutti i target (landmarks)
-        # self.world.landmarks contiene i target nello scenario Dispersion
-        targets_pos = torch.stack([t.state.pos for t in self.world.landmarks],
-                                  dim=1)  # Shape: (num_envs, num_targets, 2)
-
-        # Espandiamo la pos dell'agente per broadcasting
-        agent_pos = agent.state.pos.unsqueeze(1)  # Shape: (num_envs, 1, 2)
-
-        # Calcoliamo la distanza da TUTTI i target
-        dists = torch.linalg.norm(agent_pos - targets_pos, dim=2)  # Shape: (num_envs, num_targets)
-
-        # Prendiamo solo la distanza dal target più vicino (minimo)
-        min_dist, _ = torch.min(dists, dim=1)  # Shape: (num_envs,)
-
+        targets_pos = torch.stack([t.state.pos for t in self.world.landmarks], dim=1)
+        agent_pos = agent.state.pos.unsqueeze(1)
+        dists = torch.linalg.norm(agent_pos - targets_pos, dim=2)
+        min_dist, _ = torch.min(dists, dim=1)
         return min_dist
