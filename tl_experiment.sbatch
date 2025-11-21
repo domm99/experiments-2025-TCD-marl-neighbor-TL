@@ -19,6 +19,9 @@ PARAMS_LIST=(
 	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name densedispersion"
 	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name densedispersion"
 	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name densedispersion"
+	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name flocking"
+	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name flocking"
+	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name flocking"
 )
 
 PARAMS="${PARAMS_LIST[$SLURM_ARRAY_TASK_ID]}"
