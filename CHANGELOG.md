@@ -1,3 +1,14 @@
+## [0.13.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.0...0.13.1) (2025-11-21)
+
+### Bug Fixes
+
+* add maximum step per episode ([a8b351e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a8b351e7aaccc70999da9fcff253352413744b8f))
+
+### General maintenance
+
+* **release:** update .env versions to 0.13.0 [skip ci] ([cdb26b6](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/cdb26b6aaebf56d032093c14ae274ebc65810a9c))
+* update script for launching experiments on the server ([e873530](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e873530421f9a9a1e66167c29356716082b7df20))
+
 ## [0.13.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.12.4...0.13.0) (2025-11-20)
 
 ### Features
