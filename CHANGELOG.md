@@ -1,3 +1,13 @@
+## [0.13.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.1...0.13.2) (2025-11-21)
+
+### Bug Fixes
+
+* more frequent eval ([8824293](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/882429312845a5bbcf0f5cbd7f78158fe9b88e9b))
+
+### General maintenance
+
+* **release:** update .env versions to 0.13.1 [skip ci] ([b7cbafb](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b7cbafbd6526b01faf7637ab0825dcf6010620db))
+
 ## [0.13.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.0...0.13.1) (2025-11-21)
 
 ### Bug Fixes
