@@ -1,3 +1,13 @@
+## [0.13.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.2...0.13.3) (2025-11-21)
+
+### Bug Fixes
+
+* fix hyperparams and step inc ([c7df3bc](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c7df3bc0955791fc0c97db9d8abe78652903408d))
+
+### General maintenance
+
+* **release:** update .env versions to 0.13.2 [skip ci] ([da9110e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/da9110e9db6a98b9504e46c2b1a1b16e82633709))
+
 ## [0.13.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.1...0.13.2) (2025-11-21)
 
 ### Bug Fixes
