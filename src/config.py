@@ -20,7 +20,7 @@ class Config:
     # env
     continuous_actions: bool = False  # When using DQN actions must be Discrete
     total_env_steps: int = 400_000    # global steps
-    max_training_steps_per_episode: int = 300
+    max_training_steps_per_episode: int = 90
     num_parallel_envs = 1
     n_agents: int = 3
 
