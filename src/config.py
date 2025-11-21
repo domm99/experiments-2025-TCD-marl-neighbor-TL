@@ -19,7 +19,8 @@ class Config:
 
     # env
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 400_000    # global steps
+    total_env_steps: int = 100_000    # global steps
+    max_training_steps_per_episode: int = 200
     num_parallel_envs = 1
     n_agents: int = 3
 
@@ -27,17 +28,17 @@ class Config:
     gamma: float = 0.99
     lr: float = 1e-4
     batch_size: int = 512
-    replay_size: int = 300_000
+    replay_size: int = 80_000
     start_learning_after: int = 1_000
     train_freq: int = 5
     target_update_freq: int = 2_000
-    double_q: bool = True
+    double_q: bool = False
     grad_clip: float = 10.0
 
     # eps-greedy (per-agent)
     eps_start: float = 1.0
     eps_final: float = 0.08
-    eps_decay_steps: int = 400_000
+    eps_decay_steps: int = 100_000
     eps_decay_rate: float = 6.0
 
     # transfer learning

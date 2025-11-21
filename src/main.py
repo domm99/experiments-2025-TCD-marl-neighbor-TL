@@ -94,7 +94,8 @@ if __name__ == "__main__":
             next_obs, rew, term, _ = env.step(actions)
 
             current_agents = list(next_obs.keys())
-            if not current_agents:
+            if not current_agents or steps % cfg.max_training_steps_per_episode == 0:
+                #print('Resetting the environment')
                 obs = env.reset()
                 continue
 
