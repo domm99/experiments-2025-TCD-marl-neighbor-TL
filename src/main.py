@@ -90,6 +90,11 @@ if __name__ == "__main__":
 
         while steps < cfg.total_env_steps:
 
+            if steps % 1000 == 0:
+                print(f"Steps: {steps}")
+
+            steps += 1
+
             actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
             next_obs, rew, term, _ = env.step(actions)
 
@@ -107,7 +112,7 @@ if __name__ == "__main__":
                 agents[aid].optimize_sars_rnd(uncertainty)
 
             obs = next_obs
-            steps += 1
+
             losses = []
             for aid in current_agents:
                 loss = agents[aid].optimize()
