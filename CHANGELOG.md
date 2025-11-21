@@ -1,3 +1,14 @@
+## [0.13.4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.3...0.13.4) (2025-11-21)
+
+### Bug Fixes
+
+* add term eval to reset condition ([9a30e17](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9a30e17a368f05e64d02bcc6216a524b3ad7b986))
+* fix hyperparams ([884e77f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/884e77f7c2c8a542f008828cecd9fbfaccfa6f62))
+
+### General maintenance
+
+* update script for launching experiments on the server ([34907c5](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/34907c54f941b8aa9d58734be69e5c247fd0ae63))
+
 ## [0.13.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.2...0.13.3) (2025-11-21)
 
 ### Bug Fixes
