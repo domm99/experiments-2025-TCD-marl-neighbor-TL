@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 from src.config import Config
 from src.transferlearning import *
+from moviepy import ImageSequenceClip
 from src.agents import IndependentAgent
 
 def set_seed(seed: int):
@@ -33,16 +34,23 @@ if __name__ == "__main__":
     cfg = Config.from_hyperparameters(hyperparams)
 
     max_seed = cfg.max_seed
+
+    print(f'-------------------- USING {cfg.device} --------------------')
+
+    Path(cfg.gif_output_dir).mkdir(parents=True, exist_ok=True)
+    Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
+    Path(cfg.policy_output_dir).mkdir(parents=True, exist_ok=True)
+    uncertainty_file_path = f'{cfg.data_output_dir}/uncertainty/'
+    Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
+    debug_q_values_path = f'{cfg.data_output_dir}/qvalues/'
+    Path(debug_q_values_path).mkdir(parents=True, exist_ok=True)
+    training_gif_path = f'{cfg.gif_output_dir}training/'
+    Path(training_gif_path).mkdir(parents=True, exist_ok=True)
+
     for seed in range(max_seed):
+
         set_seed(seed)
-
         env_name = cfg.env_name
-
-        print(f'-------------------- USING {cfg.device} --------------------')
-
-        Path(cfg.gif_output_dir).mkdir(parents=True, exist_ok=True)
-        Path(cfg.data_output_dir).mkdir(parents=True, exist_ok=True)
-        Path(cfg.policy_output_dir).mkdir(parents=True, exist_ok=True)
 
         df_eval_results = pd.DataFrame(columns=['MeanReward'])
         csv_eval_file_path = f'{cfg.data_output_dir}/eval-results-seed_{seed}.csv'
@@ -51,12 +59,6 @@ if __name__ == "__main__":
         csv_train_file_path = f'{cfg.data_output_dir}/train-results-seed_{seed}.csv'
         df_train_loss = pd.DataFrame(columns=['MeanLoss'])
         df_train_reward = pd.DataFrame(columns=['MeanReward'])
-
-        uncertainty_file_path = f'{cfg.data_output_dir}/uncertainty/'
-        Path(uncertainty_file_path).mkdir(parents=True, exist_ok=True)
-
-        debug_q_values_path = f'{cfg.data_output_dir}/qvalues/'
-        Path(debug_q_values_path).mkdir(parents=True, exist_ok=True)
 
         train_reward = []
         train_loss = []
@@ -73,10 +75,10 @@ if __name__ == "__main__":
         for aid in agent_ids:
             observation_space_dim = np.prod(env.observation_space[aid].shape)
             action_space_dim = env.action_space[aid].n
-            agents[aid] = IndependentAgent(aid, observation_space_dim, action_space_dim, cfg)
+            agents[aid] = IndependentAgent(aid, observation_space_dim, action_space_dim, seed, cfg)
             agents_uncertainty[aid] = []
 
-            # Create dataframes for each agent
+            # Create dataframe for each agent
             df_u = pd.DataFrame(columns=['Uncertainty'])
             df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
             df_debug_q_values = pd.DataFrame(columns=['MeanQ', 'MeanTarget'])
@@ -86,68 +88,93 @@ if __name__ == "__main__":
         t0 = time.time()
         last_log = 0
 
-        obs = env.reset()
+        for episode in range(cfg.training_episodes):
 
-        while steps < cfg.total_env_steps:
+            print(f'Starting episode {episode}')
+            obs = env.reset()
 
-            if steps % 1000 == 0:
-                print(f"Steps: {steps}")
+            episode_losses = []
+            episode_rewards = []
+            frames = []
 
-            steps += 1
+            for step in range(cfg.max_training_steps_per_episode):
 
-            actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
-            next_obs, rew, term, _ = env.step(actions)
+                actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
+                next_obs, rew, term, _ = env.step(actions)
 
-            current_agents = list(next_obs.keys())
-            if not current_agents or steps % cfg.max_training_steps_per_episode == 0 or term.item():
-                #print('Resetting the environment')
-                obs = env.reset()
-                continue
+                current_agents = list(next_obs.keys())
 
-            for aid in current_agents:
-                o, r, a, next_o = obs[aid], rew[aid], actions[aid], next_obs[aid]
-                t_sars = torch.cat([o.flatten(), a.flatten(), r.flatten(), next_o.flatten()])
-                uncertainty = agents[aid].compute_uncertainty(t_sars)
-                agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], term.item(), uncertainty.detach().cpu().item())
-                agents[aid].optimize_sars_rnd(uncertainty)
+                if not current_agents or term.item():
+                    print("Resetting environment")
+                    obs = env.reset()
+                    break
 
-            obs = next_obs
+                for aid in current_agents:
+                    o, r, a, next_o = obs[aid], rew[aid], actions[aid], next_obs[aid]
+                    t_sars = torch.cat([o.flatten(), a.flatten(), r.flatten(), next_o.flatten()])
+                    uncertainty = agents[aid].compute_uncertainty(t_sars)
+                    agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], term.item(), uncertainty.detach().cpu().item())
+                    agents[aid].optimize_sars_rnd(uncertainty)
 
-            losses = []
-            for aid in current_agents:
-                loss = agents[aid].optimize()
-                losses.append(loss)
-            mean_r = np.mean([re.cpu() for re in rew.values()])
-            train_reward.append(mean_r)
+                obs = next_obs
 
-            if all(l is not None for l in losses):
-                mean_loss = np.mean(losses)
-                train_loss.append(mean_loss)
+                losses = []
+                for aid in current_agents:
+                    loss = agents[aid].optimize()
+                    losses.append(loss)
+
+                mean_r = np.mean([re.cpu() for re in rew.values()])
+                episode_rewards.append(mean_r)
+
+                if all(l is not None for l in losses):
+                    mean_loss = np.mean(losses)
+                    episode_losses.append(mean_loss)
+
+
+                frame = env.render(
+                    mode="rgb_array",
+                    agent_index_focus=None,
+                )
+                if frame is not None:
+                    frames.append(frame)
+
+            ################################### END OF EPISODE LOOP ###################################
+
+            for aid in agent_ids:
+                agents[aid].increment_decay_time()
+
+            train_reward.append(np.mean(episode_rewards))
+            train_loss.append(np.mean(episode_losses))
+
+            if frames:
+                clip = ImageSequenceClip(frames, fps=30)
+                clip.write_gif(f'{training_gif_path}/episode_{episode}.gif', fps=30)
 
             # Transfer learning
             if (cfg.transfer_enabled
-                    and steps % cfg.transfer_every == 0
+                    and episode % cfg.transfer_every == 0
+                    and episode > 0
                     and all(a.rb.size >= cfg.start_learning_after for a in agents.values())):
                 print('------------------- TRANSFERRING EXPERIENCE -------------------')
                 if cfg.restricted_communication:
-                    transfer_learning_with_restricted_communication(cfg, current_agents, agents, env)
+                    transfer_learning_with_restricted_communication(cfg, agents, env)
                 else:
-                    transfer_learning_all_agents(current_agents, agents)
-
-            # Logging
-            if cfg.logging_enabled and steps % cfg.log_every == 0:
-                fps = int(steps / (time.time() - t0 + 1e-9))
-                avg_eps = np.mean([a.eps for a in agents.values()])
-                rb_sizes = ", ".join(f"{aid}:{agents[aid].rb.size}" for aid in current_agents)
-                print(f"[{steps}] fps~{fps} eps~{avg_eps:.3f} rb_sizes=({rb_sizes})")
-                last_log = steps
+                    transfer_learning_all_agents(agents)
 
             # Eval
-            if steps % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed), agents, cfg.eval_episodes, cfg.eval_steps, steps, cfg.device, save_gif=True, gif_path=cfg.gif_output_dir)
+            if episode % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
+                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed),
+                                        agents,
+                                        cfg.eval_episodes,
+                                        cfg.eval_steps, steps,
+                                        cfg.device,
+                                        save_gif=True,
+                                        gif_path=cfg.gif_output_dir)
                 print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
                 eval_reward.append(avg)
-                agents_uncertainty = log_uncertainty(current_agents, agents, agents_uncertainty) #uncertainty_file_path, seed)
+                agents_uncertainty = log_uncertainty(agents, agents_uncertainty)
+
+        ################################### END OF TRAINING LOOP ###################################
 
         # Dumping everything to csv
         df_train_reward['MeanReward'] = train_reward
@@ -164,3 +191,5 @@ if __name__ == "__main__":
 
         for aid in agent_ids:
             agents[aid].dump_logged_qvalues_to_csv()
+
+    ################################### END OF SEEDS LOOP ###################################

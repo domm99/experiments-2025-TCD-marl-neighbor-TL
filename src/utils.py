@@ -113,8 +113,8 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
         raise NotImplementedError(f'Env {env_name} not implemented')
 
 
-def log_uncertainty(ids, agents: dict, agents_uncertainty: dict):#logging_path: str, seed: int):
-    for aid in ids:
+def log_uncertainty(agents: dict, agents_uncertainty: dict):
+    for aid in agents.keys():
         mean_u = agents[aid].aggregated_uncertainty(lambda u: np.mean(u))
         agents_uncertainty[aid].append(mean_u)
     return agents_uncertainty

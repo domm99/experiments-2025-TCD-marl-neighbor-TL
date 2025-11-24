@@ -19,8 +19,8 @@ class Config:
 
     # env
     continuous_actions: bool = False  # When using DQN actions must be Discrete
-    total_env_steps: int = 400_000    # global steps
-    max_training_steps_per_episode: int = 90
+    training_episodes = 500
+    max_training_steps_per_episode: int = 70
     num_parallel_envs = 1
     n_agents: int = 3
 
@@ -28,30 +28,28 @@ class Config:
     gamma: float = 0.99
     lr: float = 1e-4
     batch_size: int = 512
-    replay_size: int = 350_000
-    start_learning_after: int = 1_000
+    replay_size: int = 25_000
+    start_learning_after: int = 560 # Number of tuples in the buffer (episodes * episode_length) --> (8 * 70)
     train_freq: int = 5
-    target_update_freq: int = 5_000
+    target_update_freq: int = 20
     double_q: bool = False
     grad_clip: float = 10.0
 
     # eps-greedy (per-agent)
     eps_start: float = 1.0
-    eps_final: float = 0.08
-    eps_decay_steps: int = 350_000
-    eps_decay_rate: float = 6.0
+    eps_lower_bound: float = 0.08
+    eps_decay_rate: float = 0.01
 
     # transfer learning
     transfer_enabled: bool = False
     restricted_communication: bool = False
     transfer_every: int = 10
-    transfer_budget: int = 5
+    transfer_budget: int = 500
     K: int = 3 # Number of nearest neighbors
 
     # logging
     logging_enabled: bool = False
-    log_every: int = 2000
-    eval_every: int = 1000
+    eval_every: int = 25 # Number of episodes
     eval_episodes: int = 5
     eval_steps: int = 50
     env_name: str = ''
