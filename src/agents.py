@@ -104,7 +104,7 @@ class IndependentAgent:
         self.opt.step()
 
         self._opt_steps += 1
-        if self._opt_steps % self.cfg.target_update_freq == 0:
+        if self._eps_t % self.cfg.target_update_freq == 0:
             self.target.load_state_dict(self.policy.state_dict())
 
         return float(loss.item())
