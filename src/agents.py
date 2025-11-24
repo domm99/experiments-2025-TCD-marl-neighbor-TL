@@ -12,10 +12,11 @@ from src.models import DuelingQNet, QNet
 from src.estimator import UncertaintyEstimator
 
 class IndependentAgent:
-    def __init__(self, mid, obs_dim: int, n_actions: int, cfg: Config):
+    def __init__(self, mid, obs_dim: int, n_actions: int, seed: int, cfg: Config):
         self.mid = mid
         self.cfg = cfg
         self.n_actions = n_actions
+        self.seed = seed
         self.policy = QNet(obs_dim, n_actions).to(cfg.device)
         self.target = QNet(obs_dim, n_actions).to(cfg.device)
         self.target.load_state_dict(self.policy.state_dict())
@@ -33,8 +34,11 @@ class IndependentAgent:
 
     @property
     def eps(self):
-        frac = min(1.0, self._eps_t /  self.cfg.eps_decay_steps)
-        return self.cfg.eps_final + (self.cfg.eps_start - self.cfg.eps_final) * math.exp(-self.cfg.eps_decay_rate * frac)
+        v = self.cfg.eps_start * math.pow(1 - self.cfg.eps_decay_rate, self._eps_t)
+        if v < self.cfg.eps_lower_bound:
+            return self.cfg.eps_lower_bound
+        else:
+            return v
 
     def aggregated_uncertainty(self, aggregation: Callable[[np.ndarray], float]) -> float:
         return aggregation(self.rb.uncertainties)
@@ -55,8 +59,10 @@ class IndependentAgent:
         state_dict = torch.load(f'{self.cfg.policy_output_dir}/agent_{id}-time_{time}.pth', map_location=torch.device(self.cfg.device))
         self.policy.load_state_dict(state_dict)
 
-    def act(self, obs):
+    def increment_decay_time(self):
         self._eps_t += 1
+
+    def act(self, obs):
         if random.random() < self.eps:
             return torch.tensor(random.randrange(self.n_actions), device=self.cfg.device).unsqueeze(0)
         with torch.no_grad():
@@ -104,7 +110,7 @@ class IndependentAgent:
         return float(loss.item())
 
     def dump_logged_qvalues_to_csv(self):
-        path = f'{self.cfg.data_output_dir}/qvalues/{self.mid}-seed_0.csv'
+        path = f'{self.cfg.data_output_dir}/qvalues/{self.mid}-seed_{self.seed}.csv'
         df = pd.read_csv(path)
         df['MeanQ'] = self.q_values
         df['MeanTarget'] = self.target_q_values
