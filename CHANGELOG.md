@@ -1,3 +1,19 @@
+## [0.14.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.4...0.14.0) (2025-11-24)
+
+### Features
+
+* new main loop based on episodes ([3714384](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/3714384e3a63bf8db7b70ad2c357ccf893e6e1c8))
+
+### Bug Fixes
+
+* modify epsilon decay ([9ead9a7](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9ead9a7f77f189653faba64b0c55fa931c5ab738))
+* modify target update  frequency ([dbff10f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/dbff10f86e849ccaeb8ae890c4c609ebfd9e4113))
+* remove eval ([979cb6a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/979cb6ae150d90b1b7bb150f2a9b83dd5abfe9a5))
+
+### General maintenance
+
+* **release:** update .env versions to 0.13.4 [skip ci] ([b60b8a9](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/b60b8a9fd677406e3d25dc914e971da8c38d427f))
+
 ## [0.13.4](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.3...0.13.4) (2025-11-21)
 
 ### Bug Fixes
