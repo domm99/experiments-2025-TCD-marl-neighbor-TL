@@ -161,17 +161,8 @@ if __name__ == "__main__":
                 else:
                     transfer_learning_all_agents(agents)
 
-            # Eval
-            if episode % cfg.eval_every == 0 and all(a.rb.size >= cfg.start_learning_after for a in agents.values()):
-                avg = evaluate_parallel(lambda: make_vmas_env(cfg, env_name, seed),
-                                        agents,
-                                        cfg.eval_episodes,
-                                        cfg.eval_steps, steps,
-                                        cfg.device,
-                                        save_gif=True,
-                                        gif_path=cfg.gif_output_dir)
-                print(f"Eval @ {steps}: avg team reward over {cfg.eval_episodes} eps = {avg:.3f}")
-                eval_reward.append(avg)
+            # Logging uncertainties
+            if episode % cfg.log_uncertainty_every == 0:
                 agents_uncertainty = log_uncertainty(agents, agents_uncertainty)
 
         ################################### END OF TRAINING LOOP ###################################
@@ -179,11 +170,9 @@ if __name__ == "__main__":
         # Dumping everything to csv
         df_train_reward['MeanReward'] = train_reward
         df_train_loss['MeanLoss'] = train_loss
-        df_eval_results['MeanReward'] = eval_reward
 
         df_train_loss.to_csv(csv_train_file_path, index=False)
         df_train_reward.to_csv(f'{cfg.data_output_dir}/train-reward-seed_{seed}.csv', index=False)
-        df_eval_results.to_csv(csv_eval_file_path, index=False)
         for aid, uncertainties in agents_uncertainty.items():
             df_u = pd.read_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv')
             df_u['Uncertainty'] = uncertainties

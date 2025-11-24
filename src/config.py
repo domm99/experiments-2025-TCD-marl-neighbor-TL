@@ -49,7 +49,7 @@ class Config:
 
     # logging
     logging_enabled: bool = False
-    eval_every: int = 25 # Number of episodes
+    log_uncertainty_every: int = 25 # Number of episodes
     eval_episodes: int = 5
     eval_steps: int = 50
     env_name: str = ''
