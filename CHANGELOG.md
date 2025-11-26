@@ -1,3 +1,15 @@
+## [0.15.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.14.0...0.15.0) (2025-11-26)
+
+### Features
+
+* add gifs export frequency ([58f80c1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/58f80c10553525978a973c449e5dc8700cbc7fa0))
+
+### General maintenance
+
+* add script to run experiemnts on GCP ([e426b38](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e426b38fd71b1e1cbd8e9e1f063c42c817da9e6b))
+* fix script to run experiemnts on GCP ([e082d2a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e082d2ac8c4863e57c8134e2463d1edf567a1868))
+* **release:** update .env versions to 0.14.0 [skip ci] ([14f8033](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/14f8033a3ba1f2b2769203fe3d46ea329bf7b7be))
+
 ## [0.14.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.13.4...0.14.0) (2025-11-24)
 
 ### Features
