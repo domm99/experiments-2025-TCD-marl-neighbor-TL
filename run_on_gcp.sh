@@ -7,7 +7,7 @@ PARAMS=(
 )
 
 LOG_FILE="LOG.log"
-FINISHED_EXPERIMENTS_FILE = "experiments.txt"
+FINISHED_EXPERIMENTS_FILE="experiments.txt"
 
 
 for param in "${PARAMS[@]}"; do
