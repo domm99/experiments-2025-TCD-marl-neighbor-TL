@@ -37,18 +37,14 @@ class DenseDispersionScenario(DispersionScenario):
                     agent.prev_min_dist[env_index] = curr_dist[env_index]
 
     def reward(self, agent):
-        base_reward = super().reward(agent) * 1000.0
-
+        base_reward = super().reward(agent)
         curr_dist = self._get_min_dist_to_targets(agent)
-
         delta_distance = agent.prev_min_dist - curr_dist
+        shaping_reward = delta_distance * 100.0
+        agent.prev_min_dist = curr_dist.detach()
+        total_reward = base_reward + shaping_reward
+        return total_reward
 
-        if delta_distance > 0:
-            distance_reward = 10
-        else:
-            distance_reward = -50
-
-        return distance_reward + base_reward
 
     def _get_min_dist_to_targets(self, agent):
         targets_pos = torch.stack([t.state.pos for t in self.world.landmarks], dim=1)
