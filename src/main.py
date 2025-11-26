@@ -88,7 +88,7 @@ if __name__ == "__main__":
         t0 = time.time()
         last_log = 0
 
-        for episode in range(cfg.training_episodes):
+        for episode in range(cfg.training_episodes + 1):
 
             print(f'Starting episode {episode}')
             obs = env.reset()
@@ -146,7 +146,7 @@ if __name__ == "__main__":
             train_reward.append(np.mean(episode_rewards))
             train_loss.append(np.mean(episode_losses))
 
-            if frames:
+            if frames and episode % cfg.export_gif_every == 0:
                 clip = ImageSequenceClip(frames, fps=30)
                 clip.write_gif(f'{training_gif_path}/episode_{episode}.gif', fps=30)
 

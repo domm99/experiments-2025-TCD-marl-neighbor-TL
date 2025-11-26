@@ -50,6 +50,7 @@ class Config:
     # logging
     logging_enabled: bool = False
     log_uncertainty_every: int = 25 # Number of episodes
+    export_gif_every = 20
     eval_episodes: int = 5
     eval_steps: int = 50
     env_name: str = ''
