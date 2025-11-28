@@ -1,3 +1,19 @@
+## [0.16.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.15.1...0.16.0) (2025-11-28)
+
+### Features
+
+* add sampling env ([f1f86b3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f1f86b3db45deaac4128d3278b2fbe97061cee73))
+* implement densescenario mixin to avoid code duplication ([f65a845](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f65a8453b8cee034a2d7fae34fb0b3deeab99643))
+
+### Bug Fixes
+
+* fix gif export path ([9742f4e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9742f4e430d8bfe54c6d9b28cd555208157c6504))
+* update simulation config ([8deb0ae](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/8deb0ae8770c74ffe90debc591e3148c25e3d7d5))
+
+### General maintenance
+
+* **release:** update .env versions to 0.15.1 [skip ci] ([207081d](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/207081d5acdb7b055dbc1a17b3e6043ecce610a7))
+
 ## [0.15.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.15.0...0.15.1) (2025-11-26)
 
 ### Bug Fixes
