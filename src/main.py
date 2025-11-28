@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
             if frames and episode % cfg.export_gif_every == 0:
                 clip = ImageSequenceClip(frames, fps=30)
-                clip.write_gif(f'{training_gif_path}/episode_{episode}.gif', fps=30)
+                clip.write_gif(f'{training_gif_path}episode_{episode}.gif', fps=30)
 
             # Transfer learning
             if (cfg.transfer_enabled
