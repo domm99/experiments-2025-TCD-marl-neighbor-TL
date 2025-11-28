@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from vmas import make_env
 from src.config import Config
-from src.customdispersion import DenseDispersionScenario
+from src.densescenarios import DenseDispersionScenario
 from moviepy import ImageSequenceClip
 
 
@@ -71,10 +71,10 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             continuous_actions=False,
             seed=seed,
             n_agents=cfg.n_agents,
-            n_targets=int(cfg.n_agents/2),
+            n_targets=cfg.n_agents,
             agents_per_target=1,
             share_reward=False,  # This way only the agents which reach the goal get the reward
-            penalise_by_time=True,
+            penalise_by_time=False,
             dict_spaces=True,
             covering_range=0.1
         )
@@ -91,6 +91,20 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             penalise_by_time=False,
             dict_spaces=True,
             n_obstacles=5,
+        )
+        return env
+    elif env_name in ['sampling']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,
+            n_gaussians=5,
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=False,
+            dict_spaces=True,
         )
         return env
     elif env_name in ['densedispersion']:
