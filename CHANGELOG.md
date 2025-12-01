@@ -1,3 +1,14 @@
+## [0.17.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.16.0...0.17.0) (2025-12-01)
+
+### Features
+
+* add more scenarios ([a4b9594](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a4b95942afb18aa097b626314d8836d7b88bdd03))
+
+### General maintenance
+
+* **release:** update .env versions to 0.16.0 [skip ci] ([434315a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/434315a30d6735eed52d266d544e632562ea7fba))
+* update script for launching experiments google cloud ([38f3b3c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/38f3b3c1c13967b95c53aeb2aa50b6523bb29876))
+
 ## [0.16.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.15.1...0.16.0) (2025-11-28)
 
 ### Features
