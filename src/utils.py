@@ -107,6 +107,19 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             dict_spaces=True,
         )
         return env
+    elif env_name in ['transport']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=False,
+            dict_spaces=True,
+        )
+        return env
     elif env_name in ['densedispersion']:
         scenario = DenseDispersionScenario(
             n_agents=cfg.n_agents,
@@ -121,6 +134,23 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             continuous_actions=False,
             seed=seed,
             dict_spaces=True
+        )
+        return env
+    elif env_name in ['football']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            ai_blue_agents=False,
+            ai_red_agents=True,
+            n_blue_agents=5,
+            n_red_agents = 5,
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=False,
+            dense_reward=True,
+            dict_spaces=True,
         )
         return env
     else:
