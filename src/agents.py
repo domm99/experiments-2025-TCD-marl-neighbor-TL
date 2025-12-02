@@ -79,6 +79,7 @@ class IndependentAgent:
 
         if not transferring:
             obs, act, rew, next_obs, done, _ = self.rb.sample(self.cfg.batch_size, self.cfg.device)
+            #print(f'obs: {obs.shape} act: {act.shape} rew: {rew.shape} next_obs: {next_obs.shape} done: {done}')
         else:
             obs, act, rew, next_obs, done, _ = experience
 
@@ -97,7 +98,16 @@ class IndependentAgent:
             self.q_values.append(q.mean().item())
             self.target_q_values.append(target_q.mean().item())
 
-        loss = F.smooth_l1_loss(q, target_q) 
+        #### Starting Hysteric Q Learning ####
+        td_error = target_q - q
+        hysteretic_weights = torch.ones_like(td_error)
+        hysteretic_weights[td_error < 0] = 0.1 #self.cfg.hysteretic_beta
+        element_wise_loss = F.smooth_l1_loss(q, target_q, reduction='none')
+        weighted_loss = element_wise_loss * hysteretic_weights
+        loss = weighted_loss.mean()
+        #### Ending Hysteric Q Learning ####
+
+        #loss = F.smooth_l1_loss(q, target_q)
         self.opt.zero_grad()
         loss.backward()
         nn.utils.clip_grad_norm_(self.policy.parameters(), self.cfg.grad_clip)
