@@ -14,8 +14,8 @@ class ReplayBuffer:
 
     def add(self, o, a, r, no, d, u):
         i = self.ptr
-        self.obs[i] = o.cpu(); self.act[i] = a.cpu(); self.rew[i] = r.cpu()
-        self.next_obs[i] = no.cpu(); self.done[i] = float(d)
+        self.obs[i] = o; self.act[i] = a; self.rew[i] = r
+        self.next_obs[i] = no; self.done[i] = float(d)
         self.uncertainty[i] = u
         self.ptr = (i + 1) % self.capacity
         self.size = min(self.size + 1, self.capacity)

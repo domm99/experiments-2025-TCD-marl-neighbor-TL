@@ -110,10 +110,11 @@ if __name__ == "__main__":
                     break
 
                 for aid in current_agents:
-                    o, r, a, next_o = obs[aid], rew[aid], actions[aid], next_obs[aid]
-                    t_sars = torch.cat([o.flatten(), a.flatten(), r.flatten(), next_o.flatten()])
+                    o, r, a, next_o = obs[aid].flatten(), rew[aid].flatten(), actions[aid].flatten(), next_obs[aid].flatten()
+                    t_sars = torch.cat([o, a, r, next_o])
                     uncertainty = agents[aid].compute_uncertainty(t_sars)
-                    agents[aid].store_experience(obs[aid], actions[aid], rew[aid], next_obs[aid], term.item(), uncertainty.detach().cpu().item())
+                    o, r, a, next_o = o.cpu().numpy(), r.item(), a.item(), next_o.cpu().numpy()
+                    agents[aid].store_experience(o, a, r, next_o, term.item(), uncertainty.detach().cpu().item())
                     agents[aid].optimize_sars_rnd(uncertainty)
 
                 obs = next_obs
