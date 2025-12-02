@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 from vmas import make_env
 from src.config import Config
-from src.densescenarios import DenseDispersionScenario
 from moviepy import ImageSequenceClip
-
+from src.densescenarios import DenseDispersionScenario#, DenseDiscoveryScenario
+from vmas.scenarios.mpe.simple_tag import Scenario as SimpleTagScenario
 
 def evaluate_parallel(env_fn, agents: dict, n_episodes: int, max_steps: int, current_step: int, device: str, save_gif: bool = False, gif_path: str = None):
 
@@ -79,6 +79,29 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             covering_range=0.1
         )
         return env
+    elif env_name in ['SimpleTag']:
+        scenario = SimpleTagScenario()
+
+        env = make_env(
+            scenario=scenario,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            dict_spaces=True,
+            num_good_agents=2,
+            num_adversaries=cfg.n_agents,
+            num_landmarks=2,
+            shape_agent_rew=False,
+            shape_adversary_rew=False,
+            agents_share_rew=False,
+            adversaries_share_rew=False,
+            observe_same_team=True,
+            observe_pos=True,
+            observe_vel=True,
+            respawn_at_catch=False
+        )
+        return env
     elif env_name in ['flocking']:
         env = make_env(
             scenario=env_name,
@@ -136,6 +159,23 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             dict_spaces=True
         )
         return env
+    # elif env_name in ['densediscovery']:
+    #     scenario = DenseDiscoveryScenario(
+    #         n_agents=1,
+    #         n_targets=1,
+    #         share_reward=False,
+    #         penalise_by_time=False
+    #     )
+    #
+    #     env = make_env(
+    #         scenario=scenario,
+    #         num_envs=cfg.num_parallel_envs,
+    #         device=cfg.device,
+    #         continuous_actions=False,
+    #         seed=seed,
+    #         dict_spaces=True
+    #     )
+    #     return env
     elif env_name in ['football']:
         env = make_env(
             scenario=env_name,
