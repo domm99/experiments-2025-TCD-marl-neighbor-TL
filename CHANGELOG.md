@@ -1,3 +1,20 @@
+## [0.18.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.17.0...0.18.0) (2025-12-02)
+
+### Features
+
+* add hysteric q learning ([d8f0f52](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/d8f0f52302bd9f8b96824404b269e9176cd8e558))
+* add more scenarios ([ee5f108](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ee5f108c5be0337eec1ef798514b1114cb777d6a))
+
+### Bug Fixes
+
+* fix dense scenario ([738b6ed](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/738b6ed0eaa327c67c3426eaad2dd40a0a254ac9))
+* fix experience storing in the buffer ([aea4940](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/aea494025388bc11707a5acecde257832006951e))
+* fix hyperparams ([ce87658](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ce876583226e18792dad6efbaba80f245053019f))
+
+### General maintenance
+
+* **release:** update .env versions to 0.17.0 [skip ci] ([fdfd4dd](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/fdfd4dde8963ebae61257a79860323cf8ee58d39))
+
 ## [0.17.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.16.0...0.17.0) (2025-12-01)
 
 ### Features
