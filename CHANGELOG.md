@@ -1,3 +1,17 @@
+## [0.19.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.18.0...0.19.0) (2025-12-04)
+
+### Features
+
+* add export of gif also on resetting ([a317154](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a31715487ab6ffc09cc2b7faffdf46b4cb00fb08))
+
+### General maintenance
+
+* comment useless print ([ab15c83](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ab15c837078c01c4badc4108ca04391a673dbb6d))
+* **release:** update .env versions to 0.18.0 [skip ci] ([269ac62](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/269ac62b9e5dc3c2284b32b98bd64e9cff6a8851))
+* udpdate envs parameters ([9e93644](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/9e93644caa34cc29021decfe9e652736ae43d503))
+* udpdate number of agents ([397cf6d](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/397cf6d57e4a6844f2cb1b7e9888898c1e4be19f))
+* update script for launching experiments google cloud ([a6ffe2f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a6ffe2f50582312a6abb4ba1e0a2c2867bede409))
+
 ## [0.18.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.17.0...0.18.0) (2025-12-02)
 
 ### Features
