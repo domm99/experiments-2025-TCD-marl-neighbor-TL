@@ -99,13 +99,23 @@ if __name__ == "__main__":
 
             for step in range(cfg.max_training_steps_per_episode):
 
+
+                #actions = {aid: torch.tensor([0 ,0 ,0]) for aid in agent_ids}#agents[aid].act(obs[aid]) for aid in agent_ids}
                 actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
+                print(actions)
                 next_obs, rew, term, _ = env.step(actions)
+
+                #print(f'next_obs shape {next_obs["agent_0"].shape}')
+                #print(f'rew shape {rew.shape}')
+                #print(f'term shape {term.shape}')
 
                 current_agents = list(next_obs.keys())
 
                 if not current_agents or term.item():
-                    print("Resetting environment")
+                    print(f"Resetting environment at step {step} and frames {len(frames)}")
+                    if frames:
+                        clip = ImageSequenceClip(frames, fps=30)
+                        clip.write_gif(f'{training_gif_path}RESET-episode_{episode}.gif', fps=30)
                     obs = env.reset()
                     break
 
