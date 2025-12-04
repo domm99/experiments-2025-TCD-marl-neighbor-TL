@@ -79,6 +79,21 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             covering_range=0.1
         )
         return env
+    elif env_name in ['balance']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,
+            package_mass=1,
+            random_package_pos_on_line=False,
+            #share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=False,
+            dict_spaces=True,
+        )
+        return env
     elif env_name in ['SimpleTag']:
         scenario = SimpleTagScenario()
 
@@ -124,7 +139,7 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             continuous_actions=False,
             seed=seed,
             n_agents=cfg.n_agents,
-            n_gaussians=5,
+            n_gaussians=10,
             share_reward=False,  # This way only the agents which reach the goal get the reward
             penalise_by_time=False,
             dict_spaces=True,
@@ -141,6 +156,22 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             share_reward=False,  # This way only the agents which reach the goal get the reward
             penalise_by_time=False,
             dict_spaces=True,
+        )
+        return env
+    elif env_name in ['reverse_transport']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,
+            share_reward=False,  # This way only the agents which reach the goal get the reward
+            penalise_by_time=False,
+            dict_spaces=True,
+            package_mass=3,
+            package_width=0.5,
+            package_leght=0.5
         )
         return env
     elif env_name in ['densedispersion']:
