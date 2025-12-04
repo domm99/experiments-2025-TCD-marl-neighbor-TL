@@ -102,7 +102,7 @@ if __name__ == "__main__":
 
                 #actions = {aid: torch.tensor([0 ,0 ,0]) for aid in agent_ids}#agents[aid].act(obs[aid]) for aid in agent_ids}
                 actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
-                print(actions)
+                #print(actions)
                 next_obs, rew, term, _ = env.step(actions)
 
                 #print(f'next_obs shape {next_obs["agent_0"].shape}')
