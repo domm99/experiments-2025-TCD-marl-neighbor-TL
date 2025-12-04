@@ -17,6 +17,7 @@ def beautify_experiment_name(name):
 def plot_reward(data, chart_path, train=False):
     plt.figure(figsize=(10, 6))
     sns.lineplot(data=data, x='step', y='MeanReward', hue='experiment', linewidth=2.5)
+    #sns.regplot(data=data, x='step', y='MeanReward', lowess=True, line_kws={'color': 'red'})
     plt.xlabel('Step')
     plt.ylabel('Mean Team Reward')
     plt.legend(title='Experiment')
@@ -51,8 +52,8 @@ if __name__ == '__main__':
     for experiment_name in experiment_names:
         settings = [
             "transfer_False-restricted_False",
-            "transfer_True-restricted_False",
-            "transfer_True-restricted_True"
+            #"transfer_True-restricted_False",
+            #"transfer_True-restricted_True"
         ]
 
         data_path = f'data/{experiment_name}'
@@ -73,6 +74,7 @@ if __name__ == '__main__':
 
             df_eval = pd.read_csv(f'{data_path}/{setting}/eval-results-seed_0.csv') # okkk
             exp = beautify_experiment_name(setting)
+            print(exp)
             df_train['experiment'] = exp
             df_train['step'] = df_train.index
             df_eval['experiment'] = exp

@@ -58,7 +58,7 @@ class DenseDispersionScenario(DispersionScenario):
         base_reward = super().reward(agent) * 1000.0
         curr_dist = self._get_min_dist_to_targets(agent)
         delta_distance = agent.prev_min_dist - curr_dist
-        shaping_reward = delta_distance * 1.0
+        shaping_reward = delta_distance * 10.0
         agent.prev_min_dist = curr_dist.detach()
         total_reward = base_reward + shaping_reward
         return total_reward

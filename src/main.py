@@ -2,6 +2,9 @@ import time
 import random
 import argparse
 from pathlib import Path
+
+from torch._C import device
+
 from src.config import Config
 from src.transferlearning import *
 from moviepy import ImageSequenceClip
@@ -66,15 +69,17 @@ if __name__ == "__main__":
         agents_uncertainty = {}
 
         env = make_vmas_env(cfg, env_name, seed)
-        agent_ids = [agent.name for agent in env.agents]
+
+        #agent_ids = [agent.name for agent in env.agents]
+        agent_ids = [f'agent_{i}' for i in range(cfg.num_parallel_envs)]
 
         print(agent_ids)
 
         agents = {}
 
         for aid in agent_ids:
-            observation_space_dim = np.prod(env.observation_space[aid].shape)
-            action_space_dim = env.action_space[aid].n
+            observation_space_dim = np.prod(env.observation_space['agent_0'].shape)
+            action_space_dim = env.action_space['agent_0'].n
             agents[aid] = IndependentAgent(aid, observation_space_dim, action_space_dim, seed, cfg)
             agents_uncertainty[aid] = []
 
@@ -101,17 +106,22 @@ if __name__ == "__main__":
 
 
                 #actions = {aid: torch.tensor([0 ,0 ,0]) for aid in agent_ids}#agents[aid].act(obs[aid]) for aid in agent_ids}
-                actions = {aid: agents[aid].act(obs[aid]) for aid in agent_ids}
-                #print(actions)
+
+                actions = [agents[aid].act(obs['agent_0'][int(aid.split('_')[-1])]).item() for aid in agent_ids]
+                actions = {'agent_0': torch.tensor([actions]).view(cfg.num_parallel_envs, 1)}
                 next_obs, rew, term, _ = env.step(actions)
 
-                #print(f'next_obs shape {next_obs["agent_0"].shape}')
-                #print(f'rew shape {rew.shape}')
-                #print(f'term shape {term.shape}')
+                #raise Exception()
+                #current_agents = list(next_obs.keys())
+                current_agents = []
+                for i in agent_ids:
+                    aid = int(i.split('_')[-1])
+                    terminated = term[aid].item()
+                    if not terminated:
+                        current_agents.append(i)
 
-                current_agents = list(next_obs.keys())
-
-                if not current_agents or term.item():
+                #if not current_agents or term.item():
+                if all(term):
                     print(f"Resetting environment at step {step} and frames {len(frames)}")
                     if frames:
                         clip = ImageSequenceClip(frames, fps=30)
@@ -119,13 +129,15 @@ if __name__ == "__main__":
                     obs = env.reset()
                     break
 
-                for aid in current_agents:
-                    o, r, a, next_o = obs[aid].flatten(), rew[aid].flatten(), actions[aid].flatten(), next_obs[aid].flatten()
-                    t_sars = torch.cat([o, a, r, next_o])
-                    uncertainty = agents[aid].compute_uncertainty(t_sars)
+                #for aid in current_agents:
+                for i in current_agents:
+                    aid = int(i.split('_')[-1])
+                    o, r, a, next_o = obs['agent_0'][aid].flatten(), rew['agent_0'][aid].flatten(), actions['agent_0'][aid].flatten(), next_obs['agent_0'][aid].flatten()
+                    t_sars = torch.cat([o.cpu(), a.cpu(), r.cpu(), next_o.cpu()]).to(cfg.device)
+                    uncertainty = agents[i].compute_uncertainty(t_sars)
                     o, r, a, next_o = o.cpu().numpy(), r.item(), a.item(), next_o.cpu().numpy()
-                    agents[aid].store_experience(o, a, r, next_o, term.item(), uncertainty.detach().cpu().item())
-                    agents[aid].optimize_sars_rnd(uncertainty)
+                    agents[i].store_experience(o, a, r, next_o, term[aid].item(), uncertainty.detach().cpu().item())
+                    agents[i].optimize_sars_rnd(uncertainty)
 
                 obs = next_obs
 

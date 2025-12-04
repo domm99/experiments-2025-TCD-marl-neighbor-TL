@@ -4,6 +4,7 @@ from pathlib import Path
 from benchmarl.algorithms import IqlConfig
 from benchmarl.models.mlp import MlpConfig
 from benchmarl.environments import PettingZooTask
+from benchmarl.environments import VmasTask
 from benchmarl.experiment import Experiment, ExperimentConfig
 
 def get_current_device():
@@ -28,8 +29,11 @@ if __name__ == '__main__':
     experiment_config.save_folder = Path(os.path.dirname(os.path.realpath(__file__)))
     experiment_config.loggers = ['csv']
 
-    task = PettingZooTask.SIMPLE_SPREAD.get_from_yaml()
-    task.config['N'] = 10
+    task = VmasTask.DISPERSION.get_from_yaml()
+    task.config['n_agents'] = 5
+    task.config['n_food'] = 5
+    task.config['share_reward'] = False
+    print(task)
 
     model_config = MlpConfig.get_from_yaml()
     model_config.num_cells = [256, 128]
