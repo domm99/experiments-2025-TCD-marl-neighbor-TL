@@ -22,7 +22,7 @@ class Config:
     training_episodes = 400
     max_training_steps_per_episode: int = 150
     num_parallel_envs = 1
-    n_agents: int = 4
+    n_agents: int = 10
 
     # DQN
     gamma: float = 0.99
