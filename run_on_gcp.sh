@@ -1,9 +1,9 @@
 #!/bin/bash
 
 PARAMS=(
-	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name sampling"
-	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name sampling"
-	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name sampling"
+	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name navigation"
+	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name navigation"
+	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name navigation"
 )
 
 LOG_FILE="LOG.log"
