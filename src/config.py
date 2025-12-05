@@ -20,9 +20,9 @@ class Config:
     # env
     continuous_actions: bool = False  # When using DQN actions must be Discrete
     training_episodes = 400
-    max_training_steps_per_episode: int = 150
+    max_training_steps_per_episode: int = 200
     num_parallel_envs = 1
-    n_agents: int = 10
+    n_agents: int = 2
 
     # DQN
     gamma: float = 0.99

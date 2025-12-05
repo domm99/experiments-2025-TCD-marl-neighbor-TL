@@ -281,19 +281,20 @@ files = [
 
 [[package]]
 name = "benchmarl"
-version = "1.5.0"
+version = "1.5.1"
 description = "BenchMARL"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "benchmarl-1.5.0.tar.gz", hash = "sha256:90e20fe92887cf3c9fcdcbc7a6c72926e6e237ae62b4107ea1f31fa550e478f5"},
+    {file = "benchmarl-1.5.1.tar.gz", hash = "sha256:8267c260b5221ab52c2aaffd54b8942f711ee70398f925c68d1a8e03b105c082"},
 ]
 
 [package.dependencies]
 av = "<14"
 hydra-core = "*"
-torchrl = ">=0.8.0,<0.9.0"
+numpy = "*"
+torchrl = ">=0.10,<1.0"
 torchvision = "*"
 tqdm = "*"
 
@@ -3481,6 +3482,20 @@ files = [
 ]
 
 [[package]]
+name = "pyvers"
+version = "0.1.0"
+description = "A Python library for managing multiple versions of dependencies"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "pyvers-0.1.0-py3-none-any.whl", hash = "sha256:065249805ae537ddf9a2d1a8dffc6d0a12474a347d2eaa2f35ebdae92c0c8199"},
+]
+
+[package.dependencies]
+packaging = ">=25.0,<26.0"
+
+[[package]]
 name = "pyyaml"
 version = "6.0.3"
 description = "YAML parser and emitter for Python"
@@ -4093,36 +4108,36 @@ protobuf = ">=3.20"
 
 [[package]]
 name = "tensordict"
-version = "0.8.3"
+version = "0.10.0"
 description = "TensorDict is a pytorch dedicated tensor container."
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "tensordict-0.8.3-cp310-cp310-macosx_15_0_arm64.whl", hash = "sha256:c06cc58195632bb6ff30fba2faa44d76825b699b0d54eb311aa746647e31f58a"},
-    {file = "tensordict-0.8.3-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:0f9b56cf0d2a841369a2deefb4c9e553e55cef16bc7b207dd8f00f13ac40ba80"},
-    {file = "tensordict-0.8.3-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:8bbde1ce475782f54c1628a60bbf44cfda12d5776286e2c0cf0cbbc1132d9a6e"},
-    {file = "tensordict-0.8.3-cp310-cp310-win_amd64.whl", hash = "sha256:c12164d19eb30d98ac8ba8bc4130456c35e41ba695ee7fb2f25d4d98b816d186"},
-    {file = "tensordict-0.8.3-cp311-cp311-macosx_15_0_arm64.whl", hash = "sha256:c34efce69a7c1565a73175cc7e1037185bee8e1344c9b0655b3b1ebd914c757a"},
-    {file = "tensordict-0.8.3-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:721fdef125b4afbe819cd4e575504a5d2f5d11b27521134260b50b00960b26ca"},
-    {file = "tensordict-0.8.3-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:addff475df0573368c1aa2381cacb963bfdea8bf853655d9ea6167684dd76048"},
-    {file = "tensordict-0.8.3-cp311-cp311-win_amd64.whl", hash = "sha256:63042953b2314c3096dd4d2db4919bbc6f3e49d21b6a52322d1277fe4927a7f9"},
-    {file = "tensordict-0.8.3-cp312-cp312-macosx_15_0_arm64.whl", hash = "sha256:7657a6ec866c2045f0195c7d1553bce3ae9e2f0bb1294eb0d1fa681f835a5a32"},
-    {file = "tensordict-0.8.3-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:4cac48c0044ae25d7226156195dba00b93388731fda33de1a78d03f1560022f6"},
-    {file = "tensordict-0.8.3-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:507372779d7e301f8a204d8f5c7e87263bf1217aaa99b04c09d6a47f852fbd21"},
-    {file = "tensordict-0.8.3-cp312-cp312-win_amd64.whl", hash = "sha256:dfde2a8753e97c012edc51e7541d139ee7eca89aac7c7891c3493f36e6c650ac"},
-    {file = "tensordict-0.8.3-cp313-cp313-macosx_15_0_arm64.whl", hash = "sha256:b2c09652858aff9631be0ad15a861136a1f67920128d4505db04c18a2e18a00e"},
-    {file = "tensordict-0.8.3-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:3d1eee03e1c9a8918ee2e071c244c2014c26a60312dd5e7e0aaf43f17d0f698c"},
-    {file = "tensordict-0.8.3-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:9df22f5f1cf09c00ca81b2c78a11b6da39fee7432922e092354def1dec501049"},
-    {file = "tensordict-0.8.3-cp313-cp313-win_amd64.whl", hash = "sha256:d8c07ea8d7e539eefc284ea2fba4cc8dfc48a6504815bef191f6f1e28a1269d2"},
-    {file = "tensordict-0.8.3-cp313-cp313t-macosx_15_0_arm64.whl", hash = "sha256:aefbab2e8259ea41e95befa50e71fa37565be173cec388b794590dc60cee05ec"},
-    {file = "tensordict-0.8.3-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:825b35fb72a6d323f48d68c3c6ea802aa675675cddd38bb4685f937a1c370b2a"},
-    {file = "tensordict-0.8.3-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:9e89fa70ef6d247bc1db9b4a7e1ea5051f14307578322c303c428c2dd6da61fe"},
-    {file = "tensordict-0.8.3-cp313-cp313t-win_amd64.whl", hash = "sha256:22738b16ec44f30402bac400a7d6541eebdf00bfdb934df3e29e9db590cdae99"},
-    {file = "tensordict-0.8.3-cp39-cp39-macosx_15_0_arm64.whl", hash = "sha256:10924b2ab549214000b392a23c622e2845b0fb1b4e073f2ef6325a882fbedb92"},
-    {file = "tensordict-0.8.3-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:b14e7d56d9de8a3237367480f53b3d2e0adc152de3df22bb25cc81ef64b49983"},
-    {file = "tensordict-0.8.3-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:be75efa38313d2bc54b9de3328f4cf1100e7976125d1eee8bdd1afb13a61196a"},
-    {file = "tensordict-0.8.3-cp39-cp39-win_amd64.whl", hash = "sha256:79262cf9b3f953bcd40b29818b0ba9d7aced04d064a6217237f77d82ecb348e1"},
+    {file = "tensordict-0.10.0-cp310-cp310-macosx_14_0_arm64.whl", hash = "sha256:12322c4dfe1bd1bb2b77c33daf307451ecaf7ab9cb36717be1b42c7be1ee7463"},
+    {file = "tensordict-0.10.0-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:feaee76553ab39a443b35460714cde4e934dbe57e66c5174a20e44cf235d1b12"},
+    {file = "tensordict-0.10.0-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:690a3e729eefa814fdf99bf3c86f7cf8ae1bf704a381cf498e78fc9887cd4c8a"},
+    {file = "tensordict-0.10.0-cp310-cp310-win_amd64.whl", hash = "sha256:4d76481efaae8ef0ab4f1e9a8787c0379f3e9efaa5cf37a4b039eaa153e3e475"},
+    {file = "tensordict-0.10.0-cp311-cp311-macosx_14_0_arm64.whl", hash = "sha256:37af5d60593c2439d81c2dbb7d0caa0018c50a3063da18b1d4d8b7d7d0503ee0"},
+    {file = "tensordict-0.10.0-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:369c0a2dd3cbd9d0bcf98cc389486295e683d262bb57d4a07733cd56d936f4b2"},
+    {file = "tensordict-0.10.0-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:bccb6a7d7f02a8c83ca41815943bfa284da7d28019ab4276135809bda5ba05a6"},
+    {file = "tensordict-0.10.0-cp311-cp311-win_amd64.whl", hash = "sha256:07f691f73eaefa40cf285266318caac54c7527afcd149646ed3dc1af2fc45c9d"},
+    {file = "tensordict-0.10.0-cp312-cp312-macosx_14_0_arm64.whl", hash = "sha256:f52321ddec5da5acb3b90785c68b4fd4cce805aab6eb700ec59352e9f9e6214f"},
+    {file = "tensordict-0.10.0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:6a6ba462cc4c04299eb3746e8994df4a625706e60e2dfb88cc5f9513b6cbad2f"},
+    {file = "tensordict-0.10.0-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:6f0a52524c7c46778bf250444f1cd508f055735667b8d596a1a7e2fb38824e8c"},
+    {file = "tensordict-0.10.0-cp312-cp312-win_amd64.whl", hash = "sha256:76e7c1d6604addd08e026141c3943fa15fbe36db537f9ff311af5d2caee25daf"},
+    {file = "tensordict-0.10.0-cp313-cp313-macosx_14_0_arm64.whl", hash = "sha256:7074663d59bb42586f7ee9859377299cac8882bd28cfb43800d56976b893db1a"},
+    {file = "tensordict-0.10.0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:c3c9c16f6601b396155701b05ce40f328edae4a7d4d3069240fbee66a3645fc3"},
+    {file = "tensordict-0.10.0-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:102776f9e3ea17bcc17fd45896f22c5b045fb61b6b502a1a6a6ff627eacb9b68"},
+    {file = "tensordict-0.10.0-cp313-cp313-win_amd64.whl", hash = "sha256:61dd9a7cd6229d1d21b492f6d920312029447c183dd41abc05d3a3671bc089e6"},
+    {file = "tensordict-0.10.0-cp313-cp313t-macosx_14_0_arm64.whl", hash = "sha256:3ef1d115c907f82c6b2bd7c2f1fcabb1b5541d4a327f6e53a60c95c56dd3323d"},
+    {file = "tensordict-0.10.0-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:3aeb85359ae11142f9c29cb55d4e46e516381d772271aeff001e3c310715d5fa"},
+    {file = "tensordict-0.10.0-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:194adb6cac77e8e4f32b4b10b6a373d3389133e58b6eef184c598908d7cadc93"},
+    {file = "tensordict-0.10.0-cp313-cp313t-win_amd64.whl", hash = "sha256:7e5ba5d9eb21d76f1fc8fd5b06453cc497b2283f2317cbb2cb1bd848a92f2e2a"},
+    {file = "tensordict-0.10.0-cp39-cp39-macosx_14_0_arm64.whl", hash = "sha256:d25f10d43fc2ad4b0d52afc8e31b8a1761ed25626e95723a2942a19af1373822"},
+    {file = "tensordict-0.10.0-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:d7239fe06f10a038e5bbd1113ff9ae3a40c16b848e3cc8c8c173aba4b6c7ece3"},
+    {file = "tensordict-0.10.0-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:032817d92180629b530c0cd76308ccf914defe50f43c3fc3b9ed60291938ab06"},
+    {file = "tensordict-0.10.0-cp39-cp39-win_amd64.whl", hash = "sha256:56264b57e9c4fab86b14999ec08af935195dbb4d62bbe0ce76dcc83322a5c038"},
 ]
 
 [package.dependencies]
@@ -4131,13 +4146,15 @@ importlib_metadata = "*"
 numpy = "*"
 orjson = {version = "*", markers = "python_version < \"3.13\""}
 packaging = "*"
+pyvers = ">=0.1.0,<0.2.0"
 torch = "*"
 
 [package.extras]
 checkpointing = ["torchsnapshot-nightly"]
-dev = ["cmake", "ninja", "pybind11"]
+dev = ["ninja", "pybind11"]
 h5 = ["h5py (>=3.8)"]
 tests = ["pytest", "pytest-benchmark", "pytest-instafail", "pytest-rerunfailures", "pyyaml"]
+typecheck = ["mypy (>=1.0.0)"]
 
 [[package]]
 name = "torch"
@@ -4204,58 +4221,62 @@ pyyaml = ["pyyaml"]
 
 [[package]]
 name = "torchrl"
-version = "0.8.1"
-description = ""
+version = "0.10.1"
+description = "A modular, primitive-first, python-first PyTorch library for Reinforcement Learning"
 optional = false
-python-versions = "*"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "torchrl-0.8.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9e42893a954abe01294ca2ef3a5663f5d0ac692364226780ee8ab97d7c5494e0"},
-    {file = "torchrl-0.8.1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:8c259f3f5d3308a228c4baf4a530af975104f024d58b48f5b679a7b82bc40d88"},
-    {file = "torchrl-0.8.1-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:03b9b2de965ce9f06bf962c9736d580b8807ef2fdd5a470a23b7fed1e95dedff"},
-    {file = "torchrl-0.8.1-cp310-cp310-win_amd64.whl", hash = "sha256:bc4d6791a60a87a2235f50ef93c0cd5b8bd856c61786592381f1276d85da88fa"},
-    {file = "torchrl-0.8.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:bffafbad5714a80cbbb3371c096b704c2c51c7566309dc306b7d60eee5582165"},
-    {file = "torchrl-0.8.1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:b7cb13e6308edada0394b1188ca8536b7ddfa4518382c009077d7b5e847e1fba"},
-    {file = "torchrl-0.8.1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:ff810bf778c4cef7a92c37671f09a6252df084cb11489753ae4047e4ec93a278"},
-    {file = "torchrl-0.8.1-cp311-cp311-win_amd64.whl", hash = "sha256:9a99c92345e43106bd1e77c0f6f267c75e27588d2b3769b1ccd421952fcf8ffd"},
-    {file = "torchrl-0.8.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:435a018b51c75f1641297b0870eaa38aeff1e9577000d936cbb020d843e88017"},
-    {file = "torchrl-0.8.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:da60f34d4c84e336cb15d3e753b6f0800e46c60925a4806737f1c95da2e611d1"},
-    {file = "torchrl-0.8.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:17a083bb9634158f85cf0fd04596eff03ab820861b6c73eaf7da1a50fbf531ec"},
-    {file = "torchrl-0.8.1-cp312-cp312-win_amd64.whl", hash = "sha256:26d51c3c2f08dea3542f83a43cb93439636aa14aae890b5e599c589403ad42a2"},
-    {file = "torchrl-0.8.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:f8589abd730b0b3242d30f550365e4ebc57d6980181613350e4237013de12b76"},
-    {file = "torchrl-0.8.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:097e4912d41d2beb931243ddbc0ac48062bed2ffd62006218db2e5a313763e7f"},
-    {file = "torchrl-0.8.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:0741a8e98245f87e1b0d45b015568618f9e868ace60849e5d591d312af490960"},
-    {file = "torchrl-0.8.1-cp313-cp313-win_amd64.whl", hash = "sha256:002d25218faf48d535d653462d68cd18941d4250cfbf9f5824eaa99cca9d002e"},
-    {file = "torchrl-0.8.1-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:f342c1df35c014c0c02602bfc11aa84fecfadb37e0e02779b4182a7f3b9fbc73"},
-    {file = "torchrl-0.8.1-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:ac2f658b0abcd034df357c18ff8d198ce4e7f29e022a551aa26f5484b3387d4a"},
-    {file = "torchrl-0.8.1-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:412e1ca70435f8fee3e6ee38250665fa23cc3a9215e9208d8c410159126f9115"},
-    {file = "torchrl-0.8.1-cp313-cp313t-win_amd64.whl", hash = "sha256:ffee7106bb150fb911e7ba6aa4c521388409d861ea36353a815d60958b846935"},
-    {file = "torchrl-0.8.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:a77953c310d7a180705fb3350e0baf3a48a8097c68e92c664c4bf9793a6eca98"},
-    {file = "torchrl-0.8.1-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:d7256eacff53aa34fed571de0fa530c9039d5019b112274989e58dd8343c9900"},
-    {file = "torchrl-0.8.1-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:a2e53e17ef2218478bec56cb72a9f0ada638e765c4e964327ff2ac39cd03aeb2"},
-    {file = "torchrl-0.8.1-cp39-cp39-win_amd64.whl", hash = "sha256:94ff704f2e94197382ed779d9c589788842b35a3981e3567ed5da96474c3bda8"},
+    {file = "torchrl-0.10.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:29bcec6051fc403a51178fee9ac09a55a18d491d692f49b4e1a8d83ec570788e"},
+    {file = "torchrl-0.10.1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:50e82a278e5ae03738197b9329da2319ce7a9d1c5ebc468f272fe1836239e776"},
+    {file = "torchrl-0.10.1-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:bbdce500f0fa4d6741d1ab986c0b6672a5403f484322baa37fd57c373470417d"},
+    {file = "torchrl-0.10.1-cp310-cp310-win_amd64.whl", hash = "sha256:0b8aaad054b06b74ba9e1d690b24eb345e885d007d924b5b543117ec23349ad0"},
+    {file = "torchrl-0.10.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:00e113bb8cad3547a3e8a7152ddd26edd3b40ecab031991df0d71e3f13d7d7dc"},
+    {file = "torchrl-0.10.1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:6d48a090eefa18bbc888cc21b747f8740f65d20a08ed9d1ce29c72726649beef"},
+    {file = "torchrl-0.10.1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:4c7c5a51a7ea9d3465c581175b08c91d795f5b5a2acbecda957f719cab295627"},
+    {file = "torchrl-0.10.1-cp311-cp311-win_amd64.whl", hash = "sha256:f76b9d5ec6917c64782ec2c9ac1a29f21e33bf051eb95c566c93319033d785ac"},
+    {file = "torchrl-0.10.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:69443a7a4281cd4276e6f6bef8fda62928a93f7180129078958f387982a595ca"},
+    {file = "torchrl-0.10.1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:e2c67046386ad5e2c82618c236d9a6b28ae9d1c709b12d7751187b235c268ade"},
+    {file = "torchrl-0.10.1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:ee7bf493481666b5f4131575fc2b7d9a184500bcc10df2bfd12423c44bd4b742"},
+    {file = "torchrl-0.10.1-cp312-cp312-win_amd64.whl", hash = "sha256:3355153141dfab81f51ca3aad30ad8bf1aed28607b9845992a6ee510878ef8f1"},
+    {file = "torchrl-0.10.1-cp313-cp313-macosx_12_0_arm64.whl", hash = "sha256:e0874be69ddbae2f4e93c9e0f23343d54b18a9ed6fba1684b7b11167d6fa38f7"},
+    {file = "torchrl-0.10.1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:e0165c83b3d7eb18fb8d1866ca71cfa57e7a2fdad6860c353a28bfa65338c7b2"},
+    {file = "torchrl-0.10.1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:23e4f86d18e243457aa6e3fd3e6fd66bf4366c4f65372dbd6c8f6387bbd94d36"},
+    {file = "torchrl-0.10.1-cp313-cp313-win_amd64.whl", hash = "sha256:e0573dc03d29441cb790fb7e330d8fe35dabd3f43c239f3ff2ba43bda35b4f35"},
+    {file = "torchrl-0.10.1-cp313-cp313t-macosx_11_0_arm64.whl", hash = "sha256:ff92dc46f7a3aac524c77a115882bb76aaad82bed15848e6a3e9f343e50c3045"},
+    {file = "torchrl-0.10.1-cp313-cp313t-manylinux_2_28_aarch64.whl", hash = "sha256:6f5db39ed940e0dfa922b79fa60fd7c4c4e09241e488bb612bfc5247d4b7f8b9"},
+    {file = "torchrl-0.10.1-cp313-cp313t-manylinux_2_28_x86_64.whl", hash = "sha256:7e4f408d949b9af6d547020e2dece85d37839ab13ecb2913eeb969aa7446800a"},
+    {file = "torchrl-0.10.1-cp313-cp313t-win_amd64.whl", hash = "sha256:58ab5afeade5dda03a494217837580bfa775e958a44a9d6a517ca0eae02f43b0"},
+    {file = "torchrl-0.10.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:3b9d0667753700cdf7cde1d41c84e4795cb1b2ef8b597aceed75f13c858603af"},
+    {file = "torchrl-0.10.1-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:1dd8a1bee345f931aba16d5d321451a3a401963ee0fb8d8836e045480100c5a8"},
+    {file = "torchrl-0.10.1-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:8e2c1d4cc68332b5c74d8a8e04b036e03155d03ffdb61d166e70dcb2119f38a4"},
+    {file = "torchrl-0.10.1-cp39-cp39-win_amd64.whl", hash = "sha256:f53178ae5277175aa1c6f3d0fdb7ea332edef62029c9a00794214413a8da2786"},
 ]
 
 [package.dependencies]
 cloudpickle = "*"
 numpy = "*"
 packaging = "*"
-tensordict = ">=0.8.3,<0.9.0"
+pyvers = "*"
+tensordict = ">=0.10.0,<0.11.0"
 torch = ">=2.1.0"
 
 [package.extras]
-all = ["ale-py", "atari-py", "dm-meltingpot", "dm_control", "git", "gym", "gym[accept-rom-license]", "gymnasium (<1.0)", "h5py", "huggingface_hub", "hydra-core (>=1.1)", "hydra-submitit-launcher", "minari", "moviepy (<2.0.0)", "mujoco", "open_spiel (>=1.5)", "pandas", "pettingzoo (>=1.24.1)", "pillow", "pygame", "pytest", "pytest-asyncio", "pytest-benchmark", "pytest-cov", "pytest-error-for-skips", "pytest-instafail", "pytest-mock", "pytest-rerunfailures", "pyyaml", "requests", "scikit-learn", "scipy", "tensorboard", "torch (>=2.7.0)", "torchsnapshot", "torchvision", "tqdm", "vmas (>=1.2.10)", "wandb"]
-atari = ["ale-py", "atari-py", "gym", "gym[accept-rom-license]", "pygame"]
+atari = ["gymnasium[atari]"]
+brax = ["brax", "jax[cuda12] (>=0.7.0)"]
 checkpointing = ["torchsnapshot"]
+dev = ["autoflake", "pre-commit"]
 dm-control = ["dm_control"]
+grpo = ["accelerate", "bitsandbytes", "datasets", "flash-attn", "immutabledict", "langdetect", "nltk", "peft", "ray", "tqdm", "transformers", "vllm", "wandb", "xformers"]
 gym-continuous = ["gymnasium (<1.0)", "mujoco"]
+llm = ["accelerate", "datasets", "einops", "immutabledict", "langdetect", "nltk", "playwright", "protobuf", "safetensors", "sentencepiece", "transformers", "vllm"]
 marl = ["dm-meltingpot", "pettingzoo (>=1.24.1)", "vmas (>=1.2.10)"]
 offline-data = ["h5py", "huggingface_hub", "minari", "pandas", "pillow", "requests", "scikit-learn", "torchvision", "tqdm"]
 open-spiel = ["open_spiel (>=1.5)"]
 rendering = ["moviepy (<2.0.0)"]
 replay-buffer = ["torch (>=2.7.0)"]
 tests = ["pytest", "pytest-asyncio", "pytest-benchmark", "pytest-cov", "pytest-error-for-skips", "pytest-instafail", "pytest-mock", "pytest-rerunfailures", "pyyaml", "scipy"]
-utils = ["git", "hydra-core (>=1.1)", "hydra-submitit-launcher", "tensorboard", "tqdm", "wandb"]
+utils = ["hydra-core (>=1.1)", "hydra-submitit-launcher", "tensorboard", "tqdm", "wandb"]
 
 [[package]]
 name = "torchvision"
@@ -4959,4 +4980,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.13"
-content-hash = "bb332e62fc1fdf4ac80d63697a98ff40139f2eea1467f8f056f9985ba85b771c"
+content-hash = "ce827d7d66f3a3f9c87b47f9e028c4c4764ba48b59fc86eb6bc0b727609126e7"

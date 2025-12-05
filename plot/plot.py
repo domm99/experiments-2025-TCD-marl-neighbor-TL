@@ -51,8 +51,8 @@ if __name__ == '__main__':
     for experiment_name in experiment_names:
         settings = [
             "transfer_False-restricted_False",
-            "transfer_True-restricted_False",
-            "transfer_True-restricted_True"
+            #"transfer_True-restricted_False",
+            #"transfer_True-restricted_True"
         ]
 
         data_path = f'data/{experiment_name}'
