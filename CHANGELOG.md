@@ -1,3 +1,14 @@
+## [0.20.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.19.0...0.20.0) (2025-12-05)
+
+### Features
+
+* implement rl algorithm using torchrl ([43ab1bd](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/43ab1bda0067cc0997a1ebb661ee18fcee067ecf))
+
+### General maintenance
+
+* **release:** update .env versions to 0.19.0 [skip ci] ([1358f6b](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/1358f6bcadbf6cb9d5525f05b44424996c220ab0))
+* update script for launching experiments google cloud ([4111723](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/411172325c8fbb987b1e4a47ad4ca36f1fb39491))
+
 ## [0.19.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.18.0...0.19.0) (2025-12-04)
 
 ### Features
