@@ -98,6 +98,8 @@ if __name__ == "__main__":
             episode_rewards = []
             frames = []
 
+            resetted = False
+
             for step in range(cfg.max_training_steps_per_episode):
 
 
@@ -118,6 +120,8 @@ if __name__ == "__main__":
                         clip = ImageSequenceClip(frames, fps=30)
                         clip.write_gif(f'{training_gif_path}RESET-episode_{episode}.gif', fps=30)
                     obs = env.reset()
+                    train_steps.append(step)
+                    resetted = True
                     break
 
                 for aid in current_agents:
@@ -157,7 +161,8 @@ if __name__ == "__main__":
 
             train_reward.append(np.mean(episode_rewards))
             train_loss.append(np.mean(episode_losses))
-            train_steps.append(steps)
+            if not resetted:
+                train_steps.append(cfg.max_training_steps_per_episode)
 
             if frames and episode % cfg.export_gif_every == 0:
                 clip = ImageSequenceClip(frames, fps=30)
