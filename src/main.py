@@ -58,10 +58,11 @@ if __name__ == "__main__":
 
         csv_train_file_path = f'{cfg.data_output_dir}/train-results-seed_{seed}.csv'
         df_train_loss = pd.DataFrame(columns=['MeanLoss'])
-        df_train_reward = pd.DataFrame(columns=['MeanReward'])
+        df_train_reward = pd.DataFrame(columns=['MeanReward', 'TrainSteps'])
 
         train_reward = []
         train_loss = []
+        train_steps = []
         eval_reward = []
         agents_uncertainty = {}
 
@@ -156,6 +157,7 @@ if __name__ == "__main__":
 
             train_reward.append(np.mean(episode_rewards))
             train_loss.append(np.mean(episode_losses))
+            train_steps.append(steps)
 
             if frames and episode % cfg.export_gif_every == 0:
                 clip = ImageSequenceClip(frames, fps=30)
@@ -180,6 +182,7 @@ if __name__ == "__main__":
 
         # Dumping everything to csv
         df_train_reward['MeanReward'] = train_reward
+        df_train_reward['TrainSteps'] = train_steps
         df_train_loss['MeanLoss'] = train_loss
 
         df_train_loss.to_csv(csv_train_file_path, index=False)
