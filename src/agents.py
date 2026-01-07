@@ -29,7 +29,7 @@ class IndependentAgent:
         self.policy_module = QValueActor(
             module=self.policy,
             in_keys=["observation"],
-            spec=action_spec # Gli serve per sapere come gestire le azioni
+            spec=action_spec
         )
 
         self.loss_module = DQNLoss(
@@ -58,6 +58,9 @@ class IndependentAgent:
     @property
     def experience(self):
         return self.rb.get_all()
+
+    def get_policy(self):
+        return self.policy
 
     @property
     def eps(self):
@@ -170,3 +173,7 @@ class IndependentAgent:
             torch.tensor(surprise[indices], device=self.cfg.device),
         )
         self.optimize(transferring=True, experience=selected_experience)
+
+    def learn_from_teacher_model(self, model):
+        self.policy.load_state_dict(model.state_dict())
+        self.target_updater.init_()

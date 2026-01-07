@@ -37,5 +37,7 @@ def transfer_learning_all_agents(agents):
     teacher_id = ss_average_uncertainty(list(agents.keys()), agents)
     print(f'Selected teacher: {teacher_id}')
     exp = agents[teacher_id].experience
+    teaching_model = agents[teacher_id].get_policy()
     for aid in agents.keys():
-        agents[aid].learn_from_teacher(exp)
+        #agents[aid].learn_from_teacher(exp)
+        agents[aid].learn_from_teacher_model(teaching_model)

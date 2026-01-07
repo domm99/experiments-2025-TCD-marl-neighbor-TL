@@ -63,6 +63,19 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             dict_spaces=True
         )
         return env
+    elif env_name in ['dropout']:
+        env = make_env(
+            scenario=env_name,
+            num_envs=cfg.num_parallel_envs,
+            device=cfg.device,
+            continuous_actions=False,
+            seed=seed,
+            n_agents=cfg.n_agents,  # Same for agents and landmarks
+            #share_reward=False,  # This way only the agents which reach the goal get the reward
+            #penalise_by_time=False,
+            dict_spaces=True
+        )
+        return env
     elif env_name in ['discovery']:
         env = make_env(
             scenario=env_name,
