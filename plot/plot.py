@@ -26,6 +26,17 @@ def plot_reward(data, chart_path, train=False):
     else:
         plt.savefig(f'{chart_path}/results-reward-eval.pdf')
 
+
+def plot_time(data, chart_path):
+    plt.figure(figsize=(10, 6))
+    sns.lineplot(data=data, x='step', y='TrainSteps', hue='experiment', linewidth=2.5)
+    plt.xlabel('Step')
+    plt.ylabel('Mean Time Per Episode')
+    plt.legend(title='Experiment')
+    plt.tight_layout()
+    plt.savefig(f'{chart_path}/results-time-train.pdf')
+    plt.close()
+
 def plot_loss(data, chart_path):
     plt.figure(figsize=(10, 6))
     sns.lineplot(data=data, x='step', y='MeanLoss', hue='experiment', linewidth=2.5)
@@ -46,7 +57,7 @@ def plot_qvalues(data, chart_path, metric):
 
 if __name__ == '__main__':
 
-    experiment_names = ['densedispersion'] #discovery'
+    experiment_names = ['dropout'] #discovery'
 
     for experiment_name in experiment_names:
         settings = [
@@ -92,6 +103,7 @@ if __name__ == '__main__':
         for df in data_train:
             plot_loss(df, chart_path)
         plot_reward(df_eval, chart_path)
+        plot_time(df_train_reward, chart_path)
         plot_reward(df_train_reward, chart_path, train=True)
         plot_qvalues(df_qvalues, chart_path, 'MeanQ')
         plot_qvalues(df_qvalues, chart_path, 'MeanTarget')
