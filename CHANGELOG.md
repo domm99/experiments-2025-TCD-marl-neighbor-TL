@@ -1,3 +1,15 @@
+## [0.21.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.21.0...0.21.1) (2026-01-08)
+
+### Bug Fixes
+
+* more episodes ([5fc4e2d](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/5fc4e2d8975a53736daaf92c38353805114ad273))
+* update env parameters ([5750bdc](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/5750bdce9cfbcd8b7f0785c8a47a1c75e5bcc50c))
+
+### General maintenance
+
+* **release:** update .env versions to 0.21.0 [skip ci] ([a4af555](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a4af55553c3f40a8ecee5d14318ade942c864644))
+* setup sbatch script to run experiments on cluster ([56cab2d](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/56cab2db4fd94694841f7e983ac9ea0c6814c9b9))
+
 ## [0.21.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.20.0...0.21.0) (2026-01-08)
 
 ### Features
