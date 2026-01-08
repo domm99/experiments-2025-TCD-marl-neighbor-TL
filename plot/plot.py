@@ -57,12 +57,12 @@ def plot_qvalues(data, chart_path, metric):
 
 if __name__ == '__main__':
 
-    experiment_names = ['dropout'] #discovery'
+    experiment_names = ['reverse_transport'] #discovery'
 
     for experiment_name in experiment_names:
         settings = [
             "transfer_False-restricted_False",
-            #"transfer_True-restricted_False",
+            "transfer_True-restricted_False",
             #"transfer_True-restricted_True"
         ]
 
