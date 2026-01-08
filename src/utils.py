@@ -84,7 +84,7 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             continuous_actions=False,
             seed=seed,
             n_agents=cfg.n_agents,
-            n_targets=cfg.n_agents,
+            n_targets=int(cfg.n_agents*0.7),
             agents_per_target=1,
             share_reward=False,  # This way only the agents which reach the goal get the reward
             penalise_by_time=False,
@@ -169,6 +169,9 @@ def make_vmas_env(cfg: Config, env_name = 'dispersion', seed: int = 42):
             share_reward=False,  # This way only the agents which reach the goal get the reward
             penalise_by_time=False,
             dict_spaces=True,
+            package_mass=3,
+            package_width=0.5,
+            package_leght=0.5,
         )
         return env
     elif env_name in ['navigation']:
