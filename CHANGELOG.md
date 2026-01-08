@@ -1,3 +1,21 @@
+## [0.21.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.20.0...0.21.0) (2026-01-08)
+
+### Features
+
+* add dropout env ([186256a](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/186256a4d38d9773157746ab93896dec970a251a))
+* add export of train steps in time ([0a9e8c0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/0a9e8c08eb34b3237cdc8df6261d6c8dbf0c2695))
+* plot mean time ([feb9f42](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/feb9f42f2dcb9f44adea0ceca0e336308b826315))
+
+### Bug Fixes
+
+* export correctly of train steps in time ([1880063](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/1880063ab4e4a964c22ddee140b0381ce4d4e457))
+* fix config ([37c2daf](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/37c2daf8d8f5ecdd6863455bbf02a39ac5c243fd))
+
+### General maintenance
+
+* **release:** update .env versions to 0.20.0 [skip ci] ([ca81e9c](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ca81e9c095f041ff299c96870f0fb5ac3b3174e4))
+* update plotter ([f5f6f10](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/f5f6f10aa56078773198bac4bee5b6bfdd9b3c2c))
+
 ## [0.20.0](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.19.0...0.20.0) (2025-12-05)
 
 ### Features
