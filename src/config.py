@@ -20,7 +20,7 @@ class Config:
     # env
     continuous_actions: bool = False  # When using DQN actions must be Discrete
     training_episodes = 200
-    max_training_steps_per_episode: int = 200
+    max_training_steps_per_episode: int = 500
     num_parallel_envs = 1
     n_agents: int = 10
 
@@ -28,7 +28,7 @@ class Config:
     gamma: float = 0.99
     lr: float = 1e-4
     batch_size: int = 512
-    replay_size: int = 30_000
+    replay_size: int = 90_000
     start_learning_after: int = 600 # Number of tuples in the buffer (episodes * episode_length) --> (5 * 150)
     train_freq: int = 5
     target_update_freq: int = 20
