@@ -1,3 +1,18 @@
+## [0.21.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.21.1...0.21.2) (2026-02-11)
+
+### Dependency updates
+
+* **deps:** update requirements ([c53ae9b](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/c53ae9b715f0b33a438a65230623c86fba8ecb10))
+
+### Bug Fixes
+
+* fix RND initialization to avoid weights too close to zero ([a48b188](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/a48b1889c8463be4123962900451ea50ae16f508))
+* log uncertainty each time step ([87c1a80](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/87c1a804c91d97dcd7114ace9e792f3fde4ac798))
+
+### General maintenance
+
+* **release:** update .env versions to 0.21.1 [skip ci] ([e70d7da](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/e70d7dae3a0c6d65c742fa70f7b7f6c98112525c))
+
 ## [0.21.1](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.21.0...0.21.1) (2026-01-08)
 
 ### Bug Fixes
