@@ -38,6 +38,12 @@ class QNet(nn.Module):
         q_values = self.head(z)
         return q_values
 
+def weights_init_rnd(m):
+    if isinstance(m, nn.Linear):
+        nn.init.orthogonal_(m.weight, gain=10.0)
+        if m.bias is not None:
+            nn.init.constant_(m.bias, 0)
+
 class SarsRND(nn.Module):
 
     def __init__(self, input_size: int, hidden=None, embedding_size: int = 1024, *args, **kwargs):

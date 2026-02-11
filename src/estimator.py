@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from src.config import Config
-from src.models import SarsRND
+from src.models import SarsRND, weights_init_rnd
 
 class UncertaintyEstimator:
 
@@ -13,7 +13,9 @@ class UncertaintyEstimator:
 
         self.predictor = SarsRND(rnd_input_size).to(cfg.device)
         self.target = SarsRND(rnd_input_size).to(cfg.device)
-        self.target.eval()
+        self.target.apply(weights_init_rnd)
+        for p in self.target.parameters():
+            p.requires_grad = False
         self.learning_rate = learning_rate
 
         self.optimizer = torch.optim.Adam(self.predictor.parameters(), lr=learning_rate)
