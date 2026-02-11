@@ -77,11 +77,8 @@ if __name__ == "__main__":
             observation_space_dim = np.prod(env.observation_space[aid].shape)
             action_space_dim = env.action_space[aid].n
             agents[aid] = IndependentAgent(aid, observation_space_dim, action_space_dim, seed, cfg)
-            agents_uncertainty[aid] = []
 
             # Create dataframe for each agent
-            df_u = pd.DataFrame(columns=['Uncertainty'])
-            df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
             df_debug_q_values = pd.DataFrame(columns=['MeanQ', 'MeanTarget'])
             df_debug_q_values.to_csv(f'{debug_q_values_path}{aid}-seed_{seed}.csv', index=False)
 
@@ -89,7 +86,12 @@ if __name__ == "__main__":
         t0 = time.time()
         last_log = 0
 
+        global_uncertainty = []
+
         for episode in range(cfg.training_episodes + 1):
+
+            for aid in agent_ids:
+                agents_uncertainty[aid] = []
 
             print(f'Starting episode {episode}')
             obs = env.reset()
@@ -154,6 +156,8 @@ if __name__ == "__main__":
                 if frame is not None:
                     frames.append(frame)
 
+                agents_uncertainty = log_uncertainty(agents, agents_uncertainty)
+
             ################################### END OF EPISODE LOOP ###################################
 
             for aid in agent_ids:
@@ -180,8 +184,12 @@ if __name__ == "__main__":
                     transfer_learning_all_agents(agents)
 
             # Logging uncertainties
-            if episode % cfg.log_uncertainty_every == 0:
-                agents_uncertainty = log_uncertainty(agents, agents_uncertainty)
+            # if episode % cfg.log_uncertainty_every == 0:
+            #     agents_uncertainty = log_uncertainty(agents, agents_uncertainty)
+            for aid, uncertainties in agents_uncertainty.items():
+                df_u = pd.DataFrame(columns=['Uncertainty'])
+                df_u['Uncertainty'] = uncertainties
+                df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}-episode_{episode}.csv', index=False)
 
         ################################### END OF TRAINING LOOP ###################################
 
@@ -192,10 +200,7 @@ if __name__ == "__main__":
 
         df_train_loss.to_csv(csv_train_file_path, index=False)
         df_train_reward.to_csv(f'{cfg.data_output_dir}/train-reward-seed_{seed}.csv', index=False)
-        for aid, uncertainties in agents_uncertainty.items():
-            df_u = pd.read_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv')
-            df_u['Uncertainty'] = uncertainties
-            df_u.to_csv(f'{uncertainty_file_path}{aid}-seed_{seed}.csv', index=False)
+
 
         for aid in agent_ids:
             agents[aid].dump_logged_qvalues_to_csv()
