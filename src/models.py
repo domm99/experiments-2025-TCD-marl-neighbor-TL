@@ -40,7 +40,7 @@ class QNet(nn.Module):
 
 def weights_init_rnd(m):
     if isinstance(m, nn.Linear):
-        nn.init.orthogonal_(m.weight, gain=10.0)
+        nn.init.orthogonal_(m.weight, gain=5.0)
         if m.bias is not None:
             nn.init.constant_(m.bias, 0)
 
