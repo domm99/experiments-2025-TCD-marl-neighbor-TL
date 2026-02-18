@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=experiment-tl-tcd
-#SBATCH --array=0-11
+#SBATCH --array=0-8
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=davide.domini@unibo.it
 #SBATCH --time=3-00:00:00
@@ -22,10 +22,7 @@ PARAMS_LIST=(
 	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name reverse_transport"
 	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name reverse_transport"
 	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name reverse_transport"
-	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name transport"
-	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name transport"
-	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name transport"
-		"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name discovery"
+	"--max_seed 1 --transfer_enabled False --restricted_communication False --env_name discovery"
 	"--max_seed 1 --transfer_enabled True --restricted_communication False --env_name discovery"
 	"--max_seed 1 --transfer_enabled True --restricted_communication True --env_name discovery"
 )
