@@ -1,3 +1,14 @@
+## [0.21.3](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.21.2...0.21.3) (2026-02-18)
+
+### Bug Fixes
+
+* try a lower gain ([ded8f96](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/ded8f96233c3735a80f067532e091d5dd54420cb))
+
+### General maintenance
+
+* **release:** update .env versions to 0.21.2 [skip ci] ([386fd2e](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/386fd2e31e00222230f0851883a666f8618d14c2))
+* update script to launch experiments on the cluster ([2f9367f](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/commit/2f9367fc2af63cfa854628e89d1ff9c11ccdd32a))
+
 ## [0.21.2](https://github.com/domm99/experiments-2025-TCD-marl-neighbor-TL/compare/0.21.1...0.21.2) (2026-02-11)
 
 ### Dependency updates
